@@ -1,0 +1,18 @@
+[
+  {
+    "id": "tip-1",
+    "level": "A1",
+    "category": "pronunciation",
+    "title": { "EN": "Nasal vowels ą, ę", "RU": "Носовые гласные ą, ę" },
+    "body": { "EN": "Don't fully pronounce the n or m after ą/ę — nasalize the vowel itself instead, the way French speakers do with 'un' or 'bon'.", "RU": "Не произносите n или m после ą/ę полностью — назализуйте саму гласную." },
+    "audioUrl": ""
+  },
+  {
+    "id": "tip-2",
+    "level": "A1",
+    "category": "grammar habits",
+    "title": { "EN": "Word order is flexible — but start simple", "RU": "Порядок слов гибкий — но начните с простого" },
+    "body": { "EN": "Polish word order is freer than English because case endings carry the meaning. As a beginner, stick to Subject-Verb-Object until the cases feel automatic.", "RU": "Порядок слов в польском свободнее, чем в английском, потому что падежные окончания несут смысл." },
+    "audioUrl": ""
+  }
+]
