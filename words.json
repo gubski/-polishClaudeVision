@@ -1,0 +1,1894 @@
+[
+  {
+    "id": "v-1",
+    "level": "A1",
+    "category": "nouns",
+    "word": "Dom",
+    "phonetic": "[dom]",
+    "translation": {
+      "EN": "House / Home",
+      "RU": "Дом"
+    }
+  },
+  {
+    "id": "v-2",
+    "level": "A1",
+    "category": "nouns",
+    "word": "Mieszkanie",
+    "phonetic": "[mye-shka-nyeh]",
+    "translation": {
+      "EN": "Apartment",
+      "RU": "Квартира"
+    }
+  },
+  {
+    "id": "v-3",
+    "level": "A1",
+    "category": "nouns",
+    "word": "Szkoła",
+    "phonetic": "[shko-wah]",
+    "translation": {
+      "EN": "School",
+      "RU": "Школа"
+    }
+  },
+  {
+    "id": "v-4",
+    "level": "A1",
+    "category": "nouns",
+    "word": "Praca",
+    "phonetic": "[prah-tsah]",
+    "translation": {
+      "EN": "Work / Job",
+      "RU": "Работа"
+    }
+  },
+  {
+    "id": "v-6",
+    "level": "A1",
+    "category": "nouns",
+    "word": "Samochód",
+    "phonetic": "[sah-mo-chut]",
+    "translation": {
+      "EN": "Car",
+      "RU": "Автомобиль"
+    }
+  },
+  {
+    "id": "v-9",
+    "level": "A1",
+    "category": "nouns",
+    "word": "Mleko",
+    "phonetic": "[mle-ko]",
+    "translation": {
+      "EN": "Milk",
+      "RU": "Молоко"
+    }
+  },
+  {
+    "id": "v-11",
+    "level": "A2",
+    "category": "nouns",
+    "word": "Pieniądze",
+    "phonetic": "[pyen-yon-dze]",
+    "translation": {
+      "EN": "Money",
+      "RU": "Деньги"
+    }
+  },
+  {
+    "id": "v-14",
+    "level": "A2",
+    "category": "nouns",
+    "word": "Lotnisko",
+    "phonetic": "[lot-nees-ko]",
+    "translation": {
+      "EN": "Airport",
+      "RU": "Аэропорт"
+    }
+  },
+  {
+    "id": "v-15",
+    "level": "A2",
+    "category": "nouns",
+    "word": "Rodzina",
+    "phonetic": "[ro-gee-nah]",
+    "translation": {
+      "EN": "Family",
+      "RU": "Семья"
+    }
+  },
+  {
+    "id": "v-16",
+    "level": "B1",
+    "category": "nouns",
+    "word": "Odpowiedzialność",
+    "phonetic": "[od-po-vye-djal-noshch]",
+    "translation": {
+      "EN": "Responsibility",
+      "RU": "Ответственность"
+    }
+  },
+  {
+    "id": "v-17",
+    "level": "B1",
+    "category": "nouns",
+    "word": "Doświadczenie",
+    "phonetic": "[dosh-fya-dche-nyeh]",
+    "translation": {
+      "EN": "Experience",
+      "RU": "Опыт"
+    }
+  },
+  {
+    "id": "v-18",
+    "level": "B1",
+    "category": "nouns",
+    "word": "Przestrzeń",
+    "phonetic": "[p-she-strench]",
+    "translation": {
+      "EN": "Space / Area",
+      "RU": "Пространство"
+    }
+  },
+  {
+    "id": "v-19",
+    "level": "A1",
+    "category": "verbs",
+    "word": "Być",
+    "phonetic": "[bich]",
+    "translation": {
+      "EN": "To be",
+      "RU": "Быть"
+    }
+  },
+  {
+    "id": "v-20",
+    "level": "A1",
+    "category": "verbs",
+    "word": "Mieć",
+    "phonetic": "[myech]",
+    "translation": {
+      "EN": "To have",
+      "RU": "Иметь"
+    }
+  },
+  {
+    "id": "v-21",
+    "level": "A1",
+    "category": "verbs",
+    "word": "Robić",
+    "phonetic": "[ro-bich]",
+    "translation": {
+      "EN": "To do / Make",
+      "RU": "Делать"
+    }
+  },
+  {
+    "id": "v-22",
+    "level": "A1",
+    "category": "verbs",
+    "word": "Mówić",
+    "phonetic": "[moo-vich]",
+    "translation": {
+      "EN": "To speak / Talk",
+      "RU": "Говорить"
+    }
+  },
+  {
+    "id": "v-23",
+    "level": "A2",
+    "category": "verbs",
+    "word": "Rozumieć",
+    "phonetic": "[ro-zum-yech]",
+    "translation": {
+      "EN": "To understand",
+      "RU": "Понимать"
+    }
+  },
+  {
+    "id": "v-24",
+    "level": "A2",
+    "category": "verbs",
+    "word": "Pracować",
+    "phonetic": "[prah-tso-vatch]",
+    "translation": {
+      "EN": "To work",
+      "RU": "Работать"
+    }
+  },
+  {
+    "id": "v-25",
+    "level": "B1",
+    "category": "verbs",
+    "word": "Decydować",
+    "phonetic": "[de-cy-do-vatch]",
+    "translation": {
+      "EN": "To decide",
+      "RU": "Решать"
+    }
+  },
+  {
+    "id": "v-26",
+    "level": "B1",
+    "category": "verbs",
+    "word": "Porównywać",
+    "phonetic": "[po-roov-ny-vatch]",
+    "translation": {
+      "EN": "To compare",
+      "RU": "Сравнивать"
+    }
+  },
+  {
+    "id": "v-greetings-1",
+    "level": "A1",
+    "category": "greetings",
+    "word": "Cześć",
+    "phonetic": "[cheshch]",
+    "translation": {
+      "EN": "Hi / Bye (informal)",
+      "RU": "Привет / Пока"
+    }
+  },
+  {
+    "id": "v-greetings-2",
+    "level": "A1",
+    "category": "greetings",
+    "word": "Dzień dobry",
+    "phonetic": "[jen dobri]",
+    "translation": {
+      "EN": "Good morning / Good day",
+      "RU": "Добрый день"
+    }
+  },
+  {
+    "id": "v-greetings-3",
+    "level": "A1",
+    "category": "greetings",
+    "word": "Dobry wieczór",
+    "phonetic": "[dobri vyechoor]",
+    "translation": {
+      "EN": "Good evening",
+      "RU": "Добрый вечер"
+    }
+  },
+  {
+    "id": "v-greetings-4",
+    "level": "A1",
+    "category": "greetings",
+    "word": "Do widzenia",
+    "phonetic": "[do veedzenya]",
+    "translation": {
+      "EN": "Goodbye",
+      "RU": "До свидания"
+    }
+  },
+  {
+    "id": "v-greetings-5",
+    "level": "A1",
+    "category": "greetings",
+    "word": "Dobranoc",
+    "phonetic": "[dobranots]",
+    "translation": {
+      "EN": "Good night",
+      "RU": "Спокойной ночи"
+    }
+  },
+  {
+    "id": "v-greetings-6",
+    "level": "A1",
+    "category": "greetings",
+    "word": "Proszę",
+    "phonetic": "[prosheh]",
+    "translation": {
+      "EN": "Please / Here you are",
+      "RU": "Пожалуйста"
+    }
+  },
+  {
+    "id": "v-greetings-7",
+    "level": "A1",
+    "category": "greetings",
+    "word": "Dziękuję",
+    "phonetic": "[jenkooyeh]",
+    "translation": {
+      "EN": "Thank you",
+      "RU": "Спасибо"
+    }
+  },
+  {
+    "id": "v-greetings-8",
+    "level": "A1",
+    "category": "greetings",
+    "word": "Przepraszam",
+    "phonetic": "[psheprasham]",
+    "translation": {
+      "EN": "Excuse me / Sorry",
+      "RU": "Извините"
+    }
+  },
+  {
+    "id": "v-greetings-9",
+    "level": "A1",
+    "category": "greetings",
+    "word": "Tak",
+    "phonetic": "[tak]",
+    "translation": {
+      "EN": "Yes",
+      "RU": "Да"
+    }
+  },
+  {
+    "id": "v-greetings-10",
+    "level": "A1",
+    "category": "greetings",
+    "word": "Nie",
+    "phonetic": "[nyeh]",
+    "translation": {
+      "EN": "No",
+      "RU": "Нет"
+    }
+  },
+  {
+    "id": "v-numbers-11",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Jeden",
+    "phonetic": "[yeden]",
+    "translation": {
+      "EN": "one",
+      "RU": "один"
+    }
+  },
+  {
+    "id": "v-numbers-12",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Dwa",
+    "phonetic": "[dva]",
+    "translation": {
+      "EN": "two",
+      "RU": "два"
+    }
+  },
+  {
+    "id": "v-numbers-13",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Trzy",
+    "phonetic": "[tshi]",
+    "translation": {
+      "EN": "three",
+      "RU": "три"
+    }
+  },
+  {
+    "id": "v-numbers-14",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Cztery",
+    "phonetic": "[chteri]",
+    "translation": {
+      "EN": "four",
+      "RU": "четыре"
+    }
+  },
+  {
+    "id": "v-numbers-15",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Pięć",
+    "phonetic": "[pyench]",
+    "translation": {
+      "EN": "five",
+      "RU": "пять"
+    }
+  },
+  {
+    "id": "v-numbers-16",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Sześć",
+    "phonetic": "[sheshch]",
+    "translation": {
+      "EN": "six",
+      "RU": "шесть"
+    }
+  },
+  {
+    "id": "v-numbers-17",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Siedem",
+    "phonetic": "[shedem]",
+    "translation": {
+      "EN": "seven",
+      "RU": "семь"
+    }
+  },
+  {
+    "id": "v-numbers-18",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Osiem",
+    "phonetic": "[oshem]",
+    "translation": {
+      "EN": "eight",
+      "RU": "восемь"
+    }
+  },
+  {
+    "id": "v-numbers-19",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Dziewięć",
+    "phonetic": "[jevyench]",
+    "translation": {
+      "EN": "nine",
+      "RU": "девять"
+    }
+  },
+  {
+    "id": "v-numbers-20",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Dziesięć",
+    "phonetic": "[jeshench]",
+    "translation": {
+      "EN": "ten",
+      "RU": "десять"
+    }
+  },
+  {
+    "id": "v-numbers-21",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Jedenaście",
+    "phonetic": "[yedenashche]",
+    "translation": {
+      "EN": "eleven",
+      "RU": "одиннадцать"
+    }
+  },
+  {
+    "id": "v-numbers-22",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Dwanaście",
+    "phonetic": "[dvanashche]",
+    "translation": {
+      "EN": "twelve",
+      "RU": "двенадцать"
+    }
+  },
+  {
+    "id": "v-numbers-23",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Dwadzieścia",
+    "phonetic": "[dvadjeshchya]",
+    "translation": {
+      "EN": "twenty",
+      "RU": "двадцать"
+    }
+  },
+  {
+    "id": "v-numbers-24",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Trzydzieści",
+    "phonetic": "[tshidjeshchee]",
+    "translation": {
+      "EN": "thirty",
+      "RU": "тридцать"
+    }
+  },
+  {
+    "id": "v-numbers-25",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Czterdzieści",
+    "phonetic": "[chterdjeshchee]",
+    "translation": {
+      "EN": "forty",
+      "RU": "сорок"
+    }
+  },
+  {
+    "id": "v-numbers-26",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Pięćdziesiąt",
+    "phonetic": "[pyenchdjeshont]",
+    "translation": {
+      "EN": "fifty",
+      "RU": "пятьдесят"
+    }
+  },
+  {
+    "id": "v-numbers-27",
+    "level": "A1",
+    "category": "numbers",
+    "word": "Sto",
+    "phonetic": "[sto]",
+    "translation": {
+      "EN": "one hundred",
+      "RU": "сто"
+    }
+  },
+  {
+    "id": "v-adjectives-28",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Wysoki",
+    "phonetic": "[visokee]",
+    "translation": {
+      "EN": "tall",
+      "RU": "высокий"
+    }
+  },
+  {
+    "id": "v-adjectives-29",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Niski",
+    "phonetic": "[neeskee]",
+    "translation": {
+      "EN": "short (height)",
+      "RU": "низкий"
+    }
+  },
+  {
+    "id": "v-adjectives-30",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Młody",
+    "phonetic": "[mwodi]",
+    "translation": {
+      "EN": "young",
+      "RU": "молодой"
+    }
+  },
+  {
+    "id": "v-adjectives-31",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Stary",
+    "phonetic": "[stari]",
+    "translation": {
+      "EN": "old",
+      "RU": "старый"
+    }
+  },
+  {
+    "id": "v-adjectives-32",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Ładny",
+    "phonetic": "[wadni]",
+    "translation": {
+      "EN": "pretty / nice",
+      "RU": "красивый"
+    }
+  },
+  {
+    "id": "v-adjectives-33",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Brzydki",
+    "phonetic": "[bzhidkee]",
+    "translation": {
+      "EN": "ugly",
+      "RU": "некрасивый"
+    }
+  },
+  {
+    "id": "v-adjectives-34",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Gruby",
+    "phonetic": "[groobi]",
+    "translation": {
+      "EN": "fat / thick",
+      "RU": "толстый"
+    }
+  },
+  {
+    "id": "v-adjectives-35",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Chudy",
+    "phonetic": "[khoodi]",
+    "translation": {
+      "EN": "thin",
+      "RU": "худой"
+    }
+  },
+  {
+    "id": "v-adjectives-36",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Wesoły",
+    "phonetic": "[vesowi]",
+    "translation": {
+      "EN": "cheerful",
+      "RU": "весёлый"
+    }
+  },
+  {
+    "id": "v-adjectives-37",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Smutny",
+    "phonetic": "[smootni]",
+    "translation": {
+      "EN": "sad",
+      "RU": "грустный"
+    }
+  },
+  {
+    "id": "v-adjectives-38",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Mądry",
+    "phonetic": "[mondri]",
+    "translation": {
+      "EN": "smart",
+      "RU": "умный"
+    }
+  },
+  {
+    "id": "v-adjectives-39",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Głupi",
+    "phonetic": "[gwoopee]",
+    "translation": {
+      "EN": "silly / foolish",
+      "RU": "глупый"
+    }
+  },
+  {
+    "id": "v-nationalities-40",
+    "level": "A1",
+    "category": "nationalities",
+    "word": "Polak",
+    "phonetic": "[polak]",
+    "translation": {
+      "EN": "Polish man",
+      "RU": "поляк"
+    }
+  },
+  {
+    "id": "v-nationalities-41",
+    "level": "A1",
+    "category": "nationalities",
+    "word": "Polka",
+    "phonetic": "[polka]",
+    "translation": {
+      "EN": "Polish woman",
+      "RU": "полька"
+    }
+  },
+  {
+    "id": "v-nationalities-42",
+    "level": "A1",
+    "category": "nationalities",
+    "word": "Anglik",
+    "phonetic": "[angleek]",
+    "translation": {
+      "EN": "English man",
+      "RU": "англичанин"
+    }
+  },
+  {
+    "id": "v-nationalities-43",
+    "level": "A1",
+    "category": "nationalities",
+    "word": "Angielka",
+    "phonetic": "[an-gyel-ka]",
+    "translation": {
+      "EN": "English woman",
+      "RU": "англичанка"
+    }
+  },
+  {
+    "id": "v-nationalities-44",
+    "level": "A1",
+    "category": "nationalities",
+    "word": "Niemiec",
+    "phonetic": "[nyemyets]",
+    "translation": {
+      "EN": "German man",
+      "RU": "немец"
+    }
+  },
+  {
+    "id": "v-nationalities-45",
+    "level": "A1",
+    "category": "nationalities",
+    "word": "Niemka",
+    "phonetic": "[nyemka]",
+    "translation": {
+      "EN": "German woman",
+      "RU": "немка"
+    }
+  },
+  {
+    "id": "v-nationalities-46",
+    "level": "A1",
+    "category": "nationalities",
+    "word": "Amerykanin",
+    "phonetic": "[amerikaneen]",
+    "translation": {
+      "EN": "American man",
+      "RU": "американец"
+    }
+  },
+  {
+    "id": "v-nationalities-47",
+    "level": "A1",
+    "category": "nationalities",
+    "word": "Amerykanka",
+    "phonetic": "[amerikanka]",
+    "translation": {
+      "EN": "American woman",
+      "RU": "американка"
+    }
+  },
+  {
+    "id": "v-professions-48",
+    "level": "A1",
+    "category": "professions",
+    "word": "Nauczyciel",
+    "phonetic": "[na-oo-chee-chyel]",
+    "translation": {
+      "EN": "teacher",
+      "RU": "учитель"
+    }
+  },
+  {
+    "id": "v-professions-49",
+    "level": "A1",
+    "category": "professions",
+    "word": "Lekarz",
+    "phonetic": "[leh-kash]",
+    "translation": {
+      "EN": "doctor",
+      "RU": "врач"
+    }
+  },
+  {
+    "id": "v-professions-50",
+    "level": "A1",
+    "category": "professions",
+    "word": "Student",
+    "phonetic": "[stoo-dent]",
+    "translation": {
+      "EN": "student",
+      "RU": "студент"
+    }
+  },
+  {
+    "id": "v-professions-51",
+    "level": "A1",
+    "category": "professions",
+    "word": "Inżynier",
+    "phonetic": "[in-zhi-nyer]",
+    "translation": {
+      "EN": "engineer",
+      "RU": "инженер"
+    }
+  },
+  {
+    "id": "v-professions-52",
+    "level": "A1",
+    "category": "professions",
+    "word": "Sprzedawca",
+    "phonetic": "[spshe-dav-tsa]",
+    "translation": {
+      "EN": "salesperson",
+      "RU": "продавец"
+    }
+  },
+  {
+    "id": "v-professions-53",
+    "level": "A1",
+    "category": "professions",
+    "word": "Prawnik",
+    "phonetic": "[prav-neek]",
+    "translation": {
+      "EN": "lawyer",
+      "RU": "юрист"
+    }
+  },
+  {
+    "id": "v-family-54",
+    "level": "A1",
+    "category": "family",
+    "word": "Matka",
+    "phonetic": "[mat-ka]",
+    "translation": {
+      "EN": "mother",
+      "RU": "мать"
+    }
+  },
+  {
+    "id": "v-family-55",
+    "level": "A1",
+    "category": "family",
+    "word": "Ojciec",
+    "phonetic": "[oy-chets]",
+    "translation": {
+      "EN": "father",
+      "RU": "отец"
+    }
+  },
+  {
+    "id": "v-family-56",
+    "level": "A1",
+    "category": "family",
+    "word": "Brat",
+    "phonetic": "[brat]",
+    "translation": {
+      "EN": "brother",
+      "RU": "брат"
+    }
+  },
+  {
+    "id": "v-family-57",
+    "level": "A1",
+    "category": "family",
+    "word": "Siostra",
+    "phonetic": "[shos-tra]",
+    "translation": {
+      "EN": "sister",
+      "RU": "сестра"
+    }
+  },
+  {
+    "id": "v-family-58",
+    "level": "A1",
+    "category": "family",
+    "word": "Syn",
+    "phonetic": "[sin]",
+    "translation": {
+      "EN": "son",
+      "RU": "сын"
+    }
+  },
+  {
+    "id": "v-family-59",
+    "level": "A1",
+    "category": "family",
+    "word": "Córka",
+    "phonetic": "[tsoor-ka]",
+    "translation": {
+      "EN": "daughter",
+      "RU": "дочь"
+    }
+  },
+  {
+    "id": "v-family-60",
+    "level": "A1",
+    "category": "family",
+    "word": "Mąż",
+    "phonetic": "[monsh]",
+    "translation": {
+      "EN": "husband",
+      "RU": "муж"
+    }
+  },
+  {
+    "id": "v-family-61",
+    "level": "A1",
+    "category": "family",
+    "word": "Żona",
+    "phonetic": "[zho-na]",
+    "translation": {
+      "EN": "wife",
+      "RU": "жена"
+    }
+  },
+  {
+    "id": "v-family-62",
+    "level": "A1",
+    "category": "family",
+    "word": "Babcia",
+    "phonetic": "[bab-cha]",
+    "translation": {
+      "EN": "grandmother",
+      "RU": "бабушка"
+    }
+  },
+  {
+    "id": "v-family-63",
+    "level": "A1",
+    "category": "family",
+    "word": "Dziadek",
+    "phonetic": "[ja-dek]",
+    "translation": {
+      "EN": "grandfather",
+      "RU": "дедушка"
+    }
+  },
+  {
+    "id": "v-hobbies-64",
+    "level": "A1",
+    "category": "hobbies",
+    "word": "Czytać",
+    "phonetic": "[chi-tach]",
+    "translation": {
+      "EN": "to read",
+      "RU": "читать"
+    }
+  },
+  {
+    "id": "v-hobbies-65",
+    "level": "A1",
+    "category": "hobbies",
+    "word": "Pływać",
+    "phonetic": "[pwi-vach]",
+    "translation": {
+      "EN": "to swim",
+      "RU": "плавать"
+    }
+  },
+  {
+    "id": "v-hobbies-66",
+    "level": "A1",
+    "category": "hobbies",
+    "word": "Gotować",
+    "phonetic": "[go-to-vach]",
+    "translation": {
+      "EN": "to cook",
+      "RU": "готовить"
+    }
+  },
+  {
+    "id": "v-hobbies-67",
+    "level": "A1",
+    "category": "hobbies",
+    "word": "Tańczyć",
+    "phonetic": "[tan-chich]",
+    "translation": {
+      "EN": "to dance",
+      "RU": "танцевать"
+    }
+  },
+  {
+    "id": "v-hobbies-68",
+    "level": "A1",
+    "category": "hobbies",
+    "word": "Śpiewać",
+    "phonetic": "[shpye-vach]",
+    "translation": {
+      "EN": "to sing",
+      "RU": "петь"
+    }
+  },
+  {
+    "id": "v-hobbies-69",
+    "level": "A1",
+    "category": "hobbies",
+    "word": "Podróżować",
+    "phonetic": "[pod-roo-zho-vach]",
+    "translation": {
+      "EN": "to travel",
+      "RU": "путешествовать"
+    }
+  },
+  {
+    "id": "v-hobbies-70",
+    "level": "A1",
+    "category": "hobbies",
+    "word": "Sport",
+    "phonetic": "[sport]",
+    "translation": {
+      "EN": "sport",
+      "RU": "спорт"
+    }
+  },
+  {
+    "id": "v-hobbies-71",
+    "level": "A1",
+    "category": "hobbies",
+    "word": "Muzyka",
+    "phonetic": "[moo-zi-ka]",
+    "translation": {
+      "EN": "music",
+      "RU": "музыка"
+    }
+  },
+  {
+    "id": "v-hobbies-72",
+    "level": "A1",
+    "category": "hobbies",
+    "word": "Film",
+    "phonetic": "[feelm]",
+    "translation": {
+      "EN": "film / movie",
+      "RU": "фильм"
+    }
+  },
+  {
+    "id": "v-hobbies-73",
+    "level": "A1",
+    "category": "hobbies",
+    "word": "Książka",
+    "phonetic": "[kshonsh-ka]",
+    "translation": {
+      "EN": "book",
+      "RU": "книга"
+    }
+  },
+  {
+    "id": "v-adverbs-74",
+    "level": "A1",
+    "category": "adverbs",
+    "word": "Zawsze",
+    "phonetic": "[zav-she]",
+    "translation": {
+      "EN": "always",
+      "RU": "всегда"
+    }
+  },
+  {
+    "id": "v-adverbs-75",
+    "level": "A1",
+    "category": "adverbs",
+    "word": "Często",
+    "phonetic": "[chen-sto]",
+    "translation": {
+      "EN": "often",
+      "RU": "часто"
+    }
+  },
+  {
+    "id": "v-adverbs-76",
+    "level": "A1",
+    "category": "adverbs",
+    "word": "Czasem",
+    "phonetic": "[cha-sem]",
+    "translation": {
+      "EN": "sometimes",
+      "RU": "иногда"
+    }
+  },
+  {
+    "id": "v-adverbs-77",
+    "level": "A1",
+    "category": "adverbs",
+    "word": "Rzadko",
+    "phonetic": "[zhad-ko]",
+    "translation": {
+      "EN": "rarely",
+      "RU": "редко"
+    }
+  },
+  {
+    "id": "v-adverbs-78",
+    "level": "A1",
+    "category": "adverbs",
+    "word": "Nigdy",
+    "phonetic": "[neeg-di]",
+    "translation": {
+      "EN": "never",
+      "RU": "никогда"
+    }
+  },
+  {
+    "id": "v-food-79",
+    "level": "A1",
+    "category": "food",
+    "word": "Jeść",
+    "phonetic": "[yeshch]",
+    "translation": {
+      "EN": "to eat",
+      "RU": "есть"
+    }
+  },
+  {
+    "id": "v-food-80",
+    "level": "A1",
+    "category": "food",
+    "word": "Pić",
+    "phonetic": "[peech]",
+    "translation": {
+      "EN": "to drink",
+      "RU": "пить"
+    }
+  },
+  {
+    "id": "v-food-81",
+    "level": "A1",
+    "category": "food",
+    "word": "Kawa",
+    "phonetic": "[ka-va]",
+    "translation": {
+      "EN": "coffee",
+      "RU": "кофе"
+    }
+  },
+  {
+    "id": "v-food-82",
+    "level": "A1",
+    "category": "food",
+    "word": "Herbata",
+    "phonetic": "[her-ba-ta]",
+    "translation": {
+      "EN": "tea",
+      "RU": "чай"
+    }
+  },
+  {
+    "id": "v-food-83",
+    "level": "A1",
+    "category": "food",
+    "word": "Woda",
+    "phonetic": "[vo-da]",
+    "translation": {
+      "EN": "water",
+      "RU": "вода"
+    }
+  },
+  {
+    "id": "v-food-84",
+    "level": "A1",
+    "category": "food",
+    "word": "Chleb",
+    "phonetic": "[khlep]",
+    "translation": {
+      "EN": "bread",
+      "RU": "хлеб"
+    }
+  },
+  {
+    "id": "v-food-85",
+    "level": "A1",
+    "category": "food",
+    "word": "Ser",
+    "phonetic": "[ser]",
+    "translation": {
+      "EN": "cheese",
+      "RU": "сыр"
+    }
+  },
+  {
+    "id": "v-food-86",
+    "level": "A1",
+    "category": "food",
+    "word": "Jajko",
+    "phonetic": "[yai-ko]",
+    "translation": {
+      "EN": "egg",
+      "RU": "яйцо"
+    }
+  },
+  {
+    "id": "v-food-87",
+    "level": "A1",
+    "category": "food",
+    "word": "Zupa",
+    "phonetic": "[zoo-pa]",
+    "translation": {
+      "EN": "soup",
+      "RU": "суп"
+    }
+  },
+  {
+    "id": "v-food-88",
+    "level": "A1",
+    "category": "food",
+    "word": "Rachunek",
+    "phonetic": "[ra-khoo-nek]",
+    "translation": {
+      "EN": "the bill / check",
+      "RU": "счёт"
+    }
+  },
+  {
+    "id": "v-daily routine-89",
+    "level": "A1",
+    "category": "daily routine",
+    "word": "Wstawać",
+    "phonetic": "[vsta-vach]",
+    "translation": {
+      "EN": "to get up",
+      "RU": "вставать"
+    }
+  },
+  {
+    "id": "v-daily routine-90",
+    "level": "A1",
+    "category": "daily routine",
+    "word": "Myć się",
+    "phonetic": "[mich shen]",
+    "translation": {
+      "EN": "to wash oneself",
+      "RU": "мыться"
+    }
+  },
+  {
+    "id": "v-daily routine-91",
+    "level": "A1",
+    "category": "daily routine",
+    "word": "Ubierać się",
+    "phonetic": "[oo-bye-rach shen]",
+    "translation": {
+      "EN": "to get dressed",
+      "RU": "одеваться"
+    }
+  },
+  {
+    "id": "v-daily routine-92",
+    "level": "A1",
+    "category": "daily routine",
+    "word": "Jeść śniadanie",
+    "phonetic": "[yeshch shnya-da-nye]",
+    "translation": {
+      "EN": "to eat breakfast",
+      "RU": "завтракать"
+    }
+  },
+  {
+    "id": "v-daily routine-93",
+    "level": "A1",
+    "category": "daily routine",
+    "word": "Iść do pracy",
+    "phonetic": "[eeshch do pra-tsi]",
+    "translation": {
+      "EN": "to go to work",
+      "RU": "идти на работу"
+    }
+  },
+  {
+    "id": "v-daily routine-94",
+    "level": "A1",
+    "category": "daily routine",
+    "word": "Wracać do domu",
+    "phonetic": "[vra-tsach do do-moo]",
+    "translation": {
+      "EN": "to return home",
+      "RU": "возвращаться домой"
+    }
+  },
+  {
+    "id": "v-daily routine-95",
+    "level": "A1",
+    "category": "daily routine",
+    "word": "Kłaść się spać",
+    "phonetic": "[kwashch shen spach]",
+    "translation": {
+      "EN": "to go to bed",
+      "RU": "ложиться спать"
+    }
+  },
+  {
+    "id": "v-daily routine-96",
+    "level": "A1",
+    "category": "daily routine",
+    "word": "Odpoczywać",
+    "phonetic": "[ot-po-chi-vach]",
+    "translation": {
+      "EN": "to rest",
+      "RU": "отдыхать"
+    }
+  },
+  {
+    "id": "v-days of week-97",
+    "level": "A1",
+    "category": "days of week",
+    "word": "Poniedziałek",
+    "phonetic": "[po-nye-ja-wek]",
+    "translation": {
+      "EN": "Monday",
+      "RU": "понедельник"
+    }
+  },
+  {
+    "id": "v-days of week-98",
+    "level": "A1",
+    "category": "days of week",
+    "word": "Wtorek",
+    "phonetic": "[vto-rek]",
+    "translation": {
+      "EN": "Tuesday",
+      "RU": "вторник"
+    }
+  },
+  {
+    "id": "v-days of week-99",
+    "level": "A1",
+    "category": "days of week",
+    "word": "Środa",
+    "phonetic": "[shro-da]",
+    "translation": {
+      "EN": "Wednesday",
+      "RU": "среда"
+    }
+  },
+  {
+    "id": "v-days of week-100",
+    "level": "A1",
+    "category": "days of week",
+    "word": "Czwartek",
+    "phonetic": "[chvar-tek]",
+    "translation": {
+      "EN": "Thursday",
+      "RU": "четверг"
+    }
+  },
+  {
+    "id": "v-days of week-101",
+    "level": "A1",
+    "category": "days of week",
+    "word": "Piątek",
+    "phonetic": "[pyon-tek]",
+    "translation": {
+      "EN": "Friday",
+      "RU": "пятница"
+    }
+  },
+  {
+    "id": "v-days of week-102",
+    "level": "A1",
+    "category": "days of week",
+    "word": "Sobota",
+    "phonetic": "[so-bo-ta]",
+    "translation": {
+      "EN": "Saturday",
+      "RU": "суббота"
+    }
+  },
+  {
+    "id": "v-days of week-103",
+    "level": "A1",
+    "category": "days of week",
+    "word": "Niedziela",
+    "phonetic": "[nye-je-la]",
+    "translation": {
+      "EN": "Sunday",
+      "RU": "воскресенье"
+    }
+  },
+  {
+    "id": "v-personal info-104",
+    "level": "A1",
+    "category": "personal info",
+    "word": "Imię",
+    "phonetic": "[ee-myeh]",
+    "translation": {
+      "EN": "first name",
+      "RU": "имя"
+    }
+  },
+  {
+    "id": "v-personal info-105",
+    "level": "A1",
+    "category": "personal info",
+    "word": "Nazwisko",
+    "phonetic": "[naz-vees-ko]",
+    "translation": {
+      "EN": "surname",
+      "RU": "фамилия"
+    }
+  },
+  {
+    "id": "v-personal info-106",
+    "level": "A1",
+    "category": "personal info",
+    "word": "Adres",
+    "phonetic": "[ad-res]",
+    "translation": {
+      "EN": "address",
+      "RU": "адрес"
+    }
+  },
+  {
+    "id": "v-personal info-107",
+    "level": "A1",
+    "category": "personal info",
+    "word": "Adres e-mailowy",
+    "phonetic": "[ad-res ee-mail-o-vi]",
+    "translation": {
+      "EN": "email address",
+      "RU": "электронный адрес"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-1",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Kino",
+    "phonetic": "[keeno]",
+    "translation": {
+      "EN": "cinema",
+      "RU": "кино"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-2",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Teatr",
+    "phonetic": "[teatr]",
+    "translation": {
+      "EN": "theatre",
+      "RU": "театр"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-3",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Pociąg",
+    "phonetic": "[pochyonk]",
+    "translation": {
+      "EN": "train",
+      "RU": "поезд"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-4",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Dworzec",
+    "phonetic": "[dvozhets]",
+    "translation": {
+      "EN": "station",
+      "RU": "вокзал"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-5",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Bilet",
+    "phonetic": "[beelet]",
+    "translation": {
+      "EN": "ticket",
+      "RU": "билет"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-6",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Peron",
+    "phonetic": "[peron]",
+    "translation": {
+      "EN": "platform",
+      "RU": "платформа"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-7",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Telefon",
+    "phonetic": "[telefon]",
+    "translation": {
+      "EN": "telephone",
+      "RU": "телефон"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-8",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Dzwonić",
+    "phonetic": "[dzvoneech]",
+    "translation": {
+      "EN": "to call (by phone)",
+      "RU": "звонить"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-9",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Rozkład jazdy",
+    "phonetic": "[roskwad yazdi]",
+    "translation": {
+      "EN": "timetable",
+      "RU": "расписание"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-10",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Kasa biletowa",
+    "phonetic": "[kasa beeletova]",
+    "translation": {
+      "EN": "ticket office",
+      "RU": "касса"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-11",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Może",
+    "phonetic": "[mozheh]",
+    "translation": {
+      "EN": "maybe / perhaps",
+      "RU": "может быть"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-12",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Chcieć",
+    "phonetic": "[khchech]",
+    "translation": {
+      "EN": "to want",
+      "RU": "хотеть"
+    }
+  },
+  {
+    "id": "v-entertainment&travel-13",
+    "level": "A1",
+    "category": "entertainment & travel",
+    "word": "Spotkać się",
+    "phonetic": "[spotkach shen]",
+    "translation": {
+      "EN": "to meet (with someone)",
+      "RU": "встретиться"
+    }
+  },
+  {
+    "id": "v-shopping&colors-1",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Sklep",
+    "phonetic": "[sklep]",
+    "translation": {
+      "EN": "shop",
+      "RU": "магазин"
+    }
+  },
+  {
+    "id": "v-shopping&colors-2",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Sklep spożywczy",
+    "phonetic": "[sklep spozhivchi]",
+    "translation": {
+      "EN": "grocery store",
+      "RU": "продуктовый магазин"
+    }
+  },
+  {
+    "id": "v-shopping&colors-3",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Sklep odzieżowy",
+    "phonetic": "[sklep odjezhovi]",
+    "translation": {
+      "EN": "clothing store",
+      "RU": "магазин одежды"
+    }
+  },
+  {
+    "id": "v-shopping&colors-4",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Kilogram",
+    "phonetic": "[keelogram]",
+    "translation": {
+      "EN": "kilogram",
+      "RU": "килограмм"
+    }
+  },
+  {
+    "id": "v-shopping&colors-5",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Litr",
+    "phonetic": "[leetr]",
+    "translation": {
+      "EN": "liter",
+      "RU": "литр"
+    }
+  },
+  {
+    "id": "v-shopping&colors-6",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Koszula",
+    "phonetic": "[koshoola]",
+    "translation": {
+      "EN": "shirt",
+      "RU": "рубашка"
+    }
+  },
+  {
+    "id": "v-shopping&colors-7",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Spodnie",
+    "phonetic": "[spodnye]",
+    "translation": {
+      "EN": "trousers",
+      "RU": "брюки"
+    }
+  },
+  {
+    "id": "v-shopping&colors-8",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Sukienka",
+    "phonetic": "[sookyenka]",
+    "translation": {
+      "EN": "dress",
+      "RU": "платье"
+    }
+  },
+  {
+    "id": "v-shopping&colors-9",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Buty",
+    "phonetic": "[booti]",
+    "translation": {
+      "EN": "shoes",
+      "RU": "обувь"
+    }
+  },
+  {
+    "id": "v-shopping&colors-10",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Kurtka",
+    "phonetic": "[koortka]",
+    "translation": {
+      "EN": "jacket",
+      "RU": "куртка"
+    }
+  },
+  {
+    "id": "v-shopping&colors-11",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Czerwony",
+    "phonetic": "[chervoni]",
+    "translation": {
+      "EN": "red",
+      "RU": "красный"
+    }
+  },
+  {
+    "id": "v-shopping&colors-12",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Niebieski",
+    "phonetic": "[nyebyeskee]",
+    "translation": {
+      "EN": "blue",
+      "RU": "синий"
+    }
+  },
+  {
+    "id": "v-shopping&colors-13",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Zielony",
+    "phonetic": "[zhyeloni]",
+    "translation": {
+      "EN": "green",
+      "RU": "зелёный"
+    }
+  },
+  {
+    "id": "v-shopping&colors-14",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Żółty",
+    "phonetic": "[zhoowti]",
+    "translation": {
+      "EN": "yellow",
+      "RU": "жёлтый"
+    }
+  },
+  {
+    "id": "v-shopping&colors-15",
+    "level": "A1",
+    "category": "shopping & colors",
+    "word": "Czarny",
+    "phonetic": "[charni]",
+    "translation": {
+      "EN": "black",
+      "RU": "чёрный"
+    }
+  },
+  {
+    "id": "v-months&time-1",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Styczeń",
+    "phonetic": "[stichen]",
+    "translation": {
+      "EN": "January",
+      "RU": "январь"
+    }
+  },
+  {
+    "id": "v-months&time-2",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Luty",
+    "phonetic": "[looti]",
+    "translation": {
+      "EN": "February",
+      "RU": "февраль"
+    }
+  },
+  {
+    "id": "v-months&time-3",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Marzec",
+    "phonetic": "[mazhets]",
+    "translation": {
+      "EN": "March",
+      "RU": "март"
+    }
+  },
+  {
+    "id": "v-months&time-4",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Kwiecień",
+    "phonetic": "[kvyechen]",
+    "translation": {
+      "EN": "April",
+      "RU": "апрель"
+    }
+  },
+  {
+    "id": "v-months&time-5",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Maj",
+    "phonetic": "[mai]",
+    "translation": {
+      "EN": "May",
+      "RU": "май"
+    }
+  },
+  {
+    "id": "v-months&time-6",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Czerwiec",
+    "phonetic": "[chervyets]",
+    "translation": {
+      "EN": "June",
+      "RU": "июнь"
+    }
+  },
+  {
+    "id": "v-months&time-7",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Lipiec",
+    "phonetic": "[leepyets]",
+    "translation": {
+      "EN": "July",
+      "RU": "июль"
+    }
+  },
+  {
+    "id": "v-months&time-8",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Sierpień",
+    "phonetic": "[shyerpyen]",
+    "translation": {
+      "EN": "August",
+      "RU": "август"
+    }
+  },
+  {
+    "id": "v-months&time-9",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Wrzesień",
+    "phonetic": "[vzheshyen]",
+    "translation": {
+      "EN": "September",
+      "RU": "сентябрь"
+    }
+  },
+  {
+    "id": "v-months&time-10",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Październik",
+    "phonetic": "[pazhdjerneek]",
+    "translation": {
+      "EN": "October",
+      "RU": "октябрь"
+    }
+  },
+  {
+    "id": "v-months&time-11",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Listopad",
+    "phonetic": "[leestopad]",
+    "translation": {
+      "EN": "November",
+      "RU": "ноябрь"
+    }
+  },
+  {
+    "id": "v-months&time-12",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Grudzień",
+    "phonetic": "[groodjen]",
+    "translation": {
+      "EN": "December",
+      "RU": "декабрь"
+    }
+  },
+  {
+    "id": "v-months&time-13",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Wczoraj",
+    "phonetic": "[vchorai]",
+    "translation": {
+      "EN": "yesterday",
+      "RU": "вчера"
+    }
+  },
+  {
+    "id": "v-months&time-14",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Tydzień temu",
+    "phonetic": "[tidjen temoo]",
+    "translation": {
+      "EN": "a week ago",
+      "RU": "неделю назад"
+    }
+  },
+  {
+    "id": "v-months&time-15",
+    "level": "A1",
+    "category": "months & time",
+    "word": "W zeszłym roku",
+    "phonetic": "[v zeshwim rokoo]",
+    "translation": {
+      "EN": "last year",
+      "RU": "в прошлом году"
+    }
+  },
+  {
+    "id": "v-months&time-16",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Rano",
+    "phonetic": "[rano]",
+    "translation": {
+      "EN": "in the morning",
+      "RU": "утром"
+    }
+  },
+  {
+    "id": "v-months&time-17",
+    "level": "A1",
+    "category": "months & time",
+    "word": "Wieczorem",
+    "phonetic": "[vyechorem]",
+    "translation": {
+      "EN": "in the evening",
+      "RU": "вечером"
+    }
+  }
+]
