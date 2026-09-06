@@ -1,0 +1,542 @@
+[
+  {
+    "id": "g-conj-ac",
+    "level": "A1",
+    "category": "verbs",
+    "title": {
+      "EN": "Conjugation pattern: -ać verbs (czytać, mieszkać)",
+      "RU": "Спряжение глаголов на -ać (czytać, mieszkać)"
+    },
+    "theory": {
+      "EN": "Most -ać verbs (czytać, mieszkać, znać, oglądać) follow: -am, -asz, -a, -amy, -acie, -ają. Czytać → czytam, czytasz, czyta, czytamy, czytacie, czytają.",
+      "RU": "Большинство глаголов на -ać (czytać, mieszkać, znać, oglądać) спрягаются так: -am, -asz, -a, -amy, -acie, -ają. Czytać → czytam, czytasz, czyta, czytamy, czytacie, czytają."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja ___ książkę. (I read a book. — czytać)",
+        "answer": "czytam"
+      },
+      {
+        "prompt": "Oni ___ w Krakowie. (They live in Kraków. — mieszkać)",
+        "answer": "mieszkają"
+      },
+      {
+        "prompt": "Czy ty ___ ten film? (Do you watch this movie? — oglądać)",
+        "answer": "oglądasz"
+      }
+    ]
+  },
+  {
+    "id": "g-conj-icyc",
+    "level": "A1",
+    "category": "verbs",
+    "title": {
+      "EN": "Conjugation pattern: -ić/-yć verbs (robić, mówić, uczyć)",
+      "RU": "Спряжение глаголов на -ić/-yć (robić, mówić, uczyć)"
+    },
+    "theory": {
+      "EN": "Verbs like robić, mówić, uczyć take: -ę, -isz/-ysz, -i/-y, -imy/-ymy, -icie/-ycie, -ią/-ią. Robić → robię, robisz, robi, robimy, robicie, robią.",
+      "RU": "Глаголы типа robić, mówić, uczyć спрягаются так: -ę, -isz/-ysz, -i/-y, -imy/-ymy, -icie/-ycie, -ią. Robić → robię, robisz, robi, robimy, robicie, robią."
+    },
+    "exercises": [
+      {
+        "prompt": "Co ty ___? (What are you doing? — robić)",
+        "answer": "robisz"
+      },
+      {
+        "prompt": "My ___ po polsku. (We speak Polish. — mówić)",
+        "answer": "mówimy"
+      },
+      {
+        "prompt": "Ona ___ się angielskiego. (She's learning English. — uczyć się)",
+        "answer": "uczy"
+      }
+    ]
+  },
+  {
+    "id": "g-conj-ec",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "Conjugation pattern: -eć verbs (widzieć, słyszeć)",
+      "RU": "Спряжение глаголов на -eć (widzieć, słyszeć)"
+    },
+    "theory": {
+      "EN": "Widzieć, słyszeć and similar verbs conjugate: -ę, -isz, -i, -imy, -icie, -ą — note the consonant softens before -ę/-ą (widzieć → widzę, not widzieę).",
+      "RU": "Widzieć, słyszeć и подобные глаголы спрягаются: -ę, -isz, -i, -imy, -icie, -ą — согласная смягчается перед -ę/-ą (widzieć → widzę)."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja nic nie ___. (I don't see anything. — widzieć)",
+        "answer": "widzę"
+      },
+      {
+        "prompt": "Czy ty mnie ___? (Can you hear me? — słyszeć)",
+        "answer": "słyszysz"
+      },
+      {
+        "prompt": "Oni ___ górę z okna. (They see the mountain from the window. — widzieć)",
+        "answer": "widzą"
+      }
+    ]
+  },
+  {
+    "id": "g-irr-isc",
+    "level": "A1",
+    "category": "verbs",
+    "title": {
+      "EN": "Irregular verb: iść (to go, on foot)",
+      "RU": "Неправильный глагол: iść (идти пешком)"
+    },
+    "theory": {
+      "EN": "Iść (to go on foot, one-directional) conjugates: idę, idziesz, idzie, idziemy, idziecie, idą. Used for a specific, one-way trip happening now.",
+      "RU": "Iść (идти пешком, однонаправленное движение) спрягается: idę, idziesz, idzie, idziemy, idziecie, idą. Используется для конкретной поездки в одну сторону, происходящей сейчас."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja ___ do szkoły. (I'm going to school. — iść)",
+        "answer": "idę"
+      },
+      {
+        "prompt": "Oni ___ do parku. (They're going to the park. — iść)",
+        "answer": "idą"
+      },
+      {
+        "prompt": "Dokąd ty ___? (Where are you going? — iść)",
+        "answer": "idziesz"
+      }
+    ]
+  },
+  {
+    "id": "g-irr-jechac",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "Irregular verb: jechać (to go, by vehicle)",
+      "RU": "Неправильный глагол: jechać (ехать)"
+    },
+    "theory": {
+      "EN": "Jechać (to go by vehicle) conjugates: jadę, jedziesz, jedzie, jedziemy, jedziecie, jadą. Use iść for walking and jechać for any trip by car, train, bus, etc.",
+      "RU": "Jechać (ехать на транспорте) спрягается: jadę, jedziesz, jedzie, jedziemy, jedziecie, jadą. Iść используется для ходьбы пешком, а jechać — для поездки на транспорте."
+    },
+    "exercises": [
+      {
+        "prompt": "My ___ do Warszawy pociągiem. (We're going to Warsaw by train. — jechać)",
+        "answer": "jedziemy"
+      },
+      {
+        "prompt": "Ona ___ na wakacje jutro. (She's going on vacation tomorrow. — jechać)",
+        "answer": "jedzie"
+      },
+      {
+        "prompt": "Czy wy ___ samochodem? (Are you going by car? — jechać)",
+        "answer": "jedziecie"
+      }
+    ]
+  },
+  {
+    "id": "g-irr-jesc",
+    "level": "A1",
+    "category": "verbs",
+    "title": {
+      "EN": "Irregular verb: jeść (to eat)",
+      "RU": "Неправильный глагол: jeść (есть)"
+    },
+    "theory": {
+      "EN": "Jeść is irregular: jem, jesz, je, jemy, jecie, jedzą. Note the third-person plural jedzą, which doesn't follow a regular pattern.",
+      "RU": "Jeść — неправильный глагол: jem, jesz, je, jemy, jecie, jedzą. Форма 3 л. мн. ч. jedzą не следует обычной модели."
+    },
+    "exercises": [
+      {
+        "prompt": "Co ty ___ na śniadanie? (What do you eat for breakfast? — jeść)",
+        "answer": "jesz"
+      },
+      {
+        "prompt": "Oni ___ obiad teraz. (They are eating lunch now. — jeść)",
+        "answer": "jedzą"
+      },
+      {
+        "prompt": "My ___ razem co wieczór. (We eat together every evening. — jeść)",
+        "answer": "jemy"
+      }
+    ]
+  },
+  {
+    "id": "g-irr-pic",
+    "level": "A1",
+    "category": "verbs",
+    "title": {
+      "EN": "Irregular verb: pić (to drink)",
+      "RU": "Неправильный глагол: pić (пить)"
+    },
+    "theory": {
+      "EN": "Pić conjugates: piję, pijesz, pije, pijemy, pijecie, piją — a -j- appears throughout the present tense.",
+      "RU": "Pić спрягается: piję, pijesz, pije, pijemy, pijecie, piją — во всех формах настоящего времени появляется -j-."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja zawsze ___ kawę rano. (I always drink coffee in the morning. — pić)",
+        "answer": "piję"
+      },
+      {
+        "prompt": "Co oni ___? (What are they drinking? — pić)",
+        "answer": "piją"
+      },
+      {
+        "prompt": "Czy ty ___ herbatę? (Do you drink tea? — pić)",
+        "answer": "pijesz"
+      }
+    ]
+  },
+  {
+    "id": "g-irr-chciec",
+    "level": "A1",
+    "category": "verbs",
+    "title": {
+      "EN": "Irregular verb: chcieć (to want)",
+      "RU": "Неправильный глагол: chcieć (хотеть)"
+    },
+    "theory": {
+      "EN": "Chcieć conjugates: chcę, chcesz, chce, chcemy, chcecie, chcą. Often followed by a verb in the infinitive: Chcę jechać do Polski.",
+      "RU": "Chcieć спрягается: chcę, chcesz, chce, chcemy, chcecie, chcą. Часто за ним следует инфинитив: Chcę jechać do Polski."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja ___ się uczyć polskiego. (I want to learn Polish. — chcieć)",
+        "answer": "chcę"
+      },
+      {
+        "prompt": "Czego ty ___? (What do you want? — chcieć)",
+        "answer": "chcesz"
+      },
+      {
+        "prompt": "Oni nie ___ jechać teraz. (They don't want to go now. — chcieć)",
+        "answer": "chcą"
+      }
+    ]
+  },
+  {
+    "id": "g-irr-moc",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "Irregular verb: móc (can / to be able to)",
+      "RU": "Неправильный глагол: móc (мочь)"
+    },
+    "theory": {
+      "EN": "Móc conjugates: mogę, możesz, może, możemy, możecie, mogą. Expresses ability or permission, followed by an infinitive.",
+      "RU": "Móc спрягается: mogę, możesz, może, możemy, możecie, mogą. Выражает возможность или разрешение, за ним следует инфинитив."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja nie ___ dzisiaj przyjść. (I can't come today. — móc)",
+        "answer": "mogę"
+      },
+      {
+        "prompt": "Czy ty ___ mi pomóc? (Can you help me? — móc)",
+        "answer": "możesz"
+      },
+      {
+        "prompt": "Oni ___ zostać dłużej. (They can stay longer. — móc)",
+        "answer": "mogą"
+      }
+    ]
+  },
+  {
+    "id": "g-irr-musiec",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "Irregular verb: musieć (must / to have to)",
+      "RU": "Неправильный глагол: musieć (быть должным)"
+    },
+    "theory": {
+      "EN": "Musieć conjugates: muszę, musisz, musi, musimy, musicie, muszą. Expresses obligation or necessity, followed by an infinitive.",
+      "RU": "Musieć спрягается: muszę, musisz, musi, musimy, musicie, muszą. Выражает необходимость или обязательство, за ним следует инфинитив."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja ___ iść do pracy. (I have to go to work. — musieć)",
+        "answer": "muszę"
+      },
+      {
+        "prompt": "Ty ___ to zrobić dzisiaj. (You have to do this today. — musieć)",
+        "answer": "musisz"
+      },
+      {
+        "prompt": "My ___ czekać na autobus. (We have to wait for the bus. — musieć)",
+        "answer": "musimy"
+      }
+    ]
+  },
+  {
+    "id": "g-wiedziec-znac",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "\"Wiedzieć\" vs. \"znać\" (to know)",
+      "RU": "\"Wiedzieć\" против \"znać\" (знать)"
+    },
+    "theory": {
+      "EN": "Wiedzieć (wiem, wiesz, wie, wiemy, wiecie, wiedzą) means to know a fact, usually followed by 'że' (that) or a question word. Znać (znam, znasz, zna, znamy, znacie, znają) means to know/be acquainted with a person, place, or thing.",
+      "RU": "Wiedzieć (wiem, wiesz, wie, wiemy, wiecie, wiedzą) означает знать факт, обычно с 'że' (что) или вопросительным словом. Znać (znam, znasz, zna, znamy, znacie, znają) означает быть знакомым с человеком, местом или вещью."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja nie ___ , która jest godzina. (I don't know what time it is. — wiedzieć)",
+        "answer": "wiem"
+      },
+      {
+        "prompt": "Czy ty ___ tego człowieka? (Do you know this person? — znać)",
+        "answer": "znasz"
+      },
+      {
+        "prompt": "Oni ___ , że jutro jest egzamin. (They know that tomorrow is the exam. — wiedzieć)",
+        "answer": "wiedzą"
+      }
+    ]
+  },
+  {
+    "id": "g-past-tense",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "Past tense (czas przeszły)",
+      "RU": "Прошедшее время (czas przeszły)"
+    },
+    "theory": {
+      "EN": "Form the past tense from the infinitive stem + -ł- (masc.) / -ł- + a (fem.) / -ł- + o (neut.) + a personal ending. Ja czytałem (m.) / czytałam (f.) — I read/was reading. On czytał, Ona czytała, My czytaliśmy, One czytały.",
+      "RU": "Прошедшее время образуется от основы инфинитива + -ł- (м.р.) / -ł- + a (ж.р.) / -ł- + o (ср.р.) + личное окончание. Ja czytałem (м.) / czytałam (ж.) — я читал(а). On czytał, Ona czytała, My czytaliśmy, One czytały."
+    },
+    "exercises": [
+      {
+        "prompt": "Ona ___ (czytać, fem.) książkę wczoraj. (She read a book yesterday.)",
+        "answer": "czytała"
+      },
+      {
+        "prompt": "My ___ (być, masc. group) w kinie. (We were at the cinema.)",
+        "answer": "byliśmy"
+      },
+      {
+        "prompt": "Ja ___ (robić, masc.) to wczoraj. (I did this yesterday. — male speaker)",
+        "answer": "robiłem"
+      }
+    ]
+  },
+  {
+    "id": "g-future-imperfective",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "Future tense of imperfective verbs",
+      "RU": "Будущее время несовершенного вида"
+    },
+    "theory": {
+      "EN": "For ongoing/repeated actions, use będę/będziesz/będzie/będziemy/będziecie/będą + infinitive, or + the past-tense form (both are correct): Będę czytać or Będę czytał(a) — I will read/be reading.",
+      "RU": "Для длительных/повторяющихся действий используйте будę/będziesz/będzie/będziemy/będziecie/będą + инфинитив или форму прошедшего времени (оба варианта верны): Będę czytać или Będę czytał(a) — я буду читать."
+    },
+    "exercises": [
+      {
+        "prompt": "Jutro ja ___ pracować (I will work tomorrow. — future of pracować)",
+        "answer": "będę"
+      },
+      {
+        "prompt": "Oni ___ mieszkać w Warszawie. (They will live in Warsaw.)",
+        "answer": "będą"
+      },
+      {
+        "prompt": "Czy ty ___ czekać na mnie? (Will you wait for me?)",
+        "answer": "będziesz"
+      }
+    ]
+  },
+  {
+    "id": "g-future-perfective",
+    "level": "B1",
+    "category": "verbs",
+    "title": {
+      "EN": "Future tense of perfective verbs & aspect pairs",
+      "RU": "Будущее время совершенного вида и видовые пары"
+    },
+    "theory": {
+      "EN": "Most Polish verbs come in imperfective/perfective pairs (pisać/napisać, robić/zrobić, czytać/przeczytać). The perfective verb, conjugated like a present tense, actually gives future meaning: Napiszę list (I will write a letter), Zrobię to jutro (I'll do it tomorrow).",
+      "RU": "Большинство польских глаголов образуют видовые пары несовершенный/совершенный (pisać/napisać, robić/zrobić, czytać/przeczytać). Совершенный глагол, спрягаемый как в настоящем времени, на самом деле передаёт будущее значение: Napiszę list (я напишу письмо), Zrobię to jutro (я сделаю это завтра)."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja ___ (napisać) do ciebie jutro. (I will write to you tomorrow.)",
+        "answer": "napiszę"
+      },
+      {
+        "prompt": "Ona ___ (zrobić) zadanie wieczorem. (She'll do the homework in the evening.)",
+        "answer": "zrobi"
+      },
+      {
+        "prompt": "My ___ (przeczytać) tę książkę w tym tygodniu. (We'll read this book this week.)",
+        "answer": "przeczytamy"
+      }
+    ]
+  },
+  {
+    "id": "g-negation-verb",
+    "level": "A1",
+    "category": "verbs",
+    "title": {
+      "EN": "Negating verbs with \"nie\"",
+      "RU": "Отрицание глаголов со словом \"nie\""
+    },
+    "theory": {
+      "EN": "Place nie directly before the conjugated verb: Nie mam czasu (I don't have time). Remember: a direct object after a negated verb switches from accusative to genitive (Mam samochód → Nie mam samochodu).",
+      "RU": "Ставьте nie прямо перед спрягаемым глаголом: Nie mam czasu (у меня нет времени). Помните: прямое дополнение после отрицаемого глагола меняется с винительного на родительный падеж (Mam samochód → Nie mam samochodu)."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja ___ ___ psa. (I don't have a dog. — mieć + genitive of pies)",
+        "answer": "nie mam psa"
+      },
+      {
+        "prompt": "On ___ mówi po niemiecku. (He doesn't speak German.)",
+        "answer": "nie"
+      },
+      {
+        "prompt": "My ___ rozumiemy tego pytania. (We don't understand this question. — genitive of pytanie)",
+        "answer": "nie"
+      }
+    ]
+  },
+  {
+    "id": "g-reflexive-sie",
+    "level": "A1",
+    "category": "verbs",
+    "title": {
+      "EN": "Reflexive verbs with \"się\"",
+      "RU": "Возвратные глаголы с \"się\""
+    },
+    "theory": {
+      "EN": "Many Polish verbs pair with się to change meaning: nazywać (to call) → nazywać się (to be called); uczyć (to teach) → uczyć się (to study); cieszyć (to please) → cieszyć się (to be glad). Się doesn't change with person.",
+      "RU": "Многие польские глаголы сочетаются с się, меняя значение: nazywać (называть) → nazywać się (называться); uczyć (учить) → uczyć się (учиться); cieszyć (радовать) → cieszyć się (радоваться). Się не изменяется по лицам."
+    },
+    "exercises": [
+      {
+        "prompt": "Jak ty ___ ___? (What's your name? — nazywać się)",
+        "answer": "nazywasz się"
+      },
+      {
+        "prompt": "Ona ___ ___ polskiego od roku. (She's been learning Polish for a year. — uczyć się)",
+        "answer": "uczy się"
+      },
+      {
+        "prompt": "Bardzo się ___ na twój widok. (I'm very glad to see you. — cieszyć się, 1st person)",
+        "answer": "cieszę"
+      }
+    ]
+  },
+  {
+    "id": "g-imperative",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "Imperative mood (giving commands)",
+      "RU": "Повелительное наклонение"
+    },
+    "theory": {
+      "EN": "For ty-commands, drop the -sz from the present-tense form (idziesz → idź; mów-isz → mów). For a negative command, add nie: Nie rób tego! (Don't do that!). Some forms are irregular: być → bądź.",
+      "RU": "Для формы 'ты' уберите -sz из формы настоящего времени (idziesz → idź; mówisz → mów). Для отрицательной команды добавьте nie: Nie rób tego! (Не делай этого!). Некоторые формы неправильные: być → bądź."
+    },
+    "exercises": [
+      {
+        "prompt": "___! (Go! — to a friend, from iść)",
+        "answer": "idź"
+      },
+      {
+        "prompt": "___ cicho! (Be quiet! — from być)",
+        "answer": "bądź"
+      },
+      {
+        "prompt": "Nie ___ tego! (Don't do that! — from robić)",
+        "answer": "rób"
+      }
+    ]
+  },
+  {
+    "id": "g-comparative",
+    "level": "A2",
+    "category": "adjectives",
+    "title": {
+      "EN": "Comparative & superlative adjectives",
+      "RU": "Сравнительная и превосходная степень прилагательных"
+    },
+    "theory": {
+      "EN": "Add -szy/-sza/-sze (or -ejszy) for the comparative, and naj- + comparative for the superlative: ładny → ładniejszy → najładniejszy. Some are irregular: dobry (good) → lepszy → najlepszy; zły (bad) → gorszy → najgorszy.",
+      "RU": "Для сравнительной степени добавьте -szy/-sza/-sze (или -ejszy), для превосходной — naj- + сравнительная форма: ładny → ładniejszy → najładniejszy. Некоторые прилагательные неправильные: dobry (хороший) → lepszy → najlepszy; zły (плохой) → gorszy → najgorszy."
+    },
+    "exercises": [
+      {
+        "prompt": "Ten dom jest ___ (comparative of duży) niż tamten. (This house is bigger than that one.)",
+        "answer": "większy"
+      },
+      {
+        "prompt": "To jest ___ (superlative of dobry) restauracja w mieście. (This is the best restaurant in town.)",
+        "answer": "najlepsza"
+      },
+      {
+        "prompt": "Ona jest ___ (comparative of młody) ode mnie. (She is younger than me.)",
+        "answer": "młodsza"
+      }
+    ]
+  },
+  {
+    "id": "g-powinienem",
+    "level": "B1",
+    "category": "verbs",
+    "title": {
+      "EN": "\"Powinienem/powinnam\" (should)",
+      "RU": "\"Powinienem/powinnam\" (должен/должна)"
+    },
+    "theory": {
+      "EN": "Powinienem (masc.) / powinnam (fem.) means 'I should'. It changes by gender and person: powinieneś/powinnaś (you), powinien/powinna (he/she), powinniśmy/powinnyśmy (we). Followed by an infinitive.",
+      "RU": "Powinienem (м.р.) / powinnam (ж.р.) означает 'я должен/должна'. Изменяется по роду и лицу: powinieneś/powinnaś (ты), powinien/powinna (он/она), powinniśmy/powinnyśmy (мы). За ним следует инфинитив."
+    },
+    "exercises": [
+      {
+        "prompt": "Ja ___ (should, fem.) więcej ćwiczyć. (I should practice more. — female speaker)",
+        "answer": "powinnam"
+      },
+      {
+        "prompt": "Ty ___ (should, masc.) odpocząć. (You should rest. — to a man)",
+        "answer": "powinieneś"
+      },
+      {
+        "prompt": "Ona ___ (should) zadzwonić do lekarza. (She should call the doctor.)",
+        "answer": "powinna"
+      }
+    ]
+  },
+  {
+    "id": "g-time-locative",
+    "level": "A2",
+    "category": "cases",
+    "title": {
+      "EN": "Telling time with \"o\" + locative",
+      "RU": "Указание времени с \"o\" + предложный падеж"
+    },
+    "theory": {
+      "EN": "To say 'at [time]', use o + the hour in locative: O której godzinie? (At what time?) — O ósmej (At eight). Days of the week also use w + accusative: w poniedziałek (on Monday).",
+      "RU": "Чтобы сказать 'в [время]', используйте o + час в предложном падеже: O której godzinie? (В котором часу?) — O ósmej (В восемь). Дни недели используют w + винительный падеж: w poniedziałek (в понедельник)."
+    },
+    "exercises": [
+      {
+        "prompt": "Spotykamy się ___ ósmej. (We're meeting at eight. — o + locative)",
+        "answer": "o"
+      },
+      {
+        "prompt": "Mam lekcję ___ poniedziałek. (I have a lesson on Monday.)",
+        "answer": "w"
+      },
+      {
+        "prompt": "___ której godzinie zaczyna się film? (At what time does the movie start?)",
+        "answer": "O"
+      }
+    ]
+  }
+]

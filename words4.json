@@ -1,0 +1,310 @@
+[
+  {
+    "id": "v4-1",
+    "level": "A2",
+    "category": "months",
+    "word": "Styczeń",
+    "phonetic": "[sty-chen]",
+    "translation": {
+      "EN": "January",
+      "RU": "Январь"
+    }
+  },
+  {
+    "id": "v4-2",
+    "level": "A2",
+    "category": "months",
+    "word": "Luty",
+    "phonetic": "[loo-ty]",
+    "translation": {
+      "EN": "February",
+      "RU": "Февраль"
+    }
+  },
+  {
+    "id": "v4-3",
+    "level": "A2",
+    "category": "months",
+    "word": "Marzec",
+    "phonetic": "[ma-zhets]",
+    "translation": {
+      "EN": "March",
+      "RU": "Март"
+    }
+  },
+  {
+    "id": "v4-4",
+    "level": "A2",
+    "category": "months",
+    "word": "Kwiecień",
+    "phonetic": "[kfye-chen]",
+    "translation": {
+      "EN": "April",
+      "RU": "Апрель"
+    }
+  },
+  {
+    "id": "v4-5",
+    "level": "A2",
+    "category": "months",
+    "word": "Maj",
+    "phonetic": "[mahy]",
+    "translation": {
+      "EN": "May",
+      "RU": "Май"
+    }
+  },
+  {
+    "id": "v4-6",
+    "level": "A2",
+    "category": "months",
+    "word": "Czerwiec",
+    "phonetic": "[cher-vyets]",
+    "translation": {
+      "EN": "June",
+      "RU": "Июнь"
+    }
+  },
+  {
+    "id": "v4-7",
+    "level": "A2",
+    "category": "months",
+    "word": "Lipiec",
+    "phonetic": "[lee-pyets]",
+    "translation": {
+      "EN": "July",
+      "RU": "Июль"
+    }
+  },
+  {
+    "id": "v4-8",
+    "level": "A2",
+    "category": "months",
+    "word": "Sierpień",
+    "phonetic": "[sher-pyen]",
+    "translation": {
+      "EN": "August",
+      "RU": "Август"
+    }
+  },
+  {
+    "id": "v4-9",
+    "level": "A2",
+    "category": "months",
+    "word": "Wrzesień",
+    "phonetic": "[vzhe-shen]",
+    "translation": {
+      "EN": "September",
+      "RU": "Сентябрь"
+    }
+  },
+  {
+    "id": "v4-10",
+    "level": "A2",
+    "category": "months",
+    "word": "Październik",
+    "phonetic": "[pazh-dzher-neek]",
+    "translation": {
+      "EN": "October",
+      "RU": "Октябрь"
+    }
+  },
+  {
+    "id": "v4-11",
+    "level": "A2",
+    "category": "months",
+    "word": "Listopad",
+    "phonetic": "[lees-to-pad]",
+    "translation": {
+      "EN": "November",
+      "RU": "Ноябрь"
+    }
+  },
+  {
+    "id": "v4-12",
+    "level": "A2",
+    "category": "months",
+    "word": "Grudzień",
+    "phonetic": "[groo-dzhen]",
+    "translation": {
+      "EN": "December",
+      "RU": "Декабрь"
+    }
+  },
+  {
+    "id": "v4-13",
+    "level": "A2",
+    "category": "ordinal numbers",
+    "word": "Pierwszy",
+    "phonetic": "[pyerv-shy]",
+    "translation": {
+      "EN": "First",
+      "RU": "Первый"
+    }
+  },
+  {
+    "id": "v4-14",
+    "level": "A2",
+    "category": "ordinal numbers",
+    "word": "Drugi",
+    "phonetic": "[droo-gee]",
+    "translation": {
+      "EN": "Second",
+      "RU": "Второй"
+    }
+  },
+  {
+    "id": "v4-15",
+    "level": "A2",
+    "category": "ordinal numbers",
+    "word": "Trzeci",
+    "phonetic": "[tshe-chee]",
+    "translation": {
+      "EN": "Third",
+      "RU": "Третий"
+    }
+  },
+  {
+    "id": "v4-16",
+    "level": "A2",
+    "category": "ordinal numbers",
+    "word": "Czwarty",
+    "phonetic": "[chfar-ty]",
+    "translation": {
+      "EN": "Fourth",
+      "RU": "Четвёртый"
+    }
+  },
+  {
+    "id": "v4-17",
+    "level": "A2",
+    "category": "ordinal numbers",
+    "word": "Piąty",
+    "phonetic": "[pyon-ty]",
+    "translation": {
+      "EN": "Fifth",
+      "RU": "Пятый"
+    }
+  },
+  {
+    "id": "v4-18",
+    "level": "B1",
+    "category": "ordinal numbers",
+    "word": "Dziesiąty",
+    "phonetic": "[dzhe-shon-ty]",
+    "translation": {
+      "EN": "Tenth",
+      "RU": "Десятый"
+    }
+  },
+  {
+    "id": "v4-19",
+    "level": "A1",
+    "category": "communication",
+    "word": "Telefon",
+    "phonetic": "[te-le-fon]",
+    "translation": {
+      "EN": "Phone",
+      "RU": "Телефон"
+    }
+  },
+  {
+    "id": "v4-20",
+    "level": "A1",
+    "category": "communication",
+    "word": "Numer",
+    "phonetic": "[noo-mer]",
+    "translation": {
+      "EN": "Number",
+      "RU": "Номер"
+    }
+  },
+  {
+    "id": "v4-21",
+    "level": "A2",
+    "category": "communication",
+    "word": "Wiadomość",
+    "phonetic": "[vya-do-moshch]",
+    "translation": {
+      "EN": "Message",
+      "RU": "Сообщение"
+    }
+  },
+  {
+    "id": "v4-22",
+    "level": "A2",
+    "category": "communication",
+    "word": "Dzwonić",
+    "phonetic": "[dzvo-neech]",
+    "translation": {
+      "EN": "To call (phone)",
+      "RU": "Звонить"
+    }
+  },
+  {
+    "id": "v4-23",
+    "level": "A1",
+    "category": "communication",
+    "word": "Adres",
+    "phonetic": "[ad-res]",
+    "translation": {
+      "EN": "Address",
+      "RU": "Адрес"
+    }
+  },
+  {
+    "id": "v4-24",
+    "level": "A1",
+    "category": "communication",
+    "word": "E-mail",
+    "phonetic": "[ee-mayl]",
+    "translation": {
+      "EN": "Email",
+      "RU": "Электронная почта"
+    }
+  },
+  {
+    "id": "v4-25",
+    "level": "B1",
+    "category": "idioms",
+    "word": "Zielony jak ogórek",
+    "phonetic": "[zhe-lo-ny yak o-goo-rek]",
+    "translation": {
+      "EN": "Idiom: \"green as a cucumber\" — inexperienced/naive",
+      "RU": "Идиома: \"зелёный как огурец\" — неопытный"
+    }
+  },
+  {
+    "id": "v4-26",
+    "level": "B1",
+    "category": "idioms",
+    "word": "Czerwony jak burak",
+    "phonetic": "[cher-vo-ny yak boo-rak]",
+    "translation": {
+      "EN": "Idiom: \"red as a beet\" — blushing/embarrassed",
+      "RU": "Идиома: \"красный как свёкла\" — смущённый"
+    }
+  },
+  {
+    "id": "v4-27",
+    "level": "B1",
+    "category": "idioms",
+    "word": "Czarna owca",
+    "phonetic": "[char-nah of-tsah]",
+    "translation": {
+      "EN": "Idiom: \"black sheep\" of the family/group",
+      "RU": "Идиома: \"чёрная овца\""
+    }
+  },
+  {
+    "id": "v4-28",
+    "level": "B1",
+    "category": "idioms",
+    "word": "Mieć muchy w nosie",
+    "phonetic": "[myech moo-khy v no-sheh]",
+    "translation": {
+      "EN": "Idiom: \"to have flies in one's nose\" — to be in a bad mood",
+      "RU": "Идиома: быть в плохом настроении"
+    }
+  }
+]

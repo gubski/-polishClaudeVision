@@ -1,0 +1,326 @@
+[
+  {
+    "id": "g-skad",
+    "level": "A1",
+    "category": "questions",
+    "title": {
+      "EN": "\"Skąd\" — asking where someone is from",
+      "RU": "\"Skąd\" — вопрос о происхождении"
+    },
+    "theory": {
+      "EN": "Skąd jesteś? (Where are you from?) is answered with z + genitive: Jestem z Polski, Jestem z Ukrainy. Skąd also means 'from where' generally: Skąd wracasz? (Where are you coming back from?).",
+      "RU": "На вопрос Skąd jesteś? (Откуда ты?) отвечают с помощью z + родительный падеж: Jestem z Polski, Jestem z Ukrainy. Skąd также означает 'откуда' в общем смысле: Skąd wracasz? (Откуда ты возвращаешься?)."
+    },
+    "exercises": [
+      {
+        "prompt": "___ jesteś? Jestem z Niemiec. (Where are you from?)",
+        "answer": "Skąd"
+      },
+      {
+        "prompt": "Jestem z (Hiszpania → genitive). (I'm from Spain.)",
+        "answer": "Hiszpanii"
+      },
+      {
+        "prompt": "___ on wraca tak późno? (Where's he coming back from so late?)",
+        "answer": "Skąd"
+      }
+    ]
+  },
+  {
+    "id": "g-mowic-znac-jezyk",
+    "level": "A1",
+    "category": "verbs",
+    "title": {
+      "EN": "\"Mówić po polsku\" vs. \"znać polski\"",
+      "RU": "\"Mówić po polsku\" против \"znać polski\""
+    },
+    "theory": {
+      "EN": "To say you speak a language, use mówić + po + the language adverb: Mówię po polsku (I speak Polish). To say you know a language (as a subject/skill), use znać + the language as a feminine adjective noun: Znam polski, Znam angielski.",
+      "RU": "Чтобы сказать, что вы говорите на языке, используйте mówić + po + наречие языка: Mówię po polsku (я говорю по-польски). Чтобы сказать, что вы знаете язык (как предмет/навык), используйте znać + язык: Znam polski, Znam angielski."
+    },
+    "exercises": [
+      {
+        "prompt": "Ona mówi ___ (English). (She speaks English.)",
+        "answer": "po angielsku"
+      },
+      {
+        "prompt": "Czy ty ___ francuski? (Do you know French? — znać)",
+        "answer": "znasz"
+      },
+      {
+        "prompt": "My mówimy ___ (Polish) w domu. (We speak Polish at home.)",
+        "answer": "po polsku"
+      }
+    ]
+  },
+  {
+    "id": "g-predicate-agreement",
+    "level": "A1",
+    "category": "adjectives",
+    "title": {
+      "EN": "Predicate adjective agreement with the subject",
+      "RU": "Согласование прилагательного-сказуемого с подлежащим"
+    },
+    "theory": {
+      "EN": "An adjective used with być to describe the subject must match its gender and number: On jest wysoki (masc.), Ona jest wysoka (fem.), Oni są wysocy (virile plural), One są wysokie (non-virile plural).",
+      "RU": "Прилагательное, используемое с być для описания подлежащего, должно согласовываться с ним в роде и числе: On jest wysoki (м.р.), Ona jest wysoka (ж.р.), Oni są wysocy (мужско-личн. мн.ч.), One są wysokie (немужско-личн. мн.ч.)."
+    },
+    "exercises": [
+      {
+        "prompt": "Ona jest bardzo (miły → agree with fem.). (She is very kind.)",
+        "answer": "miła"
+      },
+      {
+        "prompt": "Oni są (zmęczony → virile plural). (They — men — are tired.)",
+        "answer": "zmęczeni"
+      },
+      {
+        "prompt": "To dziecko jest (mały → neuter). (This child is small.)",
+        "answer": "małe"
+      }
+    ]
+  },
+  {
+    "id": "g-nominative-plural",
+    "level": "A2",
+    "category": "cases",
+    "title": {
+      "EN": "Nominative plural of nouns and adjectives",
+      "RU": "Именительный падеж множественного числа существительных и прилагательных"
+    },
+    "theory": {
+      "EN": "Masculine inanimate and feminine nouns usually take -y/-i in the plural (stół→stoły, lampa→lampy); neuter nouns take -a (okno→okna). Virile (men-included) nouns/adjectives take special -i/-y endings with consonant softening (student→studenci, dobry→dobrzy).",
+      "RU": "Неодушевлённые существительные мужского рода и существительные женского рода обычно принимают -y/-i во мн. ч. (stół→stoły, lampa→lampy); существительные среднего рода принимают -a (okno→okna). Мужско-личные существительные/прилагательные принимают особые окончания -i/-y со смягчением согласной (student→studenci, dobry→dobrzy)."
+    },
+    "exercises": [
+      {
+        "prompt": "Jeden stół, dwa (stół → plural). (One table, two tables.)",
+        "answer": "stoły"
+      },
+      {
+        "prompt": "Jedno okno, trzy (okno → plural). (One window, three windows.)",
+        "answer": "okna"
+      },
+      {
+        "prompt": "Dobry student, dobrzy (student → plural). (A good student, good students.)",
+        "answer": "studenci"
+      }
+    ]
+  },
+  {
+    "id": "g-prices",
+    "level": "A2",
+    "category": "numbers",
+    "title": {
+      "EN": "Asking and stating prices (złoty/grosz)",
+      "RU": "Вопрос и указание цены (злотые/гроши)"
+    },
+    "theory": {
+      "EN": "Złoty and grosz change form with the number, like other nouns after numbers: 1 złoty/grosz, 2–4 złote/grosze, 5+ złotych/groszy. Ile to kosztuje? (How much does this cost?) — To kosztuje dwadzieścia złotych.",
+      "RU": "Złoty и grosz изменяются по числам, как и другие существительные после числительных: 1 złoty/grosz, 2–4 złote/grosze, 5+ złotych/groszy. Ile to kosztuje? (Сколько это стоит?) — To kosztuje dwadzieścia złotych."
+    },
+    "exercises": [
+      {
+        "prompt": "To kosztuje pięć ___ (złoty → 5+, genitive plural). (This costs five złoty.)",
+        "answer": "złotych"
+      },
+      {
+        "prompt": "Mam dwa ___ (złoty → 2-4 form). (I have two złoty.)",
+        "answer": "złote"
+      },
+      {
+        "prompt": "___ to kosztuje? (How much does this cost?)",
+        "answer": "Ile"
+      }
+    ]
+  },
+  {
+    "id": "g-chodzic-isc",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "\"Chodzić\" vs. \"iść\" (habitual vs. one-way walking)",
+      "RU": "\"Chodzić\" против \"iść\" (привычное против однонаправленного движения)"
+    },
+    "theory": {
+      "EN": "Iść describes a specific walking trip happening now, in one direction. Chodzić describes a habitual or repeated action, or walking in general (with no fixed direction): Codziennie chodzę do pracy (I walk to work every day) vs. Teraz idę do pracy (I'm walking to work right now).",
+      "RU": "Iść описывает конкретную поездку пешком, происходящую сейчас, в одном направлении. Chodzić описывает привычное или повторяющееся действие, либо ходьбу в целом (без фиксированного направления): Codziennie chodzę do pracy (я хожу на работу каждый день) против Teraz idę do pracy (я иду на работу сейчас)."
+    },
+    "exercises": [
+      {
+        "prompt": "Codziennie ___ (chodzić) do szkoły. (I walk to school every day.)",
+        "answer": "chodzę"
+      },
+      {
+        "prompt": "Teraz ___ (iść) do sklepu. (I'm walking to the shop right now.)",
+        "answer": "idę"
+      },
+      {
+        "prompt": "Ona zawsze ___ (chodzić) na spacery wieczorem. (She always goes for walks in the evening.)",
+        "answer": "chodzi"
+      }
+    ]
+  },
+  {
+    "id": "g-jezdzic-jechac",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "\"Jeździć\" vs. \"jechać\" (habitual vs. one-way travel)",
+      "RU": "\"Jeździć\" против \"jechać\" (привычное против однонаправленного движения на транспорте)"
+    },
+    "theory": {
+      "EN": "Jechać is for a specific trip by vehicle happening now, in one direction. Jeździć is for habitual or repeated trips: Co roku jeżdżę do Polski (Every year I go to Poland) vs. Teraz jadę do Polski (I'm going to Poland right now).",
+      "RU": "Jechać используется для конкретной поездки на транспорте, происходящей сейчас, в одном направлении. Jeździć — для привычных или повторяющихся поездок: Co roku jeżdżę do Polski (Каждый год я езжу в Польшу) против Teraz jadę do Polski (сейчас я еду в Польшу)."
+    },
+    "exercises": [
+      {
+        "prompt": "Co lato ___ (jeździć) nad morze. (Every summer I go to the seaside.)",
+        "answer": "jeżdżę"
+      },
+      {
+        "prompt": "Teraz ___ (jechać) do biura. (I'm going to the office right now.)",
+        "answer": "jadę"
+      },
+      {
+        "prompt": "Oni często ___ (jeździć) do babci. (They often go to grandma's.)",
+        "answer": "jeżdżą"
+      }
+    ]
+  },
+  {
+    "id": "g-ordinal-numbers",
+    "level": "A2",
+    "category": "numbers",
+    "title": {
+      "EN": "Ordinal numbers (pierwszy, drugi, trzeci...)",
+      "RU": "Порядковые числительные (pierwszy, drugi, trzeci...)"
+    },
+    "theory": {
+      "EN": "Ordinal numbers behave like adjectives and agree with gender: pierwszy/pierwsza/pierwsze (first), drugi (second), trzeci (third), czwarty (fourth), piąty (fifth). Used for dates and sequence: To jest moja pierwsza lekcja.",
+      "RU": "Порядковые числительные ведут себя как прилагательные и согласуются в роде: pierwszy/pierwsza/pierwsze (первый), drugi (второй), trzeci (третий), czwarty (четвёртый), piąty (пятый). Используются для дат и последовательности: To jest moja pierwsza lekcja."
+    },
+    "exercises": [
+      {
+        "prompt": "To jest moja (pierwszy → agree with fem. lekcja) lekcja polskiego. (This is my first Polish lesson.)",
+        "answer": "pierwsza"
+      },
+      {
+        "prompt": "Mieszkam na (trzeci → masc.) piętrze. (I live on the third floor.)",
+        "answer": "trzecim"
+      },
+      {
+        "prompt": "To jest jego (drugi → neuter) dziecko. (This is his second child.)",
+        "answer": "drugie"
+      }
+    ]
+  },
+  {
+    "id": "g-dative-pronouns",
+    "level": "A2",
+    "category": "pronouns",
+    "title": {
+      "EN": "Dative of personal pronouns",
+      "RU": "Личные местоимения в дательном падеже"
+    },
+    "theory": {
+      "EN": "Dative personal pronouns: mi (to me), ci (to you), mu (to him), jej (to her), nam (to us), wam (to you pl.), im (to them). Used with verbs like dawać, pomagać, podobać się: Podoba mi się ten film.",
+      "RU": "Личные местоимения в дательном падеже: mi (мне), ci (тебе), mu (ему), jej (ей), nam (нам), wam (вам), im (им). Используются с глаголами dawać, pomagać, podobać się: Podoba mi się ten film."
+    },
+    "exercises": [
+      {
+        "prompt": "Daję ___ (jemu → dative) prezent. (I'm giving him a gift.)",
+        "answer": "mu"
+      },
+      {
+        "prompt": "Pomagam ___ (im → to them, dative). (I'm helping them.)",
+        "answer": "im"
+      },
+      {
+        "prompt": "Podoba ___ się ta piosenka? (Do you like this song? — 'ci' for 'ty')",
+        "answer": "ci"
+      }
+    ]
+  },
+  {
+    "id": "g-spotykac-instr",
+    "level": "A2",
+    "category": "verbs",
+    "title": {
+      "EN": "\"Spotykać się z\" + instrumental (meeting with)",
+      "RU": "\"Spotykać się z\" + творительный падеж (встречаться с)"
+    },
+    "theory": {
+      "EN": "Spotykać się z (to meet up with) is always followed by z + the instrumental case: Spotykam się z przyjaciółką (I'm meeting up with my friend), Spotykamy się z klientami (We're meeting with clients).",
+      "RU": "После spotykać się z (встречаться с) всегда следует z + творительный падеж: Spotykam się z przyjaciółką (я встречаюсь с подругой), Spotykamy się z klientami (мы встречаемся с клиентами)."
+    },
+    "exercises": [
+      {
+        "prompt": "Spotykam się z (mój kolega → instrumental). (I'm meeting up with my colleague.)",
+        "answer": "moim kolegą"
+      },
+      {
+        "prompt": "Ona spotyka się z (rodzina → instrumental) w niedzielę. (She meets with family on Sunday.)",
+        "answer": "rodziną"
+      },
+      {
+        "prompt": "Spotykamy się ___ nimi jutro. (We're meeting with them tomorrow.)",
+        "answer": "z"
+      }
+    ]
+  },
+  {
+    "id": "g-od-do-time",
+    "level": "A2",
+    "category": "cases",
+    "title": {
+      "EN": "\"Od...do\" — time ranges",
+      "RU": "\"Od...do\" — временные промежутки"
+    },
+    "theory": {
+      "EN": "Od (from) + genitive ... do (to/until) + genitive expresses a time range: Pracuję od ósmej do szesnastej (I work from eight to four). Both the start and end time go in the genitive case.",
+      "RU": "Od (с) + родительный падеж ... do (до) + родительный падеж выражает временной промежуток: Pracuję od ósmej do szesnastej (я работаю с восьми до шестнадцати). Начальное и конечное время стоят в родительном падеже."
+    },
+    "exercises": [
+      {
+        "prompt": "Sklep jest otwarty ___ dziewiątej ___ osiemnastej. (The shop is open from nine to six.)",
+        "answer": "od ... do"
+      },
+      {
+        "prompt": "Uczę się ___ (poniedziałek → genitive) do piątku. (I study from Monday to Friday.)",
+        "answer": "poniedziałku"
+      },
+      {
+        "prompt": "Pracujemy od (ósma → genitive) rano. (We work from eight in the morning.)",
+        "answer": "ósmej"
+      }
+    ]
+  },
+  {
+    "id": "g-na-co-purpose",
+    "level": "B1",
+    "category": "cases",
+    "title": {
+      "EN": "\"Na co?\" — asking purpose",
+      "RU": "\"Na co?\" — вопрос о цели"
+    },
+    "theory": {
+      "EN": "Na co? (What for?) asks about purpose, answered with na + the accusative: Na co potrzebujesz pieniądze? — Na bilet (What do you need money for? — For a ticket).",
+      "RU": "Na co? (Для чего?) спрашивает о цели, отвечают с помощью na + винительный падеж: Na co potrzebujesz pieniądze? — Na bilet (Для чего тебе нужны деньги? — На билет)."
+    },
+    "exercises": [
+      {
+        "prompt": "___ co idziesz do sklepu? (What are you going to the shop for?)",
+        "answer": "Na"
+      },
+      {
+        "prompt": "Oszczędzam pieniądze na (nowy samochód → accusative). (I'm saving money for a new car.)",
+        "answer": "nowy samochód"
+      },
+      {
+        "prompt": "Na co potrzebujesz (ten dokument → accusative)? (What do you need this document for?)",
+        "answer": "ten dokument"
+      }
+    ]
+  }
+]

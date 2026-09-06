@@ -1,0 +1,6 @@
+{
+  "words": ["words.json", "words3.json", "words4.json"],
+  "grammar": ["grammar.json", "grammar3.json", "grammar4.json"],
+  "textbook": ["textbook.json"],
+  "tips": ["tips.json"]
+}

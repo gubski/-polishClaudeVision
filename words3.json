@@ -1,0 +1,871 @@
+[
+  {
+    "id": "v3-1",
+    "level": "A1",
+    "category": "weather",
+    "word": "Pogoda",
+    "phonetic": "[po-go-dah]",
+    "translation": {
+      "EN": "Weather",
+      "RU": "Погода"
+    }
+  },
+  {
+    "id": "v3-2",
+    "level": "A1",
+    "category": "weather",
+    "word": "Słońce",
+    "phonetic": "[swon-tseh]",
+    "translation": {
+      "EN": "Sun",
+      "RU": "Солнце"
+    }
+  },
+  {
+    "id": "v3-3",
+    "level": "A1",
+    "category": "weather",
+    "word": "Deszcz",
+    "phonetic": "[deshch]",
+    "translation": {
+      "EN": "Rain",
+      "RU": "Дождь"
+    }
+  },
+  {
+    "id": "v3-4",
+    "level": "A1",
+    "category": "weather",
+    "word": "Śnieg",
+    "phonetic": "[shnyeg]",
+    "translation": {
+      "EN": "Snow",
+      "RU": "Снег"
+    }
+  },
+  {
+    "id": "v3-5",
+    "level": "A1",
+    "category": "weather",
+    "word": "Wiatr",
+    "phonetic": "[vyatr]",
+    "translation": {
+      "EN": "Wind",
+      "RU": "Ветер"
+    }
+  },
+  {
+    "id": "v3-6",
+    "level": "A2",
+    "category": "weather",
+    "word": "Chmura",
+    "phonetic": "[khmoo-rah]",
+    "translation": {
+      "EN": "Cloud",
+      "RU": "Облако"
+    }
+  },
+  {
+    "id": "v3-7",
+    "level": "A1",
+    "category": "weather",
+    "word": "Zimno",
+    "phonetic": "[zheem-no]",
+    "translation": {
+      "EN": "Cold (adv.)",
+      "RU": "Холодно"
+    }
+  },
+  {
+    "id": "v3-8",
+    "level": "A1",
+    "category": "weather",
+    "word": "Ciepło",
+    "phonetic": "[chep-wo]",
+    "translation": {
+      "EN": "Warm (adv.)",
+      "RU": "Тепло"
+    }
+  },
+  {
+    "id": "v3-9",
+    "level": "A2",
+    "category": "weather",
+    "word": "Burza",
+    "phonetic": "[boo-zhah]",
+    "translation": {
+      "EN": "Storm",
+      "RU": "Буря"
+    }
+  },
+  {
+    "id": "v3-10",
+    "level": "B1",
+    "category": "weather",
+    "word": "Mgła",
+    "phonetic": "[mgwah]",
+    "translation": {
+      "EN": "Fog",
+      "RU": "Туман"
+    }
+  },
+  {
+    "id": "v3-11",
+    "level": "A1",
+    "category": "clothing",
+    "word": "Koszula",
+    "phonetic": "[ko-shoo-lah]",
+    "translation": {
+      "EN": "Shirt",
+      "RU": "Рубашка"
+    }
+  },
+  {
+    "id": "v3-12",
+    "level": "A1",
+    "category": "clothing",
+    "word": "Spodnie",
+    "phonetic": "[spod-nyeh]",
+    "translation": {
+      "EN": "Trousers/Pants",
+      "RU": "Брюки"
+    }
+  },
+  {
+    "id": "v3-13",
+    "level": "A1",
+    "category": "clothing",
+    "word": "Sukienka",
+    "phonetic": "[soo-kyen-kah]",
+    "translation": {
+      "EN": "Dress",
+      "RU": "Платье"
+    }
+  },
+  {
+    "id": "v3-14",
+    "level": "A1",
+    "category": "clothing",
+    "word": "Buty",
+    "phonetic": "[boo-ty]",
+    "translation": {
+      "EN": "Shoes",
+      "RU": "Обувь"
+    }
+  },
+  {
+    "id": "v3-15",
+    "level": "A1",
+    "category": "clothing",
+    "word": "Kurtka",
+    "phonetic": "[koort-kah]",
+    "translation": {
+      "EN": "Jacket",
+      "RU": "Куртка"
+    }
+  },
+  {
+    "id": "v3-16",
+    "level": "A2",
+    "category": "clothing",
+    "word": "Czapka",
+    "phonetic": "[chahp-kah]",
+    "translation": {
+      "EN": "Hat/Cap",
+      "RU": "Шапка"
+    }
+  },
+  {
+    "id": "v3-17",
+    "level": "A2",
+    "category": "clothing",
+    "word": "Skarpetki",
+    "phonetic": "[skar-pet-kee]",
+    "translation": {
+      "EN": "Socks",
+      "RU": "Носки"
+    }
+  },
+  {
+    "id": "v3-18",
+    "level": "A2",
+    "category": "clothing",
+    "word": "Sweter",
+    "phonetic": "[svet-er]",
+    "translation": {
+      "EN": "Sweater",
+      "RU": "Свитер"
+    }
+  },
+  {
+    "id": "v3-19",
+    "level": "A1",
+    "category": "body",
+    "word": "Głowa",
+    "phonetic": "[gwo-vah]",
+    "translation": {
+      "EN": "Head",
+      "RU": "Голова"
+    }
+  },
+  {
+    "id": "v3-20",
+    "level": "A1",
+    "category": "body",
+    "word": "Ręka",
+    "phonetic": "[ren-kah]",
+    "translation": {
+      "EN": "Hand/Arm",
+      "RU": "Рука"
+    }
+  },
+  {
+    "id": "v3-21",
+    "level": "A1",
+    "category": "body",
+    "word": "Noga",
+    "phonetic": "[no-gah]",
+    "translation": {
+      "EN": "Leg/Foot",
+      "RU": "Нога"
+    }
+  },
+  {
+    "id": "v3-22",
+    "level": "A1",
+    "category": "body",
+    "word": "Oko",
+    "phonetic": "[o-ko]",
+    "translation": {
+      "EN": "Eye",
+      "RU": "Глаз"
+    }
+  },
+  {
+    "id": "v3-23",
+    "level": "A2",
+    "category": "body",
+    "word": "Serce",
+    "phonetic": "[ser-tseh]",
+    "translation": {
+      "EN": "Heart",
+      "RU": "Сердце"
+    }
+  },
+  {
+    "id": "v3-24",
+    "level": "A2",
+    "category": "body",
+    "word": "Twarz",
+    "phonetic": "[tfash]",
+    "translation": {
+      "EN": "Face",
+      "RU": "Лицо"
+    }
+  },
+  {
+    "id": "v3-25",
+    "level": "A2",
+    "category": "body",
+    "word": "Włosy",
+    "phonetic": "[vwo-sy]",
+    "translation": {
+      "EN": "Hair",
+      "RU": "Волосы"
+    }
+  },
+  {
+    "id": "v3-26",
+    "level": "A1",
+    "category": "emotions",
+    "word": "Szczęśliwy",
+    "phonetic": "[shchen-shlee-vy]",
+    "translation": {
+      "EN": "Happy",
+      "RU": "Счастливый"
+    }
+  },
+  {
+    "id": "v3-27",
+    "level": "A1",
+    "category": "emotions",
+    "word": "Smutny",
+    "phonetic": "[smoot-ny]",
+    "translation": {
+      "EN": "Sad",
+      "RU": "Грустный"
+    }
+  },
+  {
+    "id": "v3-28",
+    "level": "A2",
+    "category": "emotions",
+    "word": "Zmęczony",
+    "phonetic": "[zmen-cho-ny]",
+    "translation": {
+      "EN": "Tired",
+      "RU": "Уставший"
+    }
+  },
+  {
+    "id": "v3-29",
+    "level": "A1",
+    "category": "emotions",
+    "word": "Zły",
+    "phonetic": "[zwy]",
+    "translation": {
+      "EN": "Angry / Bad",
+      "RU": "Злой / Плохой"
+    }
+  },
+  {
+    "id": "v3-30",
+    "level": "B1",
+    "category": "emotions",
+    "word": "Zaskoczony",
+    "phonetic": "[za-sko-cho-ny]",
+    "translation": {
+      "EN": "Surprised",
+      "RU": "Удивлённый"
+    }
+  },
+  {
+    "id": "v3-31",
+    "level": "B1",
+    "category": "emotions",
+    "word": "Zestresowany",
+    "phonetic": "[zes-tre-so-va-ny]",
+    "translation": {
+      "EN": "Stressed",
+      "RU": "Напряжённый"
+    }
+  },
+  {
+    "id": "v3-32",
+    "level": "A1",
+    "category": "transport",
+    "word": "Autobus",
+    "phonetic": "[ow-to-boos]",
+    "translation": {
+      "EN": "Bus",
+      "RU": "Автобус"
+    }
+  },
+  {
+    "id": "v3-33",
+    "level": "A1",
+    "category": "transport",
+    "word": "Tramwaj",
+    "phonetic": "[tram-vahy]",
+    "translation": {
+      "EN": "Tram",
+      "RU": "Трамвай"
+    }
+  },
+  {
+    "id": "v3-34",
+    "level": "A1",
+    "category": "transport",
+    "word": "Samolot",
+    "phonetic": "[sa-mo-lot]",
+    "translation": {
+      "EN": "Airplane",
+      "RU": "Самолёт"
+    }
+  },
+  {
+    "id": "v3-35",
+    "level": "A2",
+    "category": "transport",
+    "word": "Metro",
+    "phonetic": "[met-ro]",
+    "translation": {
+      "EN": "Subway/Metro",
+      "RU": "Метро"
+    }
+  },
+  {
+    "id": "v3-36",
+    "level": "A1",
+    "category": "transport",
+    "word": "Rower",
+    "phonetic": "[ro-ver]",
+    "translation": {
+      "EN": "Bicycle",
+      "RU": "Велосипед"
+    }
+  },
+  {
+    "id": "v3-37",
+    "level": "A1",
+    "category": "transport",
+    "word": "Bilet",
+    "phonetic": "[bee-let]",
+    "translation": {
+      "EN": "Ticket",
+      "RU": "Билет"
+    }
+  },
+  {
+    "id": "v3-38",
+    "level": "A1",
+    "category": "home",
+    "word": "Kuchnia",
+    "phonetic": "[kookh-nyah]",
+    "translation": {
+      "EN": "Kitchen",
+      "RU": "Кухня"
+    }
+  },
+  {
+    "id": "v3-39",
+    "level": "A1",
+    "category": "home",
+    "word": "Łazienka",
+    "phonetic": "[wa-zhen-kah]",
+    "translation": {
+      "EN": "Bathroom",
+      "RU": "Ванная"
+    }
+  },
+  {
+    "id": "v3-40",
+    "level": "A2",
+    "category": "home",
+    "word": "Sypialnia",
+    "phonetic": "[sy-pyal-nyah]",
+    "translation": {
+      "EN": "Bedroom",
+      "RU": "Спальня"
+    }
+  },
+  {
+    "id": "v3-41",
+    "level": "A1",
+    "category": "home",
+    "word": "Krzesło",
+    "phonetic": "[kshes-wo]",
+    "translation": {
+      "EN": "Chair",
+      "RU": "Стул"
+    }
+  },
+  {
+    "id": "v3-42",
+    "level": "A1",
+    "category": "home",
+    "word": "Łóżko",
+    "phonetic": "[wooj-ko]",
+    "translation": {
+      "EN": "Bed",
+      "RU": "Кровать"
+    }
+  },
+  {
+    "id": "v3-43",
+    "level": "A1",
+    "category": "home",
+    "word": "Okno",
+    "phonetic": "[ok-no]",
+    "translation": {
+      "EN": "Window",
+      "RU": "Окно"
+    }
+  },
+  {
+    "id": "v3-44",
+    "level": "A1",
+    "category": "home",
+    "word": "Drzwi",
+    "phonetic": "[dzhvee]",
+    "translation": {
+      "EN": "Door",
+      "RU": "Дверь"
+    }
+  },
+  {
+    "id": "v3-45",
+    "level": "A1",
+    "category": "colors",
+    "word": "Czerwony",
+    "phonetic": "[cher-vo-ny]",
+    "translation": {
+      "EN": "Red",
+      "RU": "Красный"
+    }
+  },
+  {
+    "id": "v3-46",
+    "level": "A1",
+    "category": "colors",
+    "word": "Niebieski",
+    "phonetic": "[nye-byes-kee]",
+    "translation": {
+      "EN": "Blue",
+      "RU": "Синий"
+    }
+  },
+  {
+    "id": "v3-47",
+    "level": "A1",
+    "category": "colors",
+    "word": "Zielony",
+    "phonetic": "[zhe-lo-ny]",
+    "translation": {
+      "EN": "Green",
+      "RU": "Зелёный"
+    }
+  },
+  {
+    "id": "v3-48",
+    "level": "A1",
+    "category": "colors",
+    "word": "Żółty",
+    "phonetic": "[zhoow-ty]",
+    "translation": {
+      "EN": "Yellow",
+      "RU": "Жёлтый"
+    }
+  },
+  {
+    "id": "v3-49",
+    "level": "A1",
+    "category": "colors",
+    "word": "Czarny",
+    "phonetic": "[char-ny]",
+    "translation": {
+      "EN": "Black",
+      "RU": "Чёрный"
+    }
+  },
+  {
+    "id": "v3-50",
+    "level": "A1",
+    "category": "colors",
+    "word": "Biały",
+    "phonetic": "[bya-wy]",
+    "translation": {
+      "EN": "White",
+      "RU": "Белый"
+    }
+  },
+  {
+    "id": "v3-51",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Duży",
+    "phonetic": "[doo-zhy]",
+    "translation": {
+      "EN": "Big",
+      "RU": "Большой"
+    }
+  },
+  {
+    "id": "v3-52",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Mały",
+    "phonetic": "[ma-wy]",
+    "translation": {
+      "EN": "Small",
+      "RU": "Маленький"
+    }
+  },
+  {
+    "id": "v3-53",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Nowy",
+    "phonetic": "[no-vy]",
+    "translation": {
+      "EN": "New",
+      "RU": "Новый"
+    }
+  },
+  {
+    "id": "v3-54",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Stary",
+    "phonetic": "[sta-ry]",
+    "translation": {
+      "EN": "Old",
+      "RU": "Старый"
+    }
+  },
+  {
+    "id": "v3-55",
+    "level": "A1",
+    "category": "adjectives",
+    "word": "Ładny",
+    "phonetic": "[wad-ny]",
+    "translation": {
+      "EN": "Pretty/Nice",
+      "RU": "Красивый"
+    }
+  },
+  {
+    "id": "v3-56",
+    "level": "A2",
+    "category": "adjectives",
+    "word": "Trudny",
+    "phonetic": "[trood-ny]",
+    "translation": {
+      "EN": "Difficult",
+      "RU": "Трудный"
+    }
+  },
+  {
+    "id": "v3-57",
+    "level": "A2",
+    "category": "adjectives",
+    "word": "Łatwy",
+    "phonetic": "[wat-vy]",
+    "translation": {
+      "EN": "Easy",
+      "RU": "Лёгкий"
+    }
+  },
+  {
+    "id": "v3-58",
+    "level": "A2",
+    "category": "adjectives",
+    "word": "Szybki",
+    "phonetic": "[shyb-kee]",
+    "translation": {
+      "EN": "Fast",
+      "RU": "Быстрый"
+    }
+  },
+  {
+    "id": "v3-59",
+    "level": "A1",
+    "category": "time expressions",
+    "word": "Dzisiaj",
+    "phonetic": "[dzhee-shyahy]",
+    "translation": {
+      "EN": "Today",
+      "RU": "Сегодня"
+    }
+  },
+  {
+    "id": "v3-60",
+    "level": "A1",
+    "category": "time expressions",
+    "word": "Jutro",
+    "phonetic": "[yoot-ro]",
+    "translation": {
+      "EN": "Tomorrow",
+      "RU": "Завтра"
+    }
+  },
+  {
+    "id": "v3-61",
+    "level": "A1",
+    "category": "time expressions",
+    "word": "Wczoraj",
+    "phonetic": "[fcho-rahy]",
+    "translation": {
+      "EN": "Yesterday",
+      "RU": "Вчера"
+    }
+  },
+  {
+    "id": "v3-62",
+    "level": "A1",
+    "category": "time expressions",
+    "word": "Teraz",
+    "phonetic": "[te-raz]",
+    "translation": {
+      "EN": "Now",
+      "RU": "Сейчас"
+    }
+  },
+  {
+    "id": "v3-63",
+    "level": "A2",
+    "category": "time expressions",
+    "word": "Zawsze",
+    "phonetic": "[zaf-sheh]",
+    "translation": {
+      "EN": "Always",
+      "RU": "Всегда"
+    }
+  },
+  {
+    "id": "v3-64",
+    "level": "A2",
+    "category": "time expressions",
+    "word": "Nigdy",
+    "phonetic": "[nee-gdy]",
+    "translation": {
+      "EN": "Never",
+      "RU": "Никогда"
+    }
+  },
+  {
+    "id": "v3-65",
+    "level": "A2",
+    "category": "time expressions",
+    "word": "Czasami",
+    "phonetic": "[cha-sa-mee]",
+    "translation": {
+      "EN": "Sometimes",
+      "RU": "Иногда"
+    }
+  },
+  {
+    "id": "v3-66",
+    "level": "A1",
+    "category": "prepositions",
+    "word": "Na",
+    "phonetic": "[nah]",
+    "translation": {
+      "EN": "On / For",
+      "RU": "На"
+    }
+  },
+  {
+    "id": "v3-67",
+    "level": "A1",
+    "category": "prepositions",
+    "word": "W",
+    "phonetic": "[v]",
+    "translation": {
+      "EN": "In",
+      "RU": "В"
+    }
+  },
+  {
+    "id": "v3-68",
+    "level": "A1",
+    "category": "prepositions",
+    "word": "Do",
+    "phonetic": "[do]",
+    "translation": {
+      "EN": "To/Towards",
+      "RU": "К / До"
+    }
+  },
+  {
+    "id": "v3-69",
+    "level": "A1",
+    "category": "prepositions",
+    "word": "Z",
+    "phonetic": "[z]",
+    "translation": {
+      "EN": "With / From",
+      "RU": "С / Из"
+    }
+  },
+  {
+    "id": "v3-70",
+    "level": "A2",
+    "category": "prepositions",
+    "word": "Bez",
+    "phonetic": "[bez]",
+    "translation": {
+      "EN": "Without",
+      "RU": "Без"
+    }
+  },
+  {
+    "id": "v3-71",
+    "level": "A2",
+    "category": "prepositions",
+    "word": "Pod",
+    "phonetic": "[pod]",
+    "translation": {
+      "EN": "Under",
+      "RU": "Под"
+    }
+  },
+  {
+    "id": "v3-72",
+    "level": "A2",
+    "category": "prepositions",
+    "word": "Nad",
+    "phonetic": "[nad]",
+    "translation": {
+      "EN": "Above/Over",
+      "RU": "Над"
+    }
+  },
+  {
+    "id": "v3-73",
+    "level": "A1",
+    "category": "questions",
+    "word": "Kto",
+    "phonetic": "[kto]",
+    "translation": {
+      "EN": "Who",
+      "RU": "Кто"
+    }
+  },
+  {
+    "id": "v3-74",
+    "level": "A1",
+    "category": "questions",
+    "word": "Co",
+    "phonetic": "[tso]",
+    "translation": {
+      "EN": "What",
+      "RU": "Что"
+    }
+  },
+  {
+    "id": "v3-75",
+    "level": "A1",
+    "category": "questions",
+    "word": "Gdzie",
+    "phonetic": "[gdzheh]",
+    "translation": {
+      "EN": "Where",
+      "RU": "Где"
+    }
+  },
+  {
+    "id": "v3-76",
+    "level": "A1",
+    "category": "questions",
+    "word": "Kiedy",
+    "phonetic": "[kye-dy]",
+    "translation": {
+      "EN": "When",
+      "RU": "Когда"
+    }
+  },
+  {
+    "id": "v3-77",
+    "level": "A2",
+    "category": "questions",
+    "word": "Dlaczego",
+    "phonetic": "[dla-che-go]",
+    "translation": {
+      "EN": "Why",
+      "RU": "Почему"
+    }
+  },
+  {
+    "id": "v3-78",
+    "level": "A1",
+    "category": "questions",
+    "word": "Jak",
+    "phonetic": "[yak]",
+    "translation": {
+      "EN": "How",
+      "RU": "Как"
+    }
+  },
+  {
+    "id": "v3-79",
+    "level": "A2",
+    "category": "questions",
+    "word": "Ile",
+    "phonetic": "[ee-leh]",
+    "translation": {
+      "EN": "How much/many",
+      "RU": "Сколько"
+    }
+  }
+]
