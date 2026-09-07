@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polska Vault — Grammar, Vocabulary, Textbook &amp; Tutor Tips</title>
+<!--
+DATA SCHEMA (kept in sync with words.json / grammar.json / textbook.json / tips.json
+in THIS SAME GitHub repo — "Sync from GitHub" reads the repo name from the current
+page URL, so it always points at wherever this file is actually hosted).
+
+words.json    -> [{ id, level, category, word, phonetic, translation:{EN,RU} }]
+grammar.json  -> [{ id, level, category, title:{EN,RU}, theory:{EN,RU}, prompt, answer }]
+textbook.json -> [{ id, level, category, title:{EN,RU}, description:{EN,RU}, fileUrl }]
+  fileUrl accepts:
+    - a Google Drive share link (any file — PDF, Word .docx, Excel .xlsx, Google Docs/Sheets/Slides)
+      -> automatically converted to Drive's inline preview embed
+    - a Dropbox share link -> converted to a direct link
+    - a relative path in your repo (e.g. "textbooks/unit1.pdf") or any full https:// URL
+tips.json     -> [{ id, level, category, title:{EN,RU}, body:{EN,RU}, audioUrl }]
+  audioUrl accepts a direct link, or a Google Drive / Dropbox share link
+  (auto-converted to a playable link where possible).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- React & ReactDOM CDN -->
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<!-- Babel for JSX compilation in-browser -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+:root{
+  --ink:#241C15; --muted:#6E5F49;
+  --vault:#15110D; --vault-2:#1E1712;
+  --paper:#EAD9AA; --paper-2:#F2E7C4; --paper-3:#DFC98C;
+  --line:#C9AF74;
+  --crimson:#A32638; --crimson-dark:#7E1D2B;
+  --brass:#93752F; --brass-dark:#725A22;
+  --forest:#3F6B4A;
+  --indigo:#4A4066;
+  --rust:#8B3A2C;
+  --font-display:'Fraunces', serif;
+  --font-body:'IBM Plex Sans', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}
+*{ box-sizing:border-box; }
+body{ margin:0; background:radial-gradient(ellipse at 50% -10%, #2b2319 0%, var(--vault) 55%); font-family:var(--font-body); color:var(--ink); }
+.vault-shell{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:26px 14px 60px; }
+.dossier-wrap{ width:100%; max-width:720px; }
+.tab-row{ display:flex; gap:4px; padding-left:16px; overflow-x:auto; scrollbar-width:none; }
+.tab-row::-webkit-scrollbar{ display:none; }
+.tab{ font-weight:600; font-size:12.5px; padding:9px 14px 8px; border-radius:10px 10px 0 0; border:1px solid var(--line); border-bottom:none; background:var(--vault-2); color:var(--paper-3); cursor:pointer; opacity:.68; transform:translateY(4px); transition:transform .15s ease, opacity .15s ease; display:flex; align-items:center; gap:5px; user-select:none; white-space:nowrap; flex-shrink:0; }
+.tab:hover{ opacity:.9; }
+.tab.active{ background:var(--paper); color:var(--ink); opacity:1; transform:translateY(0); }
+.card{ background:var(--paper); border:1px solid var(--line); border-radius:0 12px 12px 12px; overflow:hidden; display:flex; flex-direction:column; min-height:540px; box-shadow:0 24px 50px rgba(0,0,0,.45); }
+.card.no-tabs{ border-radius:12px; }
+.header{ background:var(--accent, var(--crimson)); color:#fbf3df; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; }
+.logo{ display:flex; align-items:center; gap:8px; cursor:pointer; font-family:var(--font-display); font-weight:700; font-size:15px; background:none; border:none; color:inherit; padding:0; }
+.chip-group{ display:flex; gap:6px; }
+.chip-select{ background:rgba(0,0,0,.2); color:#fff; border:1px solid rgba(255,255,255,.32); padding:4px 8px; border-radius:6px; font-size:11px; font-weight:600; font-family:var(--font-body); }
+.content-pad{ flex:1; padding:20px; display:flex; flex-direction:column; animation:fadeIn .25s ease; }
+.flex-between{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:8px; }
+.flex-gap{ display:flex; gap:8px; margin-top:4px; }
+.section-title{ font-family:var(--font-display); font-size:16px; font-weight:700; margin:0; }
+.muted-sm{ color:var(--muted); font-size:11.5px; font-weight:500; }
+.filter-row{ display:flex; gap:8px; margin-bottom:10px; }
+.select-narrow{ max-width:150px; flex-shrink:0; }
+.list-scroll{ display:flex; flex-direction:column; gap:7px; overflow-y:auto; max-height:320px; padding-right:2px; }
+.list-item{ display:flex; justify-content:space-between; align-items:center; padding:11px 13px; background:var(--paper-2); border:1px solid var(--paper-3); border-left:4px solid var(--accent, var(--crimson)); border-radius:5px; cursor:pointer; transition:background .12s ease, transform .12s ease; }
+.list-item:hover{ background:#fdf6e3; transform:translateX(2px); }
+.list-item strong{ display:block; font-size:13.5px; }
+.list-item .sub{ font-size:11px; color:var(--muted); margin-top:1px; }
+.chev{ color:var(--muted); font-size:16px; }
+.empty-note{ color:var(--muted); font-size:12.5px; font-style:italic; padding:14px 4px; }
+.modal{ background:var(--paper-2); border:1px solid var(--line); padding:13px; border-radius:8px; animation:fadeIn .2s ease; }
+.modal-hint{ font-size:11px; color:var(--crimson-dark); font-weight:600; margin:0 0 8px; }
+.field{ width:100%; padding:9px 11px; border:1px solid var(--line); border-radius:6px; background:#fffaf0; font-family:var(--font-body); font-size:12.5px; color:var(--ink); outline:none; }
+.field:focus{ border-color:var(--accent, var(--crimson)); box-shadow:0 0 0 3px rgba(163,38,56,.15); }
+.textarea{ font-family:var(--font-mono); resize:vertical; margin-bottom:8px; }
+.btn{ font-family:var(--font-body); font-weight:600; font-size:12.5px; padding:9px 16px; border-radius:6px; border:1px solid transparent; cursor:pointer; }
+.btn-primary{ background:var(--accent, var(--crimson)); color:#fff; }
+.btn-primary:hover{ filter:brightness(1.08); }
+.btn-primary.full{ width:100%; margin-top:10px; }
+.btn-ghost{ background:transparent; border:1px solid var(--line); color:var(--ink); text-decoration:none; display:inline-block; }
+.btn-dark{ background:var(--vault-2); color:var(--paper-3); }
+.link-back{ background:none; border:none; color:var(--muted); font-weight:600; font-size:12px; cursor:pointer; margin-bottom:10px; padding:0; text-align:left; }
+.detail-wrap{ flex:1; display:flex; flex-direction:column; animation:fadeIn .25s ease; }
+.status-bar{ background:var(--paper-2); padding:9px 16px; border-bottom:1px solid var(--paper-3); display:flex; justify-content:space-between; align-items:center; }
+.detail-center{ flex:1; display:flex; align-items:center; justify-content:center; padding:22px; }
+.detail-box{ max-width:380px; width:100%; }
+.detail-box.narrow{ max-width:320px; }
+.detail-title{ font-family:var(--font-display); font-size:17px; font-weight:700; margin:0 0 10px; }
+.detail-theory{ font-size:13px; line-height:1.55; color:#3a2f22; background:var(--paper-2); padding:13px; border-radius:8px; margin:0 0 14px; }
+.prompt{ font-weight:600; font-size:13.5px; margin-bottom:10px; }
+.center-text{ text-align:center; font-weight:600; }
+.feedback{ font-size:12.5px; font-weight:600; margin-top:8px; }
+.feedback.ok{ color:var(--forest); }
+.feedback.bad{ color:var(--rust); }
+.flash-card{ background:var(--paper-2); border:1px solid var(--paper-3); padding:24px; border-radius:12px; width:260px; text-align:center; margin:0 auto 12px; }
+.flash-word{ font-family:var(--font-display); font-size:27px; color:var(--crimson); margin:0 0 8px; }
+.flash-translation{ font-size:14px; font-weight:600; color:#3a2f22; margin-top:10px; }
+.tag{ display:inline-block; font-family:var(--font-mono); font-size:10.5px; font-weight:600; padding:2px 8px; border-radius:4px; border:1px solid var(--line); color:var(--muted); }
+.tag.mono{ background:#fdf6e3; }
+.detail-stack{ padding:20px; overflow-y:auto; }
+.detail-desc{ font-size:12.5px; color:var(--muted); margin:0 0 14px; }
+.viewer-frame-wrap{ border:1px solid var(--line); border-radius:8px; overflow:hidden; margin-bottom:10px; background:#fff; }
+.viewer-frame{ width:100%; height:420px; border:none; display:block; }
+.audio-player{ width:100%; margin-top:6px; }
+.hero{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:34px 24px; text-align:center; animation:fadeIn .3s ease; }
+.hero-stamp{ border:3px solid var(--crimson); color:var(--crimson-dark); width:80px; height:80px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; transform:rotate(-9deg); font-family:var(--font-mono); font-weight:700; font-size:18px; margin-bottom:16px; }
+.hero-stamp-sub{ font-size:8px; letter-spacing:1px; }
+.hero-title{ font-family:var(--font-display); font-size:27px; font-weight:800; margin:0 0 10px; }
+.hero-sub{ color:var(--muted); font-size:13px; max-width:380px; margin:0 0 22px; line-height:1.5; }
+.hero-actions{ display:flex; flex-direction:column; gap:9px; width:100%; max-width:230px; }
+.menu-title{ font-family:var(--font-display); font-size:18px; font-weight:700; margin:0; }
+.menu-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px; }
+.menu-card{ padding:16px 13px; border:1px solid var(--line); border-radius:10px; cursor:pointer; background:var(--paper-2); display:flex; flex-direction:column; gap:5px; border-top:4px solid var(--accent); transition:transform .12s ease; }
+.menu-card:hover{ transform:translateY(-2px); }
+.menu-card .icon{ font-size:19px; }
+.menu-card .title{ font-family:var(--font-display); font-weight:700; font-size:14px; }
+.menu-card .count{ font-family:var(--font-mono); font-size:10.5px; color:var(--muted); }
+.toast{ position:fixed; left:50%; bottom:22px; transform:translateX(-50%); background:var(--ink); color:var(--paper); padding:10px 18px; border-radius:8px; font-size:12.5px; box-shadow:0 10px 26px rgba(0,0,0,.4); max-width:90vw; z-index:50; animation:fadeIn .2s ease; }
+.toast.error{ background:var(--rust); color:#fff; }
+@keyframes fadeIn{ from{ opacity:0; transform:translateY(4px);} to{ opacity:1; transform:translateY(0);} }
+@media (prefers-reduced-motion:reduce){ *{ animation:none!important; transition:none!important; } }
+@media (max-width:480px){
+  .tab{ font-size:10.5px; padding:7px 9px; }
+  .menu-grid{ grid-template-columns:1fr; }
+  .card{ min-height:560px; }
+  .header{ flex-wrap:wrap; gap:8px; }
+}
+button:focus-visible, .field:focus-visible, .list-item:focus-visible, .menu-card:focus-visible, .tab:focus-visible{ outline:2px solid var(--brass); outline-offset:2px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useMemo } = React;
+
+const MODULES = [
+  { key: 'grammar', label: 'Grammar', icon: '📖', accent: '#A32638' },
+  { key: 'vocab', label: 'Vocabulary', icon: '📚', accent: '#93752F' },
+  { key: 'textbook', label: 'Textbook', icon: '📄', accent: '#3F6B4A' },
+  { key: 'tips', label: 'Tutor Tips', icon: '💡', accent: '#4A4066' },
+];
+
+const INITIAL_CURRICULUM = {
+  grammar: [
+    {
+      id: 'case-1', level: 'A1', category: 'cases',
+      title: { EN: '1. Nominative (Mianownik)', RU: '1. Именительный (Mianownik)' },
+      theory: {
+        EN: 'The dictionary form used for the subject of the sentence or after "to jest" (this is).',
+        RU: 'Базовая форма слова для подлежащего или после конструкции "to jest".'
+      },
+      prompt: 'To jest (nowy stół) ➔ ?', answer: 'nowy stół'
+    }
+  ],
+  vocab: [
+    { id: 'v1', level: 'A1', category: 'nouns', word: 'Dom', phonetic: '[dom]', translation: { EN: 'House / Home', RU: 'Дом' } }
+  ],
+  textbook: [
+    {
+      id: 'tb-seed', level: 'A1', category: 'coursebook',
+      title: { EN: 'Sample chapter — replace me', RU: 'Пример главы — замените' },
+      description: { EN: 'Paste a Google Drive share link through Batch Import, or commit a textbook.json to your repo and sync.', RU: 'Добавьте главы через импорт или textbook.json в репозитории.' },
+      fileUrl: ''
+    }
+  ],
+  tips: [
+    {
+      id: 'tip-seed', level: 'A1', category: 'pronunciation',
+      title: { EN: 'Sample tip — replace me', RU: 'Пример совета — замените' },
+      body: { EN: 'Add real tips via Batch Import, or commit a tips.json to your repo. Paste a Google Drive or Dropbox link to attach audio.', RU: 'Добавьте советы через импорт или tips.json.' },
+      audioUrl: ''
+    }
+  ],
+};
+
+// Best-effort conversion of common share links into directly-playable audio URLs.
+function normalizeAudioUrl(raw) {
+  if (!raw) return '';
+  let u = raw.trim();
+  if (!u) return '';
+  if (u.includes('drive.google.com')) {
+    const m = u.match(/\/d\/([a-zA-Z0-9_-]+)/) || u.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m) return `https://drive.google.com/uc?export=download&id=${m[1]}`;
+  }
+  if (u.includes('dropbox.com')) {
+    u = u.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
+    u = u.replace(/([?&])dl=0/, '').replace(/([?&])dl=1/, '');
+    return u;
+  }
+  return u;
+}
+
+// Best-effort conversion of a Google Drive / Dropbox / Google Docs share link into an
+// embeddable *viewer* URL. Drive's own "/preview" endpoint renders PDFs, Word docs,
+// Excel sheets, PowerPoint, and native Google Docs/Sheets/Slides inline, as long as the
+// file (or its containing folder) is shared as "Anyone with the link can view".
+function normalizeViewerUrl(raw) {
+  if (!raw) return '';
+  let u = raw.trim();
+  if (!u) return '';
+  if (u.includes('drive.google.com')) {
+    const m = u.match(/\/d\/([a-zA-Z0-9_-]+)/) || u.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m) return `https://drive.google.com/file/d/${m[1]}/preview`;
+    return u;
+  }
+  if (u.includes('docs.google.com')) {
+    // Google Docs / Sheets / Slides edit links -> preview links
+    return u.replace(/\/edit.*$/, '/preview').replace(/\?usp=.*$/, '/preview');
+  }
+  if (u.includes('dropbox.com')) {
+    u = u.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
+    u = u.replace(/([?&])dl=0/, '').replace(/([?&])dl=1/, '');
+    return u;
+  }
+  return u; // relative repo path or any other direct URL (e.g. a PDF committed to the repo)
+}
+
+const t = (obj, lang) => (obj && (obj[lang] || obj.EN)) || '';
+
+function getItemLabel(moduleKey, item, baseLang) {
+  if (moduleKey === 'vocab') return item.word || '';
+  return t(item.title, baseLang);
+}
+function getItemSub(moduleKey, item, baseLang) {
+  if (moduleKey === 'vocab') return t(item.translation, baseLang);
+  if (moduleKey === 'textbook') return t(item.description, baseLang);
+  return item.category || '';
+}
+
+const FORMAT_HINTS = {
+  vocab: 'word, translation, [phonetic] — one per line',
+  grammar: 'title | theory | prompt | answer — one per line',
+  textbook: 'title | description | Google Drive link (or PDF path/URL) — one per line',
+  tips: 'title | tip text | audio URL (optional) | category (optional)',
+};
+const FORMAT_EXAMPLES = {
+  vocab: 'dom, house, [dom]\nkot, cat, [kot]',
+  grammar: 'Locative (Miejscownik) | Used after "w", "na", "o" for location or topic | Rozmawiamy o (nowy stół) ➔ ? | nowym stole',
+  textbook: 'Unit 1 — Greetings | Basic greetings and everyday introductions | https://drive.google.com/file/d/XXXXXXXX/view?usp=sharing',
+  tips: "Nasal vowels ą, ę | Don't fully pronounce the n or m — nasalize the vowel instead | https://www.dropbox.com/s/example/nasal.mp3?dl=0 | pronunciation",
+};
+
+function keyActivate(fn) {
+  return (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } };
+}
+
+function UniversalPolishEngine() {
+  const [step, setStep] = useState('welcome');
+  const [level, setLevel] = useState('A1');
+  const [baseLang, setBaseLang] = useState('EN');
+  const [activeModule, setActiveModule] = useState('grammar');
+  const [currentItem, setCurrentItem] = useState(null);
+  const [grammarPhase, setGrammarPhase] = useState('theory');
+  const [customVocab, setCustomVocab] = useState(() => JSON.parse(localStorage.getItem('uni_vocab_v5') || '[]'));
+  const [customGrammar, setCustomGrammar] = useState(() => JSON.parse(localStorage.getItem('uni_grammar_v5') || '[]'));
+  const [customTextbook, setCustomTextbook] = useState(() => JSON.parse(localStorage.getItem('uni_textbook_v1') || '[]'));
+  const [customTips, setCustomTips] = useState(() => JSON.parse(localStorage.getItem('uni_tips_v1') || '[]'));
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importText, setImportText] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [userInput, setUserInput] = useState('');
+  const [feedback, setFeedback] = useState(null);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem('uni_vocab_v5', JSON.stringify(customVocab));
+    localStorage.setItem('uni_grammar_v5', JSON.stringify(customGrammar));
+    localStorage.setItem('uni_textbook_v1', JSON.stringify(customTextbook));
+    localStorage.setItem('uni_tips_v1', JSON.stringify(customTips));
+  }, [customVocab, customGrammar, customTextbook, customTips]);
+
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => setToast(null), 4200);
+    return () => clearTimeout(timer);
+  }, [toast]);
+
+  const showToast = (message, tone) => setToast({ message, tone: tone || 'success' });
+
+  const masterGrammar = useMemo(() => [...INITIAL_CURRICULUM.grammar, ...customGrammar], [customGrammar]);
+  const masterVocab = useMemo(() => [...INITIAL_CURRICULUM.vocab, ...customVocab], [customVocab]);
+  const masterTextbook = useMemo(() => [...INITIAL_CURRICULUM.textbook, ...customTextbook], [customTextbook]);
+  const masterTips = useMemo(() => [...INITIAL_CURRICULUM.tips, ...customTips], [customTips]);
+  const DATASETS = { grammar: masterGrammar, vocab: masterVocab, textbook: masterTextbook, tips: masterTips };
+  const activeData = DATASETS[activeModule] || [];
+
+  const categories = useMemo(() => {
+    const set = new Set(activeData.map(i => i.category).filter(Boolean));
+    return ['all', ...Array.from(set)];
+  }, [activeData]);
+
+  const filteredData = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    return activeData.filter(item => {
+      if (item.level !== level) return false;
+      if (categoryFilter !== 'all' && item.category !== categoryFilter) return false;
+      if (!q) return true;
+      const label = getItemLabel(activeModule, item, baseLang).toLowerCase();
+      const sub = getItemSub(activeModule, item, baseLang).toLowerCase();
+      return label.includes(q) || sub.includes(q);
+    });
+  }, [activeData, searchQuery, categoryFilter, level, baseLang, activeModule]);
+
+  // Reads the repo owner/name straight from the page's own URL
+  // (https://<user>.github.io/<repo>/...), so "Sync from GitHub" always
+  // targets whichever repo this file is actually deployed from — no more
+  // hardcoded repo name drifting out of sync after a rename or a fork.
+  const handleCloudSyncFromGitHub = async () => {
+    setIsSyncing(true);
+    const host = window.location.hostname; // e.g. gubski.github.io
+    const repoUser = host.split('.')[0] || 'gubski';
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    const repoName = pathParts[0] || '-polishClaudeVision';
+
+    const targets = [
+      { file: 'words.json', label: 'words', apply: setCustomVocab },
+      { file: 'grammar.json', label: 'grammar rules', apply: setCustomGrammar },
+      { file: 'textbook.json', label: 'textbook chapters', apply: setCustomTextbook },
+      { file: 'tips.json', label: 'tutor tips', apply: setCustomTips },
+    ];
+
+    const results = await Promise.allSettled(targets.map(tgt =>
+      fetch(`https://raw.githubusercontent.com/${repoUser}/${repoName}/main/${tgt.file}?t=${Date.now()}`).then(res => {
+        if (!res.ok) throw new Error('missing');
+        return res.json();
+      })
+    ));
+
+    const okMsgs = [];
+    const missing = [];
+    results.forEach((res, i) => {
+      const tgt = targets[i];
+      if (res.status === 'fulfilled' && Array.isArray(res.value)) {
+        tgt.apply(res.value);
+        okMsgs.push(`${res.value.length} ${tgt.label}`);
+      } else {
+        missing.push(tgt.file);
+      }
+    });
+
+    setIsSyncing(false);
+    if (okMsgs.length) {
+      let msg = `Synced ${okMsgs.join(', ')} from ${repoUser}/${repoName}.`;
+      if (missing.length) msg += ` (${missing.join(', ')} not in repo yet)`;
+      showToast(msg, 'success');
+    } else {
+      showToast(`Cloud sync failed for ${repoUser}/${repoName} — make sure the repository is public.`, 'error');
+    }
+  };
+
+  const finishImport = (count, label) => {
+    if (count > 0) {
+      setImportText('');
+      setShowImportModal(false);
+      showToast(`Saved ${count} ${label}.`, 'success');
+    } else {
+      showToast('No valid lines found — check the format.', 'error');
+    }
+  };
+
+  const handleImport = () => {
+    if (!importText.trim()) return;
+    const lines = importText.split('\n').map(l => l.trim()).filter(Boolean);
+    if (activeModule === 'vocab') {
+      const items = lines.map((line, idx) => {
+        const [w, tr, p] = line.split(',').map(s => (s || '').trim());
+        return w && tr ? { id: `v-imp-${Date.now()}-${idx}`, level, category: 'nouns', word: w, phonetic: p || '[import]', translation: { EN: tr, RU: tr } } : null;
+      }).filter(Boolean);
+      if (items.length) setCustomVocab(prev => [...items, ...prev]);
+      finishImport(items.length, 'words');
+    } else if (activeModule === 'grammar') {
+      const items = lines.map((line, idx) => {
+        const [title, theory, prompt, answer] = line.split('|').map(s => (s || '').trim());
+        return title && answer ? { id: `g-imp-${Date.now()}-${idx}`, level, category: 'custom', title: { EN: title, RU: title }, theory: { EN: theory || '', RU: theory || '' }, prompt: prompt || '', answer } : null;
+      }).filter(Boolean);
+      if (items.length) setCustomGrammar(prev => [...items, ...prev]);
+      finishImport(items.length, 'grammar rules');
+    } else if (activeModule === 'textbook') {
+      const items = lines.map((line, idx) => {
+        const [title, description, fileUrl, category] = line.split('|').map(s => (s || '').trim());
+        return title && fileUrl ? { id: `tb-imp-${Date.now()}-${idx}`, level, category: category || 'chapters', title: { EN: title, RU: title }, description: { EN: description || '', RU: description || '' }, fileUrl } : null;
+      }).filter(Boolean);
+      if (items.length) setCustomTextbook(prev => [...items, ...prev]);
+      finishImport(items.length, 'textbook chapters');
+    } else if (activeModule === 'tips') {
+      const items = lines.map((line, idx) => {
+        const [title, body, audioUrl, category] = line.split('|').map(s => (s || '').trim());
+        return title && body ? { id: `tip-imp-${Date.now()}-${idx}`, level, category: category || 'general', title: { EN: title, RU: title }, body: { EN: body, RU: body }, audioUrl: audioUrl || '' } : null;
+      }).filter(Boolean);
+      if (items.length) setCustomTips(prev => [...items, ...prev]);
+      finishImport(items.length, 'tips');
+    }
+  };
+
+  const handleCheck = () => {
+    if (!currentItem) return;
+    if (userInput.toLowerCase().trim() === (currentItem.answer || '').toLowerCase()) {
+      setFeedback({ correct: true, msg: 'Correct! Świetnie! 🎉' });
+    } else {
+      setFeedback({ correct: false, msg: `Try again — answer: ${currentItem.answer}` });
+    }
+  };
+
+  const openModule = (key) => {
+    setActiveModule(key);
+    setSearchQuery('');
+    setCategoryFilter('all');
+    setShowImportModal(false);
+    setImportText('');
+    setStep('hub');
+  };
+
+  const openItem = (item) => {
+    setCurrentItem(item);
+    if (activeModule === 'grammar') { setGrammarPhase('theory'); setFeedback(null); setUserInput(''); }
+    setStep('detail');
+  };
+
+  const currentModuleCfg = MODULES.find(m => m.key === activeModule) || MODULES[0];
+  const headerAccent = (step === 'hub' || step === 'detail') ? currentModuleCfg.accent : '#A32638';
+
+  const renderWelcome = () => (
+    <div className="hero">
+      <div className="hero-stamp">{level}<span className="hero-stamp-sub">LEVEL</span></div>
+      <h1 className="hero-title">The Polish Vault</h1>
+      <p className="hero-sub">Four dossiers — grammar, vocabulary, textbook pages and tutor notes — synced straight from your GitHub repository.</p>
+      <div className="hero-actions">
+        <button className="btn btn-primary" onClick={() => setStep('menu')}>Open the vault</button>
+        <button className="btn btn-dark" disabled={isSyncing} onClick={handleCloudSyncFromGitHub}>{isSyncing ? 'Syncing…' : '☁️ Sync from GitHub'}</button>
+      </div>
+    </div>
+  );
+
+  const renderMenu = () => (
+    <div className="content-pad">
+      <button className="link-back" onClick={() => setStep('welcome')}>‹ Back</button>
+      <div className="flex-between">
+        <h2 className="menu-title">Select a dossier</h2>
+      </div>
+      <div className="menu-grid">
+        {MODULES.map(m => (
+          <div key={m.key} className="menu-card" style={{ '--accent': m.accent }}
+            role="button" tabIndex={0} onClick={() => openModule(m.key)} onKeyDown={keyActivate(() => openModule(m.key))}>
+            <span className="icon">{m.icon}</span>
+            <span className="title">{m.label}</span>
+            <span className="count">{DATASETS[m.key].filter(i => i.level === level).length} at {level}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderImportModal = () => (
+    <div className="modal">
+      <p className="modal-hint">Format: {FORMAT_HINTS[activeModule]} — saved under level {level}.</p>
+      <textarea className="field textarea" rows="5" value={importText} onChange={e => setImportText(e.target.value)} placeholder={FORMAT_EXAMPLES[activeModule]} />
+      <div className="flex-gap">
+        <button className="btn btn-primary" onClick={handleImport}>Save {currentModuleCfg.label}</button>
+        <button className="btn btn-ghost" onClick={() => { setShowImportModal(false); setImportText(''); }}>Cancel</button>
+      </div>
+    </div>
+  );
+
+  const renderHub = () => (
+    <div className="content-pad">
+      <div className="flex-between">
+        <h3 className="section-title">{currentModuleCfg.label} <span className="muted-sm">({filteredData.length})</span></h3>
+        <button className="btn btn-dark" onClick={() => setShowImportModal(s => !s)}>+ Batch Import</button>
+      </div>
+      {showImportModal ? renderImportModal() : (
+        <>
+          <div className="filter-row">
+            <input className="field" placeholder={`Search ${currentModuleCfg.label.toLowerCase()}...`} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+            {categories.length > 1 && (
+              <select className="field select-narrow" value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)}>
+                {categories.map(c => <option key={c} value={c}>{c === 'all' ? 'All categories' : c}</option>)}
+              </select>
+            )}
+          </div>
+          <div className="list-scroll">
+            {filteredData.length === 0 && <p className="empty-note">Nothing here yet for {level}. Try Batch Import or sync from GitHub.</p>}
+            {filteredData.map(item => (
+              <div key={item.id} className="list-item" role="button" tabIndex={0}
+                onClick={() => openItem(item)} onKeyDown={keyActivate(() => openItem(item))}>
+                <div>
+                  <strong>{getItemLabel(activeModule, item, baseLang)}</strong>
+                  <div className="sub">{getItemSub(activeModule, item, baseLang)}</div>
+                </div>
+                <span className="chev">›</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+
+  const renderGrammarDetail = (item) => (
+    <div className="detail-center">
+      {grammarPhase === 'theory' ? (
+        <div className="detail-box">
+          <h3 className="detail-title">{t(item.title, baseLang)}</h3>
+          <p className="detail-theory">{t(item.theory, baseLang)}</p>
+          <button className="btn btn-primary" onClick={() => setGrammarPhase('practice')}>Practice exercise</button>
+        </div>
+      ) : (
+        <div className="detail-box narrow">
+          <p className="prompt">{item.prompt}</p>
+          <input className="field center-text" value={userInput} onChange={e => setUserInput(e.target.value)} placeholder="Type your answer..." onKeyDown={e => e.key === 'Enter' && handleCheck()} />
+          {feedback && <p className={`feedback ${feedback.correct ? 'ok' : 'bad'}`}>{feedback.msg}</p>}
+          <button className="btn btn-primary full" onClick={handleCheck}>Check answer</button>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderVocabDetail = (item) => (
+    <div className="detail-center">
+      <div className="flash-card">
+        <h2 className="flash-word">{item.word}</h2>
+        <span className="tag mono">{item.phonetic}</span>
+        <p className="flash-translation">{t(item.translation, baseLang)}</p>
+      </div>
+    </div>
+  );
+
+  // Textbook = universal file viewer: paste any Google Drive (or Dropbox) share
+  // link into fileUrl and it renders inline — PDF, Word, Excel, PowerPoint, or a
+  // native Google Doc/Sheet/Slide, whatever your tutor shared with you.
+  const renderTextbookDetail = (item) => {
+    const raw = item.fileUrl || item.pdfUrl || '';
+    const embed = normalizeViewerUrl(raw);
+    return (
+      <div className="detail-stack">
+        <h3 className="detail-title">{t(item.title, baseLang)}</h3>
+        <p className="detail-desc">{t(item.description, baseLang)}</p>
+        {embed ? (
+          <>
+            <div className="viewer-frame-wrap">
+              <iframe src={embed} title={t(item.title, baseLang)} className="viewer-frame" allow="autoplay" />
+            </div>
+            <a className="btn btn-ghost" href={raw} target="_blank" rel="noreferrer">Open in new tab ↗</a>
+          </>
+        ) : (
+          <p className="empty-note">No file linked yet. Paste a Google Drive share link through Batch Import, or add a fileUrl in textbook.json.</p>
+        )}
+      </div>
+    );
+  };
+
+  const renderTipsDetail = (item) => {
+    const audio = normalizeAudioUrl(item.audioUrl);
+    return (
+      <div className="detail-stack">
+        <h3 className="detail-title">{t(item.title, baseLang)}</h3>
+        <p className="detail-theory">{t(item.body, baseLang)}</p>
+        {audio ? <audio controls src={audio} className="audio-player" /> : <p className="empty-note">No audio attached to this tip.</p>}
+      </div>
+    );
+  };
+
+  const renderDetail = () => {
+    if (!currentItem) return null;
+    if (activeModule === 'grammar') return renderGrammarDetail(currentItem);
+    if (activeModule === 'vocab') return renderVocabDetail(currentItem);
+    if (activeModule === 'textbook') return renderTextbookDetail(currentItem);
+    if (activeModule === 'tips') return renderTipsDetail(currentItem);
+    return null;
+  };
+
+  return (
+    <div className="vault-shell">
+      <div className="dossier-wrap">
+        {step !== 'welcome' && (
+          <div className="tab-row">
+            {MODULES.map(m => (
+              <div key={m.key} className={`tab ${activeModule === m.key && (step === 'hub' || step === 'detail') ? 'active' : ''}`}
+                role="button" tabIndex={0} onClick={() => openModule(m.key)} onKeyDown={keyActivate(() => openModule(m.key))}>
+                <span>{m.icon}</span><span>{m.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        <div className={`card ${step === 'welcome' ? 'no-tabs' : ''}`}>
+          <div className="header" style={{ '--accent': headerAccent }}>
+            <button className="logo" onClick={() => setStep('welcome')}>🇵🇱 Polska Vault</button>
+            <div className="chip-group">
+              <select className="chip-select" value={level} onChange={e => setLevel(e.target.value)}>
+                {['A1', 'A2', 'B1'].map(l => <option key={l} value={l}>{l}</option>)}
+              </select>
+              <select className="chip-select" value={baseLang} onChange={e => setBaseLang(e.target.value)}>
+                <option value="EN">EN</option>
+                <option value="RU">RU</option>
+              </select>
+            </div>
+          </div>
+          {step === 'welcome' && renderWelcome()}
+          {step === 'menu' && renderMenu()}
+          {step === 'hub' && renderHub()}
+          {step === 'detail' && (
+            <div className="detail-wrap">
+              <div className="status-bar">
+                <button className="link-back" onClick={() => setStep('hub')}>‹ Back</button>
+                <span className="muted-sm">{currentModuleCfg.label}</span>
+              </div>
+              {renderDetail()}
+            </div>
+          )}
+        </div>
+      </div>
+      {toast && <div className={`toast ${toast.tone === 'error' ? 'error' : ''}`}>{toast.message}</div>}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<UniversalPolishEngine />);
+</script>
+</body>
+</html>
