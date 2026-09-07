@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polska — Grammar, Vocabulary, Textbook &amp; Tutor Tips</title>
+<!--
+DESIGN: 3D Liquid Glassmorphism, per Polish_Learning_App_Design_Spec.docx.
+Palette: deep indigo-navy base (#0B1020 → #161B33) so glass panels & neon
+section tints (azure/emerald/amber/violet) actually pop via refraction.
+Type: Plus Jakarta Sans throughout (display + body, weight does the work),
+Space Mono only for small numeric labels (streak, level, counts).
+
+DATA SCHEMA (kept in sync with words.json / grammar.json / textbook.json /
+tips.json in THIS SAME repo — "Sync from Cloud" reads the repo name from
+the current page URL, so it always points at wherever this file lives).
+
+words.json    -> [{ id, level, category, word, phonetic, translation:{EN,RU},
+                     gender?: 'm'|'f'|'n', examples?: [string, string] }]
+grammar.json  -> [{ id, level, category, title:{EN,RU}, theory:{EN,RU},
+                     type?: 'fill'|'mcq' (default 'fill'),
+                     prompt, answer,            // used when type is 'fill'
+                     options?: [string,...] }]  // used when type is 'mcq' (answer is the correct option text)
+textbook.json -> [{ id, level, category, title:{EN,RU}, description:{EN,RU}, fileUrl }]
+  fileUrl accepts a Google Drive / Dropbox share link (auto-converted to an
+  inline preview) or a direct https:// URL / repo-relative path.
+tips.json     -> [{ id, level, category, title:{EN,RU}, body:{EN,RU},
+                     audioUrl?, imageUrl? }]
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+:root{
+  --bg-0:#0B1020; --bg-1:#131A32; --bg-2:#1B2444;
+  --ink:#F4F6FB; --ink-dim:#AFB8D6; --ink-faint:#7C86AC;
+  --glass:rgba(255,255,255,.07); --glass-hi:rgba(255,255,255,.14);
+  --glass-bd:rgba(255,255,255,.16); --glass-bd-hi:rgba(255,255,255,.30);
+
+  --grammar-a:#2F7BFF;  --grammar-b:#5FD4FF;
+  --vocab-a:#12B886;    --vocab-b:#8CF2C7;
+  --textbook-a:#F0A73C; --textbook-b:#F2B9A0;
+  --tips-a:#8A4FEE;     --tips-b:#EA7CF0;
+
+  --good:#3ED598; --bad:#FF6B7A;
+  --font-display:'Plus Jakarta Sans', sans-serif;
+  --font-mono:'Space Mono', monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body{ height:100%; }
+body{
+  margin:0; font-family:var(--font-display); color:var(--ink);
+  background:
+    radial-gradient(60vw 60vw at 12% 8%, rgba(47,123,255,.20), transparent 60%),
+    radial-gradient(50vw 50vw at 88% 18%, rgba(138,79,238,.18), transparent 60%),
+    radial-gradient(55vw 55vw at 25% 92%, rgba(18,184,134,.14), transparent 60%),
+    radial-gradient(45vw 45vw at 90% 88%, rgba(240,167,60,.14), transparent 60%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1) 55%, var(--bg-2));
+  background-attachment:fixed;
+  overflow-x:hidden;
+}
+.blob{ position:fixed; border-radius:50%; filter:blur(60px); opacity:.5; z-index:0; pointer-events:none; animation:drift 22s ease-in-out infinite alternate; }
+.blob.b1{ width:38vw; height:38vw; left:-8vw; top:-6vw; background:radial-gradient(circle, var(--grammar-a), transparent 70%); }
+.blob.b2{ width:32vw; height:32vw; right:-6vw; top:20vh; background:radial-gradient(circle, var(--tips-a), transparent 70%); animation-delay:-7s; }
+.blob.b3{ width:34vw; height:34vw; left:8vw; bottom:-10vh; background:radial-gradient(circle, var(--vocab-a), transparent 70%); animation-delay:-14s; }
+@keyframes drift{ from{ transform:translate(0,0) scale(1);} to{ transform:translate(4%,-4%) scale(1.08);} }
+@media (prefers-reduced-motion:reduce){ .blob{ animation:none; } }
+
+.app-shell{ position:relative; z-index:1; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px 16px 48px; }
+.frame{ width:100%; max-width:760px; }
+
+/* ---------- Glass primitives ---------- */
+.glass{
+  background:var(--glass); backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);
+  border:1px solid var(--glass-bd); border-radius:var(--r-lg);
+  box-shadow:0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.10);
+}
+.glass-tight{ border-radius:var(--r-md); }
+.glass-btn{
+  font-family:var(--font-display); font-weight:700; font-size:14px; letter-spacing:.1px;
+  color:var(--ink); background:var(--glass-hi); border:1px solid var(--glass-bd-hi);
+  border-radius:100px; padding:13px 22px; cursor:pointer; text-align:center;
+  backdrop-filter:blur(14px); transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.glass-btn:hover{ transform:translateY(-1px); border-color:rgba(255,255,255,.5); }
+.glass-btn:active{ transform:translateY(0); }
+.glass-btn.primary{ background:linear-gradient(135deg, var(--accent-a, var(--grammar-a)), var(--accent-b, var(--grammar-b))); color:#0B1020; border-color:transparent; box-shadow:0 10px 30px color-mix(in srgb, var(--accent-a, var(--grammar-a)) 45%, transparent); }
+.glass-btn.ghost{ background:transparent; box-shadow:none; }
+.glass-btn.block{ width:100%; }
+.glass-btn:disabled{ opacity:.5; cursor:default; transform:none; }
+.icon-btn{ width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--glass-hi); border:1px solid var(--glass-bd); color:var(--ink); cursor:pointer; font-size:16px; flex-shrink:0; }
+.field{ width:100%; padding:12px 14px; border-radius:14px; border:1px solid var(--glass-bd); background:rgba(255,255,255,.06); color:var(--ink); font-family:var(--font-display); font-size:13.5px; outline:none; }
+.field::placeholder{ color:var(--ink-faint); }
+.field:focus{ border-color:var(--accent-a, var(--grammar-a)); }
+.textarea{ font-family:var(--font-mono); resize:vertical; }
+.mono{ font-family:var(--font-mono); }
+button, [role="button"]{ outline:none; }
+button:focus-visible, [role="button"]:focus-visible, .field:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+
+.top-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; gap:10px; }
+.brand{ display:flex; align-items:center; gap:9px; font-weight:800; font-size:15px; }
+.brand .flag{ font-size:18px; }
+.lang-toggle{ display:flex; gap:4px; background:var(--glass); border:1px solid var(--glass-bd); border-radius:100px; padding:3px; }
+.lang-toggle button{ border:none; background:transparent; color:var(--ink-faint); font-family:var(--font-mono); font-weight:700; font-size:11px; padding:6px 10px; border-radius:100px; cursor:pointer; }
+.lang-toggle button.active{ background:#fff; color:#0B1020; }
+
+/* ---------- Main Menu ---------- */
+.menu-hero{ padding:38px 26px; text-align:center; display:flex; flex-direction:column; align-items:center; }
+.avatar-ring{ width:74px; height:74px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:30px; background:linear-gradient(135deg, var(--grammar-a), var(--tips-a)); box-shadow:0 0 0 5px rgba(255,255,255,.08), 0 14px 34px rgba(90,90,255,.35); margin-bottom:16px; }
+.hero-title{ font-size:29px; font-weight:800; margin:0 0 6px; letter-spacing:-.4px; }
+.hero-sub{ color:var(--ink-dim); font-size:13.5px; max-width:320px; line-height:1.55; margin:0 0 22px; }
+.stat-row{ display:flex; gap:10px; margin-bottom:26px; }
+.stat-chip{ padding:10px 16px; border-radius:16px; text-align:center; min-width:84px; }
+.stat-chip .num{ font-family:var(--font-mono); font-weight:700; font-size:18px; }
+.stat-chip .lbl{ font-size:10px; color:var(--ink-faint); margin-top:2px; }
+.menu-actions{ display:flex; flex-direction:column; gap:10px; width:100%; max-width:240px; }
+
+/* ---------- Section Choice Page ---------- */
+.section-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:22px; }
+.section-card{
+  position:relative; padding:20px 16px; border-radius:var(--r-md); cursor:pointer; overflow:hidden;
+  border:1px solid var(--glass-bd); background:var(--glass);
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  display:flex; flex-direction:column; gap:10px; min-height:140px; justify-content:space-between;
+}
+.section-card::before{ content:''; position:absolute; inset:0; opacity:.35; background:radial-gradient(120% 120% at 20% 0%, var(--accent-a), transparent 60%); pointer-events:none; }
+.section-card:hover{ transform:translateY(-4px) scale(1.015); border-color:var(--glass-bd-hi); box-shadow:0 18px 40px color-mix(in srgb, var(--accent-a) 30%, transparent); }
+.section-card .icon{ font-size:24px; }
+.section-card .title{ font-weight:800; font-size:15.5px; position:relative; z-index:1; }
+.section-card .count{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); position:relative; z-index:1; }
+
+/* ---------- Hub / lists ---------- */
+.pad{ padding:22px; }
+.section-header{ display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+.section-header h2{ font-size:18px; font-weight:800; margin:0; }
+.back-link{ background:none; border:none; color:var(--ink-dim); font-weight:700; font-size:12.5px; cursor:pointer; padding:0; margin-bottom:14px; display:flex; align-items:center; gap:5px; transition:transform .15s ease, color .15s ease; }
+.back-link:hover{ color:var(--ink); transform:translateX(-2px); }
+.hub-top-bar{ display:flex; align-items:center; justify-content:space-between; padding:0 22px; margin-bottom:8px; gap:10px; }
+.level-select{ width:auto; flex-shrink:0; }
+.category-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.category-tile{ padding:16px 14px; border-radius:16px; cursor:pointer; font-weight:700; font-size:13.5px; }
+.list-scroll{ display:flex; flex-direction:column; gap:8px; max-height:380px; overflow-y:auto; padding-right:2px; }
+.glass-row{ display:flex; justify-content:space-between; align-items:center; padding:13px 15px; border-radius:16px; cursor:pointer; transition:background .15s ease, transform .12s ease; }
+.glass-row:hover{ background:var(--glass-hi); transform:translateX(2px); }
+.glass-row strong{ display:block; font-size:14px; }
+.glass-row .sub{ font-size:11px; color:var(--ink-faint); margin-top:2px; }
+.chev{ color:var(--ink-faint); }
+.empty-note{ color:var(--ink-faint); font-size:12.5px; font-style:italic; padding:16px 4px; }
+.filter-row{ display:flex; gap:8px; margin-bottom:12px; }
+.select-narrow{ max-width:130px; flex-shrink:0; }
+.toolbar{ display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+
+/* ---------- Grammar: theory + split screen ---------- */
+.theory-card{ padding:22px; }
+.theory-card h3{ font-size:18px; font-weight:800; margin:0 0 12px; }
+.theory-body{ font-size:13.5px; line-height:1.65; color:var(--ink-dim); background:rgba(255,255,255,.05); border:1px solid var(--glass-bd); border-radius:16px; padding:16px; margin-bottom:18px; }
+.split{ display:grid; grid-template-columns:1fr 1.6fr; gap:14px; padding:18px; align-items:start; }
+.split .theory-pane{ position:sticky; top:14px; padding:16px; max-height:70vh; overflow-y:auto; }
+.split .theory-pane h4{ font-size:13px; margin:0 0 8px; }
+.split .theory-pane p{ font-size:12px; color:var(--ink-dim); line-height:1.6; margin:0; }
+.practice-pane{ padding:18px; }
+.prompt-text{ font-weight:700; font-size:14.5px; margin-bottom:14px; line-height:1.5; }
+.mcq-options{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+.mcq-option{ text-align:left; padding:12px 14px; border-radius:14px; border:1px solid var(--glass-bd); background:rgba(255,255,255,.05); color:var(--ink); font-family:var(--font-display); font-size:13px; cursor:pointer; }
+.mcq-option:hover{ background:var(--glass-hi); }
+.mcq-option.correct{ border-color:var(--good); background:rgba(62,213,152,.16); }
+.mcq-option.incorrect{ border-color:var(--bad); background:rgba(255,107,122,.16); }
+.feedback{ font-size:12.5px; font-weight:700; margin:10px 0 0; }
+.feedback.ok{ color:var(--good); }
+.feedback.bad{ color:var(--bad); }
+@media (max-width:600px){ .split{ grid-template-columns:1fr; } .split .theory-pane{ position:static; max-height:none; } }
+
+/* ---------- Vocabulary ---------- */
+.two-col-choice{ display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:22px; }
+.choice-card{ padding:26px 14px; border-radius:20px; text-align:center; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px; }
+.choice-card .icon{ font-size:26px; }
+.choice-card .title{ font-weight:800; font-size:14px; }
+.flash-wrap{ padding:22px; display:flex; flex-direction:column; align-items:center; }
+.flash-deck{ position:relative; width:100%; max-width:280px; height:340px; margin-bottom:16px; touch-action:pan-y; perspective:1200px; }
+.flash-card{
+  position:absolute; inset:0; border-radius:26px; cursor:grab; user-select:none;
+  transform-style:preserve-3d; transition:transform .5s cubic-bezier(.3,.7,.3,1);
+}
+.flash-card.flipped{ transform:rotateY(180deg); }
+.flash-face{
+  position:absolute; inset:0; border-radius:26px; padding:26px 20px; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; text-align:center; backface-visibility:hidden;
+  color:#0B1020; box-shadow:0 24px 50px rgba(0,0,0,.4);
+}
+.flash-face.back{ transform:rotateY(180deg); }
+@media (prefers-reduced-motion:reduce){ .flash-card{ transition:none; } }
+.flash-card .gender-badge{ font-family:var(--font-mono); font-size:10.5px; font-weight:700; background:rgba(11,16,32,.18); padding:3px 10px; border-radius:100px; margin-bottom:10px; }
+.flash-card .word{ font-size:26px; font-weight:800; margin:0 0 6px; }
+.flash-card .phonetic{ font-size:12px; opacity:.75; margin-bottom:14px; }
+.flash-card .translation{ font-weight:700; font-size:15px; margin-bottom:10px; }
+.flash-card .examples{ font-size:11.5px; opacity:.85; line-height:1.5; }
+.flash-controls{ display:flex; align-items:center; gap:16px; }
+.flash-progress{ font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); }
+.vocab-detail{ padding:22px; }
+.gender-pill{ display:inline-block; font-family:var(--font-mono); font-size:11px; font-weight:700; padding:4px 12px; border-radius:100px; background:var(--glass-hi); border:1px solid var(--glass-bd); margin-bottom:12px; }
+.example-line{ font-size:13px; color:var(--ink-dim); padding:8px 0; border-top:1px solid var(--glass-bd); }
+
+/* ---------- Textbook ---------- */
+.book-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:22px; }
+.book-cover{ border-radius:18px; padding:18px 14px; height:150px; display:flex; flex-direction:column; justify-content:flex-end; cursor:pointer; position:relative; overflow:hidden; box-shadow:0 16px 34px rgba(0,0,0,.35); }
+.book-cover::before{ content:''; position:absolute; inset:0; background:linear-gradient(150deg, rgba(255,255,255,.22), transparent 55%); }
+.book-cover .level-chip{ position:absolute; top:12px; right:12px; font-family:var(--font-mono); font-size:10px; font-weight:700; background:rgba(0,0,0,.28); padding:3px 9px; border-radius:100px; }
+.book-cover .b-title{ font-weight:800; font-size:13.5px; color:#0B1020; position:relative; z-index:1; }
+.viewer-wrap{ padding:20px; }
+.viewer-frame-shell{ border-radius:18px; overflow:hidden; border:1px solid var(--glass-bd); margin-bottom:12px; background:#0d1224; }
+.viewer-frame{ width:100%; height:420px; border:none; display:block; }
+
+/* ---------- Tutor Tips ---------- */
+.tips-feed{ padding:18px; display:flex; flex-direction:column; gap:12px; max-height:460px; overflow-y:auto; }
+.tip-card{ display:flex; gap:12px; padding:14px; border-radius:18px; cursor:pointer; align-items:center; }
+.tip-thumb{ width:52px; height:52px; border-radius:14px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:20px; background:linear-gradient(135deg, var(--tips-a), var(--tips-b)); }
+.tip-thumb img{ width:100%; height:100%; object-fit:cover; border-radius:14px; }
+.tip-title{ font-weight:700; font-size:13.5px; margin:0 0 3px; }
+.tip-snippet{ font-size:11.5px; color:var(--ink-faint); margin:0; }
+.tip-overlay{ position:fixed; inset:0; z-index:40; background:rgba(6,8,18,.72); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn .2s ease; }
+.tip-overlay-card{ width:100%; max-width:420px; padding:26px; max-height:82vh; overflow-y:auto; }
+.tip-overlay-img{ width:100%; border-radius:16px; margin-bottom:14px; }
+.tip-overlay-body{ font-size:13.5px; line-height:1.6; color:var(--ink-dim); }
+.audio-player{ width:100%; margin-top:12px; }
+
+.import-modal{ padding:16px; border-radius:18px; }
+.modal-hint{ font-size:11px; color:var(--ink-faint); margin:0 0 10px; }
+
+.toast{ position:fixed; left:50%; bottom:22px; transform:translateX(-50%); padding:12px 20px; border-radius:14px; font-size:12.5px; z-index:50; max-width:90vw; animation:toastIn .28s cubic-bezier(.2,.9,.3,1.3); }
+.toast.error{ border-color:rgba(255,107,122,.5); }
+
+/* ---------- Motion system ---------- */
+@keyframes toastIn{ from{ opacity:0; transform:translate(-50%,14px) scale(.94);} to{ opacity:1; transform:translate(-50%,0) scale(1);} }
+@keyframes screenIn{ from{ opacity:0; transform:translateY(10px) scale(.985); filter:blur(4px);} to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0);} }
+@keyframes riseIn{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
+@keyframes popIn{ from{ opacity:0; transform:scale(.85);} to{ opacity:1; transform:scale(1);} }
+@keyframes pulseGood{ 0%{ transform:scale(1);} 35%{ transform:scale(1.045);} 100%{ transform:scale(1);} }
+@keyframes shakeBad{ 0%,100%{ transform:translateX(0);} 25%{ transform:translateX(-4px);} 75%{ transform:translateX(4px);} }
+@keyframes checkPop{ 0%{ opacity:0; transform:scale(.4) rotate(-8deg);} 60%{ opacity:1; transform:scale(1.15) rotate(2deg);} 100%{ opacity:1; transform:scale(1) rotate(0);} }
+
+.screen{ animation:screenIn .38s cubic-bezier(.2,.7,.2,1) both; }
+.section-grid > .section-card,
+.category-grid > .category-tile,
+.book-grid > .book-cover,
+.list-scroll > .glass-row,
+.tips-feed > .tip-card,
+.two-col-choice > .choice-card,
+.mcq-options > .mcq-option{
+  animation:riseIn .38s cubic-bezier(.2,.7,.2,1) both;
+}
+.section-grid > *:nth-child(1){ animation-delay:.02s; } .section-grid > *:nth-child(2){ animation-delay:.07s; }
+.section-grid > *:nth-child(3){ animation-delay:.12s; } .section-grid > *:nth-child(4){ animation-delay:.17s; }
+.category-grid > *:nth-child(n), .book-grid > *:nth-child(n){ animation-delay:calc(var(--i, 0) * 45ms); }
+.list-scroll > *:nth-child(1){ animation-delay:0ms; } .list-scroll > *:nth-child(2){ animation-delay:35ms; }
+.list-scroll > *:nth-child(3){ animation-delay:70ms; } .list-scroll > *:nth-child(4){ animation-delay:105ms; }
+.list-scroll > *:nth-child(5){ animation-delay:140ms; } .list-scroll > *:nth-child(n+6){ animation-delay:160ms; }
+.tips-feed > *:nth-child(1){ animation-delay:0ms; } .tips-feed > *:nth-child(2){ animation-delay:40ms; }
+.tips-feed > *:nth-child(3){ animation-delay:80ms; } .tips-feed > *:nth-child(n+4){ animation-delay:110ms; }
+.mcq-options > *:nth-child(1){ animation-delay:0ms; } .mcq-options > *:nth-child(2){ animation-delay:50ms; }
+.mcq-options > *:nth-child(3){ animation-delay:100ms; } .mcq-options > *:nth-child(4){ animation-delay:150ms; }
+
+.stat-chip{ animation:popIn .4s cubic-bezier(.3,.9,.3,1.2) both; }
+.stat-chip:nth-child(1){ animation-delay:.05s; } .stat-chip:nth-child(2){ animation-delay:.13s; } .stat-chip:nth-child(3){ animation-delay:.21s; }
+.avatar-ring{ animation:popIn .5s cubic-bezier(.3,.9,.3,1.25) both; }
+
+/* Tactile press feedback everywhere interactive */
+.glass-btn, .icon-btn, .section-card, .category-tile, .book-cover, .choice-card, .glass-row, .mcq-option, .tip-card{
+  transition:transform .15s cubic-bezier(.3,.7,.4,1), background .15s ease, border-color .15s ease, box-shadow .18s ease;
+}
+.glass-btn:active, .icon-btn:active, .section-card:active, .category-tile:active, .book-cover:active, .choice-card:active, .glass-row:active, .mcq-option:active, .tip-card:active{
+  transform:scale(.96);
+}
+
+.feedback.ok{ animation:pulseGood .4s ease; }
+.feedback.bad{ animation:shakeBad .35s ease; }
+.mcq-option.correct{ animation:pulseGood .4s ease; }
+.mcq-option.incorrect{ animation:shakeBad .35s ease; }
+
+.mastered-check{ display:inline-block; animation:checkPop .45s cubic-bezier(.3,1.4,.4,1) both; }
+
+@media (prefers-reduced-motion:reduce){
+  .screen, .section-grid > *, .category-grid > *, .book-grid > *, .list-scroll > *, .tips-feed > *,
+  .two-col-choice > *, .mcq-options > *, .stat-chip, .avatar-ring, .toast, .feedback, .mastered-check{
+    animation:none !important;
+  }
+  .glass-btn, .icon-btn, .section-card, .category-tile, .book-cover, .choice-card, .glass-row, .mcq-option, .tip-card{
+    transition:none !important;
+  }
+}
+
+@media (max-width:480px){
+  .section-grid,.book-grid,.two-col-choice,.category-grid{ grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useMemo, useRef } = React;
+
+const MODULES = [
+  { key: 'grammar',  label: 'Grammar',     icon: '📘', a: 'var(--grammar-a)',  b: 'var(--grammar-b)' },
+  { key: 'vocab',    label: 'Vocabulary',  icon: '🌿', a: 'var(--vocab-a)',    b: 'var(--vocab-b)' },
+  { key: 'textbook', label: 'Textbook',    icon: '📖', a: 'var(--textbook-a)', b: 'var(--textbook-b)' },
+  { key: 'tips',     label: 'Tutor Tips',  icon: '💬', a: 'var(--tips-a)',     b: 'var(--tips-b)' },
+];
+const ACCENT_HEX = {
+  grammar: ['#2F7BFF', '#5FD4FF'], vocab: ['#12B886', '#8CF2C7'],
+  textbook: ['#F0A73C', '#F2B9A0'], tips: ['#8A4FEE', '#EA7CF0'],
+};
+const GENDER_LABEL = { m: 'masc.', f: 'fem.', n: 'neut.' };
+
+const INITIAL_CURRICULUM = {
+  grammar: [
+    {
+      id: 'case-1', level: 'A1', category: 'Cases (Przypadki)',
+      title: { EN: '1. Nominative (Mianownik)', RU: '1. Именительный (Mianownik)' },
+      theory: { EN: 'The dictionary form used for the subject of the sentence or after "to jest" (this is).', RU: 'Базовая форма слова для подлежащего или после "to jest".' },
+      type: 'fill', prompt: 'To jest (nowy stół) ➔ ?', answer: 'nowy stół'
+    },
+    {
+      id: 'case-4-mcq', level: 'A1', category: 'Cases (Przypadki)',
+      title: { EN: '4. Accusative (Biernik)', RU: '4. Винительный (Biernik)' },
+      theory: { EN: 'Marks the direct object — answers "kogo? co?" (whom? what?). Used after verbs like "mieć", "widzieć", "lubić".', RU: 'Обозначает прямое дополнение — отвечает на "kogo? co?".' },
+      type: 'mcq', prompt: 'Mam (nowy stół) ➔ ?', options: ['nowy stół', 'nowego stołu', 'nowym stołem', 'nowym stole'], answer: 'nowy stół'
+    }
+  ],
+  vocab: [
+    { id: 'v1', level: 'A1', category: 'nouns', word: 'Dom', phonetic: '[dom]', translation: { EN: 'House / Home', RU: 'Дом' }, gender: 'm', examples: ['To jest mój dom.', 'Idę do domu.'] }
+  ],
+  textbook: [
+    { id: 'tb-seed', level: 'A1', category: 'coursebook',
+      title: { EN: 'Sample chapter — replace me', RU: 'Пример главы' },
+      description: { EN: 'Paste a Google Drive share link through Batch Import.', RU: 'Добавьте главы через импорт.' }, fileUrl: '' }
+  ],
+  tips: [
+    { id: 'tip-seed', level: 'A1', category: 'pronunciation',
+      title: { EN: 'Sample tip — replace me', RU: 'Пример совета' },
+      body: { EN: 'Add real tips via Batch Import, or commit a tips.json to your repo.', RU: 'Добавьте советы через импорт.' }, audioUrl: '', imageUrl: '' }
+  ],
+};
+
+function normalizeAudioUrl(raw) {
+  if (!raw) return '';
+  let u = raw.trim(); if (!u) return '';
+  if (u.includes('drive.google.com')) {
+    const m = u.match(/\/d\/([a-zA-Z0-9_-]+)/) || u.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m) return `https://drive.google.com/uc?export=download&id=${m[1]}`;
+  }
+  if (u.includes('dropbox.com')) { u = u.replace('www.dropbox.com','dl.dropboxusercontent.com').replace(/([?&])dl=0/, '').replace(/([?&])dl=1/, ''); return u; }
+  return u;
+}
+function normalizeViewerUrl(raw) {
+  if (!raw) return '';
+  let u = raw.trim(); if (!u) return '';
+  if (u.includes('drive.google.com')) {
+    const m = u.match(/\/d\/([a-zA-Z0-9_-]+)/) || u.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m) return `https://drive.google.com/file/d/${m[1]}/preview`;
+    return u;
+  }
+  if (u.includes('docs.google.com')) return u.replace(/\/edit.*$/, '/preview').replace(/\?usp=.*$/, '/preview');
+  if (u.includes('dropbox.com')) { u = u.replace('www.dropbox.com','dl.dropboxusercontent.com').replace(/([?&])dl=0/, '').replace(/([?&])dl=1/, ''); return u; }
+  return u;
+}
+function mergeById(existingList, incoming) {
+  const incomingIds = new Set(incoming.map(i => i.id));
+  const keptLocal = existingList.filter(i => !incomingIds.has(i.id));
+  return [...incoming, ...keptLocal];
+}
+const t = (obj, lang) => (obj && (obj[lang] || obj.EN)) || '';
+const keyActivate = (fn) => (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } };
+function todayStr() { return new Date().toISOString().slice(0, 10); }
+
+const FORMAT_HINTS = {
+  vocab: 'word, translation, [phonetic], [gender m/f/n], [example1;example2]',
+  grammar: 'title | theory | prompt | answer | [options separated by ~ for MCQ]',
+  textbook: 'title | description | Google Drive link (or URL)',
+  tips: 'title | tip text | [audio URL] | [image URL] | [category]',
+};
+const FORMAT_EXAMPLES = {
+  vocab: 'kot, cat, [kot], m, Mam kota.;Kot śpi na krześle.',
+  grammar: 'Locative (Miejscownik) | Used after w/na/o for location or topic | Rozmawiamy o (nowy stół) ➔ ? | nowym stole',
+  textbook: 'Unit 1 — Greetings | Basic greetings | https://drive.google.com/file/d/XXXX/view?usp=sharing',
+  tips: "Nasal vowels ą, ę | Don't fully pronounce n/m — nasalize instead | https://dl.dropboxusercontent.com/s/x/nasal.mp3 | | pronunciation",
+};
+
+function PolskaVault() {
+  const [step, setStep] = useState('menu'); // menu -> sections -> hub -> (grammar-detail | vocab-detail | textbook-viewer)
+  const [level, setLevel] = useState('A1');
+  const [baseLang, setBaseLang] = useState('EN');
+  const [activeModule, setActiveModule] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [vocabMode, setVocabMode] = useState(null); // 'flash' | 'list'
+  const [flashIndex, setFlashIndex] = useState(0);
+  const [flashFlipped, setFlashFlipped] = useState(false);
+  const [dragX, setDragX] = useState(0);
+  const dragging = useRef(false);
+  const dragStartX = useRef(0);
+
+  const [currentItem, setCurrentItem] = useState(null);
+  const [grammarPhase, setGrammarPhase] = useState('theory');
+  const [userInput, setUserInput] = useState('');
+  const [feedback, setFeedback] = useState(null);
+  const [mcqChoice, setMcqChoice] = useState(null);
+  const [activeTip, setActiveTip] = useState(null);
+
+  const [customVocab, setCustomVocab] = useState(() => JSON.parse(localStorage.getItem('uni_vocab_v6') || '[]'));
+  const [customGrammar, setCustomGrammar] = useState(() => JSON.parse(localStorage.getItem('uni_grammar_v6') || '[]'));
+  const [customTextbook, setCustomTextbook] = useState(() => JSON.parse(localStorage.getItem('uni_textbook_v6') || '[]'));
+  const [customTips, setCustomTips] = useState(() => JSON.parse(localStorage.getItem('uni_tips_v6') || '[]'));
+  const [mastered, setMastered] = useState(() => new Set(JSON.parse(localStorage.getItem('uni_mastered_v1') || '[]')));
+  const [streak, setStreak] = useState(() => JSON.parse(localStorage.getItem('uni_streak_v1') || '{"date":"","count":0}'));
+
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importText, setImportText] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  useEffect(() => { localStorage.setItem('uni_vocab_v6', JSON.stringify(customVocab)); }, [customVocab]);
+  useEffect(() => { localStorage.setItem('uni_grammar_v6', JSON.stringify(customGrammar)); }, [customGrammar]);
+  useEffect(() => { localStorage.setItem('uni_textbook_v6', JSON.stringify(customTextbook)); }, [customTextbook]);
+  useEffect(() => { localStorage.setItem('uni_tips_v6', JSON.stringify(customTips)); }, [customTips]);
+  useEffect(() => { localStorage.setItem('uni_mastered_v1', JSON.stringify([...mastered])); }, [mastered]);
+  useEffect(() => { localStorage.setItem('uni_streak_v1', JSON.stringify(streak)); }, [streak]);
+  useEffect(() => { if (!toast) return; const timer = setTimeout(() => setToast(null), 4200); return () => clearTimeout(timer); }, [toast]);
+
+  const showToast = (message, tone) => setToast({ message, tone: tone || 'success' });
+
+  const bumpStreak = () => {
+    const today = todayStr();
+    setStreak(prev => {
+      if (prev.date === today) return prev;
+      const yest = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      const count = prev.date === yest ? prev.count + 1 : 1;
+      return { date: today, count };
+    });
+  };
+  const markMastered = (id) => { setMastered(prev => new Set(prev).add(id)); bumpStreak(); };
+
+  const masterGrammar = useMemo(() => [...INITIAL_CURRICULUM.grammar, ...customGrammar], [customGrammar]);
+  const masterVocab = useMemo(() => [...INITIAL_CURRICULUM.vocab, ...customVocab], [customVocab]);
+  const masterTextbook = useMemo(() => [...INITIAL_CURRICULUM.textbook, ...customTextbook], [customTextbook]);
+  const masterTips = useMemo(() => [...INITIAL_CURRICULUM.tips, ...customTips], [customTips]);
+  const DATASETS = { grammar: masterGrammar, vocab: masterVocab, textbook: masterTextbook, tips: masterTips };
+
+  const totalItems = masterGrammar.length + masterVocab.length;
+  const progressPct = totalItems ? Math.round((mastered.size / totalItems) * 100) : 0;
+
+  const activeCfg = MODULES.find(m => m.key === activeModule);
+  const accentVars = activeCfg ? { '--accent-a': activeCfg.a, '--accent-b': activeCfg.b } : {};
+
+  const activeData = activeModule ? DATASETS[activeModule] : [];
+  const leveledData = useMemo(() => activeData.filter(i => i.level === level), [activeData, level]);
+  const categories = useMemo(() => Array.from(new Set(leveledData.map(i => i.category).filter(Boolean))), [leveledData]);
+
+  const filteredList = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    return leveledData.filter(item => {
+      if (activeModule === 'grammar' && activeCategory && item.category !== activeCategory) return false;
+      if (activeModule !== 'grammar' && categoryFilter !== 'all' && item.category !== categoryFilter) return false;
+      if (!q) return true;
+      const label = (activeModule === 'vocab' ? item.word : t(item.title, baseLang) || '').toLowerCase();
+      return label.includes(q);
+    });
+  }, [leveledData, searchQuery, categoryFilter, activeModule, activeCategory, baseLang]);
+
+  const handleCloudSync = async () => {
+    setIsSyncing(true);
+    const host = window.location.hostname;
+    const repoUser = host.split('.')[0] || 'gubski';
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    const repoName = pathParts[0] || '-polishClaudeVision';
+    const targets = [
+      { file: 'words.json', label: 'words', apply: setCustomVocab },
+      { file: 'grammar.json', label: 'grammar rules', apply: setCustomGrammar },
+      { file: 'textbook.json', label: 'textbook chapters', apply: setCustomTextbook },
+      { file: 'tips.json', label: 'tutor tips', apply: setCustomTips },
+    ];
+    const results = await Promise.allSettled(targets.map(tgt =>
+      fetch(`https://raw.githubusercontent.com/${repoUser}/${repoName}/main/${tgt.file}?t=${Date.now()}`)
+        .then(res => { if (!res.ok) throw new Error('missing'); return res.json(); })
+    ));
+    const okMsgs = []; const missing = [];
+    results.forEach((res, i) => {
+      const tgt = targets[i];
+      if (res.status === 'fulfilled' && Array.isArray(res.value)) {
+        tgt.apply(prev => mergeById(prev, res.value));
+        okMsgs.push(`${res.value.length} ${tgt.label}`);
+      } else missing.push(tgt.file);
+    });
+    setIsSyncing(false);
+    if (okMsgs.length) {
+      let msg = `Synced ${okMsgs.join(', ')}.`;
+      if (missing.length) msg += ` (${missing.join(', ')} not found)`;
+      showToast(msg, 'success');
+    } else showToast(`Cloud sync failed for ${repoUser}/${repoName}.`, 'error');
+  };
+
+  const finishImport = (count, label) => {
+    if (count > 0) { setImportText(''); setShowImportModal(false); showToast(`Saved ${count} ${label}.`, 'success'); }
+    else showToast('No valid lines found — check the format.', 'error');
+  };
+  const handleImport = () => {
+    if (!importText.trim()) return;
+    const lines = importText.split('\n').map(l => l.trim()).filter(Boolean);
+    if (activeModule === 'vocab') {
+      const items = lines.map((line, idx) => {
+        const [w, tr, p, g, ex] = line.split(',').map(s => (s || '').trim());
+        if (!w || !tr) return null;
+        return { id: `v-imp-${Date.now()}-${idx}`, level, category: 'imported', word: w, phonetic: p || '[import]', translation: { EN: tr, RU: tr }, gender: (g || '').toLowerCase() || undefined, examples: ex ? ex.split(';').map(s => s.trim()) : undefined };
+      }).filter(Boolean);
+      if (items.length) setCustomVocab(prev => [...items, ...prev]);
+      finishImport(items.length, 'words');
+    } else if (activeModule === 'grammar') {
+      const items = lines.map((line, idx) => {
+        const [title, theory, prompt, answer, opts] = line.split('|').map(s => (s || '').trim());
+        if (!title || !answer) return null;
+        const options = opts ? opts.split('~').map(s => s.trim()) : null;
+        return { id: `g-imp-${Date.now()}-${idx}`, level, category: 'Custom', title: { EN: title, RU: title }, theory: { EN: theory || '', RU: theory || '' }, type: options ? 'mcq' : 'fill', prompt: prompt || '', answer, options: options || undefined };
+      }).filter(Boolean);
+      if (items.length) setCustomGrammar(prev => [...items, ...prev]);
+      finishImport(items.length, 'grammar rules');
+    } else if (activeModule === 'textbook') {
+      const items = lines.map((line, idx) => {
+        const [title, description, fileUrl] = line.split('|').map(s => (s || '').trim());
+        if (!title || !fileUrl) return null;
+        return { id: `tb-imp-${Date.now()}-${idx}`, level, category: 'chapters', title: { EN: title, RU: title }, description: { EN: description || '', RU: description || '' }, fileUrl };
+      }).filter(Boolean);
+      if (items.length) setCustomTextbook(prev => [...items, ...prev]);
+      finishImport(items.length, 'textbook chapters');
+    } else if (activeModule === 'tips') {
+      const items = lines.map((line, idx) => {
+        const [title, body, audioUrl, imageUrl, category] = line.split('|').map(s => (s || '').trim());
+        if (!title || !body) return null;
+        return { id: `tip-imp-${Date.now()}-${idx}`, level, category: category || 'general', title: { EN: title, RU: title }, body: { EN: body, RU: body }, audioUrl: audioUrl || '', imageUrl: imageUrl || '' };
+      }).filter(Boolean);
+      if (items.length) setCustomTips(prev => [...items, ...prev]);
+      finishImport(items.length, 'tips');
+    }
+  };
+
+  const openSections = () => setStep('sections');
+  const openModule = (key) => {
+    setActiveModule(key); setActiveCategory(null); setVocabMode(null);
+    setSearchQuery(''); setCategoryFilter('all'); setShowImportModal(false); setImportText('');
+    setStep('hub');
+  };
+  const openGrammarItem = (item) => { setCurrentItem(item); setGrammarPhase('theory'); setFeedback(null); setUserInput(''); setMcqChoice(null); setStep('grammar-detail'); };
+  const openVocabDetail = (item) => { setCurrentItem(item); setStep('vocab-detail'); };
+  const openTextbook = (item) => { setCurrentItem(item); setStep('textbook-viewer'); };
+
+  const handleCheckFill = () => {
+    if (!currentItem) return;
+    const ok = userInput.toLowerCase().trim() === (currentItem.answer || '').toLowerCase();
+    setFeedback({ correct: ok, msg: ok ? 'Correct! Świetnie! 🎉' : `Try again — answer: ${currentItem.answer}` });
+    if (ok) markMastered(currentItem.id);
+  };
+  const handleMcqPick = (opt) => {
+    if (mcqChoice) return;
+    setMcqChoice(opt);
+    const ok = opt === currentItem.answer;
+    setFeedback({ correct: ok, msg: ok ? 'Correct! Świetnie! 🎉' : `Correct answer: ${currentItem.answer}` });
+    if (ok) markMastered(currentItem.id);
+  };
+
+  // Flashcards
+  const vocabDeck = filteredList;
+  const currentCard = vocabDeck[flashIndex] || null;
+  const goFlash = (dir) => {
+    setFlashFlipped(false); setDragX(0);
+    setFlashIndex(i => {
+      const n = vocabDeck.length; if (!n) return 0;
+      return (i + dir + n) % n;
+    });
+  };
+  const swipeMastered = () => { if (currentCard) markMastered(currentCard.id); goFlash(1); };
+  const onDragStart = (e) => { dragging.current = true; dragStartX.current = (e.touches ? e.touches[0].clientX : e.clientX); };
+  const onDragMove = (e) => { if (!dragging.current) return; const x = (e.touches ? e.touches[0].clientX : e.clientX); setDragX(x - dragStartX.current); };
+  const onDragEnd = () => {
+    if (!dragging.current) return; dragging.current = false;
+    if (dragX > 90) swipeMastered(); else if (dragX < -90) goFlash(1); else setDragX(0);
+  };
+
+  const renderTopRow = () => (
+    <div className="top-row">
+      <div className="brand"><span className="flag">🇵🇱</span> Polska</div>
+      <div className="lang-toggle">
+        <button className={baseLang === 'EN' ? 'active' : ''} onClick={() => setBaseLang('EN')}>EN</button>
+        <button className={baseLang === 'RU' ? 'active' : ''} onClick={() => setBaseLang('RU')}>RU</button>
+      </div>
+    </div>
+  );
+
+  const renderMenu = () => (
+    <div className="glass screen">
+      {renderTopRow()}
+      <div className="menu-hero">
+        <div className="avatar-ring">🧑‍🎓</div>
+        <h1 className="hero-title">Witaj z powrotem!</h1>
+        <p className="hero-sub">Grammar, vocabulary, textbook pages and tutor notes — all in one glass vault.</p>
+        <div className="stat-row">
+          <div className="glass stat-chip glass-tight"><div className="num mono">{streak.count}</div><div className="lbl">day streak</div></div>
+          <div className="glass stat-chip glass-tight"><div className="num mono">{progressPct}%</div><div className="lbl">mastered</div></div>
+          <div className="glass stat-chip glass-tight"><div className="num mono">{level}</div><div className="lbl">level</div></div>
+        </div>
+        <div className="menu-actions">
+          <button className="glass-btn primary" style={accentVars} onClick={openSections}>Start learning</button>
+          <button className="glass-btn ghost" disabled={isSyncing} onClick={handleCloudSync}>{isSyncing ? 'Syncing…' : '☁️ Sync from cloud'}</button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderSections = () => (
+    <div className="glass screen">
+      {renderTopRow()}
+      <button className="back-link" style={{ marginLeft: 22 }} onClick={() => setStep('menu')}>‹ Back</button>
+      <div className="section-grid">
+        {MODULES.map(m => (
+          <div key={m.key} className="section-card" style={{ '--accent-a': m.a }}
+            role="button" tabIndex={0} onClick={() => openModule(m.key)} onKeyDown={keyActivate(() => openModule(m.key))}>
+            <span className="icon">{m.icon}</span>
+            <div>
+              <div className="title">{m.label}</div>
+              <div className="count">{DATASETS[m.key].filter(i => i.level === level).length} at {level}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderImportModal = () => (
+    <div className="glass import-modal glass-tight">
+      <p className="modal-hint">{FORMAT_HINTS[activeModule]}</p>
+      <textarea className="field textarea" rows="5" value={importText} onChange={e => setImportText(e.target.value)} placeholder={FORMAT_EXAMPLES[activeModule]} style={{ marginBottom: 10 }} />
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button className="glass-btn primary" style={accentVars} onClick={handleImport}>Save</button>
+        <button className="glass-btn ghost" onClick={() => { setShowImportModal(false); setImportText(''); }}>Cancel</button>
+      </div>
+    </div>
+  );
+
+  const renderGrammarHub = () => {
+    if (!activeCategory) {
+      return (
+        <div className="pad">
+          <div className="section-header"><h2>Grammar categories</h2></div>
+          <div className="toolbar"><button className="glass-btn ghost" onClick={() => setShowImportModal(s => !s)}>+ Batch import</button></div>
+          {showImportModal && renderImportModal()}
+          <div className="category-grid" style={{ marginTop: 10 }}>
+            {categories.length === 0 && <p className="empty-note">No grammar items yet at {level}.</p>}
+            {categories.map((cat, i) => (
+              <div key={cat} className="glass category-tile glass-tight" style={{ ...accentVars, '--i': i }}
+                role="button" tabIndex={0} onClick={() => setActiveCategory(cat)} onKeyDown={keyActivate(() => setActiveCategory(cat))}>
+                {cat}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="pad">
+        <button className="back-link" onClick={() => setActiveCategory(null)}>‹ Categories</button>
+        <div className="section-header"><h2>{activeCategory}</h2></div>
+        <div className="list-scroll">
+          {filteredList.map(item => (
+            <div key={item.id} className="glass-row" role="button" tabIndex={0} onClick={() => openGrammarItem(item)} onKeyDown={keyActivate(() => openGrammarItem(item))}>
+              <div><strong>{t(item.title, baseLang)} {mastered.has(item.id) && <span className="mastered-check">✓</span>}</strong><div className="sub">{item.type === 'mcq' ? 'Multiple choice' : 'Type-in'}</div></div>
+              <span className="chev">›</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderGrammarDetail = () => {
+    const item = currentItem;
+    if (grammarPhase === 'theory') {
+      return (
+        <div className="theory-card screen">
+          <h3>{t(item.title, baseLang)}</h3>
+          <p className="theory-body">{t(item.theory, baseLang)}</p>
+          <button className="glass-btn primary" style={accentVars} onClick={() => setGrammarPhase('practice')}>Continue to practice →</button>
+        </div>
+      );
+    }
+    return (
+      <div className="split screen">
+        <div className="glass theory-pane glass-tight">
+          <h4>{t(item.title, baseLang)}</h4>
+          <p>{t(item.theory, baseLang)}</p>
+        </div>
+        <div className="glass practice-pane glass-tight">
+          <p className="prompt-text">{item.prompt}</p>
+          {item.type === 'mcq' ? (
+            <div className="mcq-options">
+              {item.options.map(opt => {
+                let cls = 'mcq-option';
+                if (mcqChoice) { if (opt === item.answer) cls += ' correct'; else if (opt === mcqChoice) cls += ' incorrect'; }
+                return <button key={opt} className={cls} onClick={() => handleMcqPick(opt)}>{opt}</button>;
+              })}
+            </div>
+          ) : (
+            <>
+              <input className="field" value={userInput} onChange={e => setUserInput(e.target.value)} placeholder="Type your answer..." onKeyDown={e => e.key === 'Enter' && handleCheckFill()} style={{ marginBottom: 10 }} />
+              <button className="glass-btn primary block" style={accentVars} onClick={handleCheckFill}>Check answer</button>
+            </>
+          )}
+          {feedback && <p className={`feedback ${feedback.correct ? 'ok' : 'bad'}`}>{feedback.msg}</p>}
+        </div>
+      </div>
+    );
+  };
+
+  const renderVocabHub = () => {
+    if (!vocabMode) {
+      return (
+        <div className="pad">
+          <div className="section-header"><h2>Vocabulary</h2></div>
+          <div className="toolbar"><button className="glass-btn ghost" onClick={() => setShowImportModal(s => !s)}>+ Batch import</button></div>
+          {showImportModal && renderImportModal()}
+          <div className="two-col-choice">
+            <div className="glass choice-card" style={accentVars} role="button" tabIndex={0}
+              onClick={() => { setVocabMode('flash'); setFlashIndex(0); setFlashFlipped(false); }} onKeyDown={keyActivate(() => setVocabMode('flash'))}>
+              <span className="icon">🃏</span><span className="title">Flashcards</span>
+            </div>
+            <div className="glass choice-card" style={accentVars} role="button" tabIndex={0}
+              onClick={() => setVocabMode('list')} onKeyDown={keyActivate(() => setVocabMode('list'))}>
+              <span className="icon">📋</span><span className="title">List of words</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    if (vocabMode === 'flash') {
+      if (!vocabDeck.length) return <div className="pad"><button className="back-link" onClick={() => setVocabMode(null)}>‹ Back</button><p className="empty-note">No words yet at {level}.</p></div>;
+      const hue = ACCENT_HEX.vocab;
+      const rot = Math.max(-14, Math.min(14, dragX / 10));
+      return (
+        <div className="flash-wrap">
+          <button className="back-link" onClick={() => setVocabMode(null)}>‹ Back</button>
+          <div className="flash-deck"
+            onMouseDown={onDragStart} onMouseMove={onDragMove} onMouseUp={onDragEnd} onMouseLeave={onDragEnd}
+            onTouchStart={onDragStart} onTouchMove={onDragMove} onTouchEnd={onDragEnd}>
+            {currentCard && (
+              <div className={`flash-card ${flashFlipped ? 'flipped' : ''}`} onClick={() => setFlashFlipped(f => !f)}
+                style={{ transform: `translateX(${dragX}px) rotate(${rot}deg) ${flashFlipped ? 'rotateY(180deg)' : ''}` }}>
+                <div className="flash-face front" style={{ background: `linear-gradient(145deg, ${hue[0]}, ${hue[1]})` }}>
+                  {currentCard.gender && <span className="gender-badge">{GENDER_LABEL[currentCard.gender] || currentCard.gender}</span>}
+                  <h2 className="word">{currentCard.word}</h2>
+                  <div className="phonetic">{currentCard.phonetic}</div>
+                </div>
+                <div className="flash-face back" style={{ background: `linear-gradient(145deg, ${hue[1]}, ${hue[0]})` }}>
+                  <div className="translation">{t(currentCard.translation, baseLang)}</div>
+                  {currentCard.examples && <div className="examples">{currentCard.examples.join(' · ')}</div>}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="flash-controls">
+            <button className="icon-btn" onClick={() => goFlash(-1)}>‹</button>
+            <span className="flash-progress mono">{flashIndex + 1} / {vocabDeck.length}</span>
+            <button className="icon-btn" onClick={() => goFlash(1)}>›</button>
+          </div>
+          <p className="empty-note">Tap the card to flip. Drag right = mastered, drag left = skip.</p>
+        </div>
+      );
+    }
+    return (
+      <div className="pad">
+        <button className="back-link" onClick={() => setVocabMode(null)}>‹ Back</button>
+        <div className="filter-row">
+          <input className="field" placeholder="Search words..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+          {categories.length > 1 && (
+            <select className="field select-narrow" value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)}>
+              <option value="all">All</option>
+              {categories.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+          )}
+        </div>
+        <div className="list-scroll">
+          {filteredList.length === 0 && <p className="empty-note">No words found.</p>}
+          {filteredList.map(item => (
+            <div key={item.id} className="glass-row" role="button" tabIndex={0} onClick={() => openVocabDetail(item)} onKeyDown={keyActivate(() => openVocabDetail(item))}>
+              <div><strong>{item.word}</strong><div className="sub">{t(item.translation, baseLang)}</div></div>
+              <span className="chev">›</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderVocabDetail = () => {
+    const item = currentItem;
+    return (
+      <div className="vocab-detail screen">
+        <button className="back-link" onClick={() => setStep('hub')}>‹ Back to list</button>
+        {item.gender && <span className="gender-pill">{GENDER_LABEL[item.gender] || item.gender}</span>}
+        <h2 style={{ margin: '4px 0 4px', fontSize: 24 }}>{item.word}</h2>
+        <div style={{ color: 'var(--ink-faint)', fontSize: 13, marginBottom: 10 }}>{item.phonetic}</div>
+        <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 6 }}>{t(item.translation, baseLang)}</div>
+        {(item.examples || []).map((ex, i) => <div key={i} className="example-line">{ex}</div>)}
+      </div>
+    );
+  };
+
+  const renderTextbookHub = () => (
+    <div className="pad">
+      <div className="section-header"><h2>Textbook library</h2></div>
+      <div className="toolbar"><button className="glass-btn ghost" onClick={() => setShowImportModal(s => !s)}>+ Batch import</button></div>
+      {showImportModal && renderImportModal()}
+      <div className="book-grid" style={{ marginTop: 10 }}>
+        {filteredList.length === 0 && <p className="empty-note">No chapters yet at {level}.</p>}
+        {filteredList.map((item, i) => (
+          <div key={item.id} className="book-cover" style={{ background: `linear-gradient(150deg, ${ACCENT_HEX.textbook[0]}, ${ACCENT_HEX.textbook[1]})`, '--i': i }}
+            role="button" tabIndex={0} onClick={() => openTextbook(item)} onKeyDown={keyActivate(() => openTextbook(item))}>
+            <span className="level-chip mono">{item.level}</span>
+            <div className="b-title">{t(item.title, baseLang)}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderTextbookViewer = () => {
+    const item = currentItem;
+    const raw = item.fileUrl || item.pdfUrl || '';
+    const embed = normalizeViewerUrl(raw);
+    return (
+      <div className="viewer-wrap screen">
+        <button className="back-link" onClick={() => setStep('hub')}>‹ Library</button>
+        <h3 style={{ margin: '0 0 6px' }}>{t(item.title, baseLang)}</h3>
+        <p style={{ color: 'var(--ink-faint)', fontSize: 12.5, marginBottom: 14 }}>{t(item.description, baseLang)}</p>
+        {embed ? (
+          <>
+            <div className="viewer-frame-shell"><iframe src={embed} title={t(item.title, baseLang)} className="viewer-frame" /></div>
+            <a className="glass-btn ghost" href={raw} target="_blank" rel="noreferrer">Open in new tab ↗</a>
+          </>
+        ) : <p className="empty-note">No file linked yet. Add a Google Drive link via Batch Import.</p>}
+      </div>
+    );
+  };
+
+  const renderTipsHub = () => (
+    <div className="pad">
+      <div className="section-header"><h2>Tutor tips</h2></div>
+      <div className="toolbar"><button className="glass-btn ghost" onClick={() => setShowImportModal(s => !s)}>+ Batch import</button></div>
+      {showImportModal && renderImportModal()}
+      <div className="tips-feed">
+        {filteredList.length === 0 && <p className="empty-note">No tips yet at {level}.</p>}
+        {filteredList.map(item => (
+          <div key={item.id} className="glass tip-card glass-tight" role="button" tabIndex={0} onClick={() => setActiveTip(item)} onKeyDown={keyActivate(() => setActiveTip(item))}>
+            <div className="tip-thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" /> : '💡'}</div>
+            <div><p className="tip-title">{t(item.title, baseLang)}</p><p className="tip-snippet">{t(item.body, baseLang).slice(0, 60)}{t(item.body, baseLang).length > 60 ? '…' : ''}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderTipOverlay = () => {
+    if (!activeTip) return null;
+    const audio = normalizeAudioUrl(activeTip.audioUrl);
+    return (
+      <div className="tip-overlay" onClick={() => setActiveTip(null)}>
+        <div className="glass tip-overlay-card glass-tight" onClick={e => e.stopPropagation()}>
+          <button className="back-link" onClick={() => setActiveTip(null)}>‹ Close</button>
+          {activeTip.imageUrl && <img className="tip-overlay-img" src={activeTip.imageUrl} alt="" />}
+          <h3 style={{ margin: '0 0 10px' }}>{t(activeTip.title, baseLang)}</h3>
+          <p className="tip-overlay-body">{t(activeTip.body, baseLang)}</p>
+          {audio && <audio controls src={audio} className="audio-player" />}
+        </div>
+      </div>
+    );
+  };
+
+  const renderHub = () => {
+    if (activeModule === 'grammar') return renderGrammarHub();
+    if (activeModule === 'vocab') return renderVocabHub();
+    if (activeModule === 'textbook') return renderTextbookHub();
+    if (activeModule === 'tips') return renderTipsHub();
+    return null;
+  };
+
+  let body;
+  if (step === 'menu') body = renderMenu();
+  else if (step === 'sections') body = renderSections();
+  else if (step === 'grammar-detail') body = <div className="glass screen" style={accentVars}>{renderTopRow()}<button className="back-link" style={{ marginLeft: 22 }} onClick={() => setStep('hub')}>‹ Back</button>{renderGrammarDetail()}</div>;
+  else if (step === 'vocab-detail') body = <div className="glass screen" style={accentVars}>{renderTopRow()}{renderVocabDetail()}</div>;
+  else if (step === 'textbook-viewer') body = <div className="glass screen" style={accentVars}>{renderTopRow()}{renderTextbookViewer()}</div>;
+  else body = (
+    <div className="glass screen" style={accentVars}>
+      {renderTopRow()}
+      <div className="hub-top-bar">
+        <button className="back-link" style={{ marginBottom: 0 }} onClick={() => setStep('sections')}>‹ Sections</button>
+        <select className="field select-narrow level-select" value={level} onChange={e => setLevel(e.target.value)}>
+          {['A1', 'A2', 'B1'].map(l => <option key={l} value={l}>{l}</option>)}
+        </select>
+      </div>
+      {renderHub()}
+    </div>
+  );
+
+  return (
+    <div className="app-shell">
+      <div className="frame">{body}</div>
+      {toast && <div className={`glass toast glass-tight ${toast.tone === 'error' ? 'error' : ''}`}>{toast.message}</div>}
+      {renderTipOverlay()}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<PolskaVault />);
+</script>
+</body>
+</html>
