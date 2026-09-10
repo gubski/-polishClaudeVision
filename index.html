@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Polski · Liquid Glass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   1. TOKENS
+   ============================================================ */
+:root{
+  /* base */
+  --void:      #0A0D16;
+  --violet:    #3B1E6B;
+  --blue:      #12294D;
+  --crimson:   #C8203D;   /* Polish red, desaturated so it sits behind the glass, not shouting */
+
+  --ink:       #F6F3EE;   /* Polish white, warm rather than pure #fff */
+  --ink-dim:   rgba(246,243,238,.62);
+  --ink-faint: rgba(246,243,238,.36);
+
+  /* glass */
+  --glass-fill:   rgba(246,243,238,.07);
+  --glass-fill-hi:rgba(246,243,238,.12);
+  --glass-border: rgba(246,243,238,.16);
+  --glass-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.10);
+
+  /* accent used sparingly on top of glass */
+  --accent: #E8536A;      /* warmed crimson, used only for the active/selected state */
+
+  --r-lg: 28px;
+  --r-md: 18px;
+  --r-sm: 12px;
+
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-ui: 'Manrope', system-ui, sans-serif;
+}
+
+/* ============================================================
+   2. RESET + FULL-SCREEN APP LOCK
+   ============================================================ */
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html, body{
+  width:100vw;
+  height:100dvh;
+  overflow:hidden;               /* body never scrolls */
+  background:var(--void);
+  color:var(--ink);
+  font-family:var(--font-ui);
+  -webkit-font-smoothing:antialiased;
+}
+
+#app{
+  position:relative;
+  width:100vw;
+  height:100dvh;
+  overflow:hidden;
+  isolation:isolate;             /* keeps the mesh gradient's own stacking context contained */
+}
+
+button{ font:inherit; color:inherit; background:none; border:none; cursor:pointer; }
+::selection{ background:var(--accent); color:var(--void); }
+
+/* ============================================================
+   3. ANIMATED MESH GRADIENT BACKGROUND
+   Three large soft radial gradients drift independently.
+   We animate `transform` on pseudo-layers, never `background-position`
+   or layout properties, so this stays on the compositor thread.
+   ============================================================ */
+.mesh{
+  position:fixed;
+  inset:-10%;                    /* oversized so drifting never exposes an edge */
+  z-index:-1;
+  background:var(--void);
+}
+.mesh::before,
+.mesh::after,
+.mesh-blob{
+  content:'';
+  position:absolute;
+  border-radius:50%;
+  filter:blur(90px);
+  opacity:.65;
+  will-change:transform;
+}
+.mesh::before{
+  width:70vw; height:70vw; left:-15vw; top:-10vh;
+  background:radial-gradient(circle, var(--violet), transparent 70%);
+  animation:driftA 26s ease-in-out infinite;
+}
+.mesh::after{
+  width:65vw; height:65vw; right:-20vw; top:20vh;
+  background:radial-gradient(circle, var(--blue), transparent 70%);
+  animation:driftB 32s ease-in-out infinite;
+}
+.mesh-blob{
+  width:55vw; height:55vw; left:20vw; bottom:-25vh;
+  background:radial-gradient(circle, var(--crimson), transparent 72%);
+  opacity:.4;
+  animation:driftC 38s ease-in-out infinite;
+}
+@keyframes driftA{
+  0%,100%{ transform:translate(0,0) scale(1); }
+  50%{     transform:translate(8vw,10vh) scale(1.15); }
+}
+@keyframes driftB{
+  0%,100%{ transform:translate(0,0) scale(1); }
+  50%{     transform:translate(-10vw,-6vh) scale(1.08); }
+}
+@keyframes driftC{
+  0%,100%{ transform:translate(0,0) scale(1); }
+  50%{     transform:translate(6vw,-8vh) scale(1.12); }
+}
+@media (prefers-reduced-motion:reduce){
+  .mesh::before, .mesh::after, .mesh-blob{ animation:none; }
+}
+
+/* ============================================================
+   4. GLASS — the reusable panel class
+   ============================================================ */
+.glass{
+  background:var(--glass-fill);
+  backdrop-filter:blur(28px) saturate(160%);
+  -webkit-backdrop-filter:blur(28px) saturate(160%);
+  border:1px solid var(--glass-border);
+  border-radius:var(--r-lg);
+  box-shadow:var(--glass-shadow);
+}
+/* raised variant, slightly brighter fill — for the active/selected element */
+.glass-hi{
+  background:var(--glass-fill-hi);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+}
+/* browsers/OS settings without transparency support get a solid card instead of a broken blur */
+@media (prefers-reduced-transparency:reduce){
+  .glass, .glass-hi{
+    background:#171B29;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+}
+
+/* ============================================================
+   5. MAIN SCROLL AREA — scrolls internally, scrollbar hidden
+   ============================================================ */
+.view{
+  position:absolute;
+  inset:0;
+  overflow-y:auto;
+  -ms-overflow-style:none;
+  scrollbar-width:none;
+  padding:calc(env(safe-area-inset-top) + 28px) 24px 140px;
+}
+.view::-webkit-scrollbar{ display:none; }
+
+@media (min-width:900px){
+  .view{ padding-left:132px; padding-bottom:40px; } /* room for the left rail */
+}
+
+/* ============================================================
+   6. SECTIONS + ROUTING TRANSITIONS
+   Only the active section is interactive; inactive ones are
+   removed from layout flow after their fade-out finishes.
+   ============================================================ */
+.section{
+  max-width:560px;
+  margin:0 auto;
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .35s ease, transform .35s ease;
+  pointer-events:none;
+}
+.section.active{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+.section:not(.active){ position:absolute; inset:0; visibility:hidden; }
+
+.section-head{ margin-bottom:22px; }
+.eyebrow{
+  font-family:var(--font-ui);
+  font-size:13px; font-weight:700; letter-spacing:.01em;
+  color:var(--ink-dim);
+}
+.section-title{
+  font-family:var(--font-display);
+  font-size:clamp(30px, 6vw, 40px);
+  font-weight:700;
+  line-height:1.05;
+  margin-top:4px;
+}
+
+/* ============================================================
+   7. WORD OF THE DAY CARD
+   ============================================================ */
+.wotd{
+  padding:30px 26px 26px;
+  margin-top:8px;
+}
+.wotd-tag{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; color:var(--ink-dim); font-weight:600;
+}
+.wotd-tag .dot{
+  width:6px; height:6px; border-radius:50%;
+  background:var(--accent);
+}
+.wotd-word{
+  font-family:var(--font-display);
+  font-size:clamp(44px, 11vw, 64px);
+  font-weight:700;
+  line-height:1;
+  margin:14px 0 6px;
+}
+.wotd-phonetic{
+  font-size:15px; color:var(--ink-faint); font-style:italic;
+}
+.wotd-translation{
+  display:inline-block;
+  margin-top:18px;
+  padding:7px 14px;
+  border-radius:100px;
+  background:rgba(232,83,106,.16);
+  border:1px solid rgba(232,83,106,.35);
+  color:var(--accent);
+  font-weight:700; font-size:15px;
+}
+.wotd-sentence{
+  margin-top:22px;
+  padding-top:20px;
+  border-top:1px solid var(--glass-border);
+  font-size:17px;
+  line-height:1.55;
+  color:var(--ink);
+}
+.wotd-sentence span{ color:var(--ink-dim); display:block; margin-top:6px; font-size:15px; }
+
+.wotd-actions{
+  display:flex; gap:10px; margin-top:24px;
+}
+.pill-btn{
+  flex:1;
+  padding:13px 16px;
+  border-radius:100px;
+  text-align:center;
+  font-weight:700; font-size:14px;
+  background:var(--glass-fill-hi);
+  border:1px solid var(--glass-border);
+  transition:transform .15s ease, background .15s ease;
+}
+.pill-btn:active{ transform:scale(.96); }
+.pill-btn.primary{
+  background:var(--accent);
+  border-color:transparent;
+  color:var(--void);
+}
+
+/* generic placeholder content used in the other three sections */
+.placeholder-card{
+  padding:22px;
+  margin-bottom:14px;
+  display:flex; align-items:center; gap:14px;
+}
+.placeholder-icon{
+  width:42px; height:42px; border-radius:var(--r-sm);
+  background:var(--glass-fill-hi);
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; flex-shrink:0;
+}
+.placeholder-text b{ display:block; font-size:15px; margin-bottom:2px; }
+.placeholder-text span{ font-size:13px; color:var(--ink-dim); }
+
+/* ============================================================
+   8. GLASS DOCK — bottom on mobile, left rail on desktop
+   ============================================================ */
+.dock{
+  position:fixed;
+  z-index:10;
+  display:flex;
+  padding:10px;
+  gap:6px;
+}
+/* mobile: floating pill bar, bottom center */
+.dock{
+  left:50%; bottom:calc(env(safe-area-inset-bottom) + 16px);
+  transform:translateX(-50%);
+  flex-direction:row;
+  border-radius:100px;
+}
+.dock-item{
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  width:64px; padding:9px 4px 10px;
+  border-radius:100px;
+  color:var(--ink-dim);
+  transition:color .2s ease, background .2s ease, transform .15s ease;
+}
+.dock-item:active{ transform:scale(.94); }
+.dock-item svg{ width:20px; height:20px; }
+.dock-item span{ font-size:10.5px; font-weight:700; }
+.dock-item.active{
+  color:var(--ink);
+  background:var(--glass-fill-hi);
+}
+.dock-item.active svg{ color:var(--accent); }
+
+/* desktop: vertical rail, left edge */
+@media (min-width:900px){
+  .dock{
+    left:20px; top:50%; bottom:auto;
+    transform:translateY(-50%);
+    flex-direction:column;
+    border-radius:26px;
+    padding:14px 8px;
+    gap:10px;
+  }
+  .dock-item{ width:72px; }
+}
+
+/* ============================================================
+   9. ACCESSIBILITY
+   ============================================================ */
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:8px;
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- animated liquid-glass mesh background -->
+  <div class="mesh"><div class="mesh-blob"></div></div>
+
+  <!-- internally-scrolling content area -->
+  <main class="view">
+
+    <!-- VOCABULARY -->
+    <section class="section active" id="section-vocabulary">
+      <div class="section-head">
+        <div class="eyebrow">Dzień dobry</div>
+        <h1 class="section-title">Word of the Day</h1>
+      </div>
+
+      <article class="wotd glass-hi">
+        <div class="wotd-tag"><span class="dot"></span>Noun · Feminine</div>
+        <div class="wotd-word">przyjaźń</div>
+        <div class="wotd-phonetic">pshih-YAH-zhnyeh</div>
+        <span class="wotd-translation">friendship</span>
+        <p class="wotd-sentence">
+          Nasza przyjaźń trwa już dziesięć lat.
+          <span>Our friendship has lasted ten years already.</span>
+        </p>
+        <div class="wotd-actions">
+          <button class="pill-btn">Save word</button>
+          <button class="pill-btn primary">Practice it</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- GRAMMAR -->
+    <section class="section" id="section-grammar">
+      <div class="section-head">
+        <div class="eyebrow">Cases &amp; conjugation</div>
+        <h1 class="section-title">Grammar</h1>
+      </div>
+      <div class="placeholder-card glass">
+        <div class="placeholder-icon">7</div>
+        <div class="placeholder-text"><b>The seven cases</b><span>Nominative through vocative</span></div>
+      </div>
+      <div class="placeholder-card glass">
+        <div class="placeholder-icon">Ø</div>
+        <div class="placeholder-text"><b>Verb aspect</b><span>Perfective vs. imperfective</span></div>
+      </div>
+    </section>
+
+    <!-- PRACTICE -->
+    <section class="section" id="section-practice">
+      <div class="section-head">
+        <div class="eyebrow">Daily streak: 4</div>
+        <h1 class="section-title">Practice</h1>
+      </div>
+      <div class="placeholder-card glass">
+        <div class="placeholder-icon">10</div>
+        <div class="placeholder-text"><b>Quick review</b><span>10 cards due today</span></div>
+      </div>
+      <div class="placeholder-card glass">
+        <div class="placeholder-icon">A2</div>
+        <div class="placeholder-text"><b>Level test</b><span>Check your current level</span></div>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="section" id="section-profile">
+      <div class="section-head">
+        <div class="eyebrow">Your progress</div>
+        <h1 class="section-title">Profile</h1>
+      </div>
+      <div class="placeholder-card glass">
+        <div class="placeholder-icon">312</div>
+        <div class="placeholder-text"><b>Words learned</b><span>Since you started</span></div>
+      </div>
+      <div class="placeholder-card glass">
+        <div class="placeholder-icon">A2</div>
+        <div class="placeholder-text"><b>Current level</b><span>On track for B1</span></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- floating glass dock -->
+  <nav class="dock glass" aria-label="Main sections">
+    <button class="dock-item active" data-target="vocabulary" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V4Z"/><path d="M4 17h14"/></svg>
+      <span>Vocab</span>
+    </button>
+    <button class="dock-item" data-target="grammar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+      <span>Grammar</span>
+    </button>
+    <button class="dock-item" data-target="practice">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      <span>Practice</span>
+    </button>
+    <button class="dock-item" data-target="profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6.5 8-6.5s6.5 2 8 6.5"/></svg>
+      <span>Profile</span>
+    </button>
+  </nav>
+
+</div>
+
+<script>
+/* ============================================================
+   ROUTING — vanilla JS, no dependencies.
+   State lives in one variable; the DOM is a pure function of it.
+   ============================================================ */
+(function(){
+  const sections = document.querySelectorAll('.section');
+  const dockItems = document.querySelectorAll('.dock-item');
+
+  function setActive(name){
+    sections.forEach(sec => {
+      sec.classList.toggle('active', sec.id === `section-${name}`);
+    });
+    dockItems.forEach(item => {
+      const isActive = item.dataset.target === name;
+      item.classList.toggle('active', isActive);
+      item.setAttribute('aria-current', isActive ? 'page' : 'false');
+    });
+    // reset scroll position of the newly active section
+    document.querySelector('.view').scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  dockItems.forEach(item => {
+    item.addEventListener('click', () => setActive(item.dataset.target));
+  });
+})();
+</script>
+
+</body>
+</html>
