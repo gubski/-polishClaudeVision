@@ -1,0 +1,2917 @@
+[
+  {
+    "id": "v-anatomy-1",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Czaszka",
+    "phonetic": "[chash-ka]",
+    "translation": {
+      "EN": "Skull",
+      "RU": "Череп"
+    }
+  },
+  {
+    "id": "v-anatomy-2",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Kręgosłup",
+    "phonetic": "[kren-go-swoop]",
+    "translation": {
+      "EN": "Spine",
+      "RU": "Позвоночник"
+    }
+  },
+  {
+    "id": "v-anatomy-3",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Żebro",
+    "phonetic": "[zheb-ro]",
+    "translation": {
+      "EN": "Rib",
+      "RU": "Ребро"
+    }
+  },
+  {
+    "id": "v-anatomy-4",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Mózg",
+    "phonetic": "[moozg]",
+    "translation": {
+      "EN": "Brain",
+      "RU": "Мозг"
+    }
+  },
+  {
+    "id": "v-anatomy-5",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Serce",
+    "phonetic": "[ser-tse]",
+    "translation": {
+      "EN": "Heart",
+      "RU": "Сердце"
+    }
+  },
+  {
+    "id": "v-anatomy-6",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Wątroba",
+    "phonetic": "[von-tro-ba]",
+    "translation": {
+      "EN": "Liver",
+      "RU": "Печень"
+    }
+  },
+  {
+    "id": "v-anatomy-7",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Żyła",
+    "phonetic": "[zhi-wa]",
+    "translation": {
+      "EN": "Vein",
+      "RU": "Вена"
+    }
+  },
+  {
+    "id": "v-anatomy-8",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Nerki",
+    "phonetic": "[ner-kee]",
+    "translation": {
+      "EN": "Kidneys",
+      "RU": "Почки"
+    }
+  },
+  {
+    "id": "v-anatomy-9",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Miednica",
+    "phonetic": "[myed-nee-tsa]",
+    "translation": {
+      "EN": "Pelvis",
+      "RU": "Таз"
+    }
+  },
+  {
+    "id": "v-anatomy-10",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Kość",
+    "phonetic": "[koshch]",
+    "translation": {
+      "EN": "Bone",
+      "RU": "Кость"
+    }
+  },
+  {
+    "id": "v-anatomy-11",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Mięsień",
+    "phonetic": "[myen-shyen]",
+    "translation": {
+      "EN": "Muscle",
+      "RU": "Мышца"
+    }
+  },
+  {
+    "id": "v-anatomy-12",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Płuco",
+    "phonetic": "[pwoo-tso]",
+    "translation": {
+      "EN": "Lung",
+      "RU": "Легкое"
+    }
+  },
+  {
+    "id": "v-anatomy-13",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Tętnica",
+    "phonetic": "[ten-tnee-tsa]",
+    "translation": {
+      "EN": "Artery",
+      "RU": "Артерия"
+    }
+  },
+  {
+    "id": "v-anatomy-14",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Krew",
+    "phonetic": "[krev]",
+    "translation": {
+      "EN": "Blood",
+      "RU": "Кровь"
+    }
+  },
+  {
+    "id": "v-anatomy-15",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Żołądek",
+    "phonetic": "[zho-won-dek]",
+    "translation": {
+      "EN": "Stomach",
+      "RU": "Желудок"
+    }
+  },
+  {
+    "id": "v-anatomy-16",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Jelito",
+    "phonetic": "[ye-lee-to]",
+    "translation": {
+      "EN": "Intestine",
+      "RU": "Кишечник"
+    }
+  },
+  {
+    "id": "v-anatomy-17",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Pęcherz",
+    "phonetic": "[pen-kherz]",
+    "translation": {
+      "EN": "Bladder",
+      "RU": "Мочевой пузырь"
+    }
+  },
+  {
+    "id": "v-anatomy-18",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Narząd",
+    "phonetic": "[na-zhond]",
+    "translation": {
+      "EN": "Organ",
+      "RU": "Орган"
+    }
+  },
+  {
+    "id": "v-anatomy-19",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Włosy",
+    "phonetic": "[vwo-si]",
+    "translation": {
+      "EN": "Hair",
+      "RU": "Волосы"
+    }
+  },
+  {
+    "id": "v-anatomy-20",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Czoło",
+    "phonetic": "[chwo-wo]",
+    "translation": {
+      "EN": "Forehead",
+      "RU": "Лоб"
+    }
+  },
+  {
+    "id": "v-anatomy-21",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Brew",
+    "phonetic": "[brev]",
+    "translation": {
+      "EN": "Eyebrow",
+      "RU": "Бровь"
+    }
+  },
+  {
+    "id": "v-anatomy-22",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Rzęsy",
+    "phonetic": "[zhen-si]",
+    "translation": {
+      "EN": "Eyelashes",
+      "RU": "Ресницы"
+    }
+  },
+  {
+    "id": "v-anatomy-23",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Oko",
+    "phonetic": "[o-ko]",
+    "translation": {
+      "EN": "Eye",
+      "RU": "Глаз"
+    }
+  },
+  {
+    "id": "v-anatomy-24",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Ucho",
+    "phonetic": "[oo-kho]",
+    "translation": {
+      "EN": "Ear",
+      "RU": "Ухо"
+    }
+  },
+  {
+    "id": "v-anatomy-25",
+    "level": "A1",
+    "category": "anatomy",
+    "word": "Nos",
+    "phonetic": "[nos]",
+    "translation": {
+      "EN": "Nose",
+      "RU": "Нос"
+    }
+  },
+  {
+    "id": "v-anatomy-26",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Policzek",
+    "phonetic": "[po-lee-chek]",
+    "translation": {
+      "EN": "Cheek",
+      "RU": "Щека"
+    }
+  },
+  {
+    "id": "v-anatomy-27",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Wąsy",
+    "phonetic": "[von-si]",
+    "translation": {
+      "EN": "Moustache",
+      "RU": "Усы"
+    }
+  },
+  {
+    "id": "v-anatomy-28",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Usta",
+    "phonetic": "[oos-ta]",
+    "translation": {
+      "EN": "Mouth",
+      "RU": "Рот"
+    }
+  },
+  {
+    "id": "v-anatomy-29",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Język",
+    "phonetic": "[yen-zik]",
+    "translation": {
+      "EN": "Tongue",
+      "RU": "Язык"
+    }
+  },
+  {
+    "id": "v-anatomy-30",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Ząb",
+    "phonetic": "[zomb]",
+    "translation": {
+      "EN": "Tooth",
+      "RU": "Зуб"
+    }
+  },
+  {
+    "id": "v-anatomy-31",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Warga",
+    "phonetic": "[var-ga]",
+    "translation": {
+      "EN": "Lip",
+      "RU": "Губа"
+    }
+  },
+  {
+    "id": "v-anatomy-32",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Broda",
+    "phonetic": "[bro-da]",
+    "translation": {
+      "EN": "Chin / Beard",
+      "RU": "Подбородок / Борода"
+    }
+  },
+  {
+    "id": "v-anatomy-33",
+    "level": "A1",
+    "category": "anatomy",
+    "word": "Głowa",
+    "phonetic": "[gwo-va]",
+    "translation": {
+      "EN": "Head",
+      "RU": "Голова"
+    }
+  },
+  {
+    "id": "v-anatomy-34",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Szyja",
+    "phonetic": "[shi-ya]",
+    "translation": {
+      "EN": "Neck",
+      "RU": "Шея"
+    }
+  },
+  {
+    "id": "v-anatomy-35",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Gardło",
+    "phonetic": "[gard-wo]",
+    "translation": {
+      "EN": "Throat",
+      "RU": "Горло"
+    }
+  },
+  {
+    "id": "v-anatomy-36",
+    "level": "A1",
+    "category": "anatomy",
+    "word": "Ręka",
+    "phonetic": "[ren-ka]",
+    "translation": {
+      "EN": "Hand / Arm",
+      "RU": "Рука"
+    }
+  },
+  {
+    "id": "v-anatomy-37",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Ramię",
+    "phonetic": "[ra-myen]",
+    "translation": {
+      "EN": "Arm / Shoulder",
+      "RU": "Плечо / Рука"
+    }
+  },
+  {
+    "id": "v-anatomy-38",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Bark",
+    "phonetic": "[bark]",
+    "translation": {
+      "EN": "Shoulder",
+      "RU": "Плечо"
+    }
+  },
+  {
+    "id": "v-anatomy-39",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Łokieć",
+    "phonetic": "[wo-kyech]",
+    "translation": {
+      "EN": "Elbow",
+      "RU": "Локоть"
+    }
+  },
+  {
+    "id": "v-anatomy-40",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Dłoń",
+    "phonetic": "[dwon]",
+    "translation": {
+      "EN": "Hand (palm)",
+      "RU": "Ладонь / Кисть"
+    }
+  },
+  {
+    "id": "v-anatomy-41",
+    "level": "A1",
+    "category": "anatomy",
+    "word": "Palec",
+    "phonetic": "[pa-lets]",
+    "translation": {
+      "EN": "Finger / Toe",
+      "RU": "Палец"
+    }
+  },
+  {
+    "id": "v-anatomy-42",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Kciuk",
+    "phonetic": "[kchyook]",
+    "translation": {
+      "EN": "Thumb",
+      "RU": "Большой палец"
+    }
+  },
+  {
+    "id": "v-anatomy-43",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Paznokieć",
+    "phonetic": "[paz-no-kyech]",
+    "translation": {
+      "EN": "Nail",
+      "RU": "Ноготь"
+    }
+  },
+  {
+    "id": "v-anatomy-44",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Pacha",
+    "phonetic": "[pa-kha]",
+    "translation": {
+      "EN": "Armpit",
+      "RU": "Подмышка"
+    }
+  },
+  {
+    "id": "v-anatomy-45",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Tułów",
+    "phonetic": "[too-woof]",
+    "translation": {
+      "EN": "Torso",
+      "RU": "Туловище"
+    }
+  },
+  {
+    "id": "v-anatomy-46",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Brzuch",
+    "phonetic": "[bzhookh]",
+    "translation": {
+      "EN": "Stomach / Belly",
+      "RU": "Живот"
+    }
+  },
+  {
+    "id": "v-anatomy-47",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Pępek",
+    "phonetic": "[pen-pek]",
+    "translation": {
+      "EN": "Navel",
+      "RU": "Пупок"
+    }
+  },
+  {
+    "id": "v-anatomy-48",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Biodro",
+    "phonetic": "[byod-ro]",
+    "translation": {
+      "EN": "Hip",
+      "RU": "Бедро"
+    }
+  },
+  {
+    "id": "v-anatomy-49",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Udo",
+    "phonetic": "[oo-do]",
+    "translation": {
+      "EN": "Thigh",
+      "RU": "Бедро"
+    }
+  },
+  {
+    "id": "v-anatomy-50",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Kolano",
+    "phonetic": "[ko-la-no]",
+    "translation": {
+      "EN": "Knee",
+      "RU": "Колено"
+    }
+  },
+  {
+    "id": "v-anatomy-51",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Łydka",
+    "phonetic": "[wijd-ka]",
+    "translation": {
+      "EN": "Calf",
+      "RU": "Икра"
+    }
+  },
+  {
+    "id": "v-anatomy-52",
+    "level": "A1",
+    "category": "anatomy",
+    "word": "Stopa",
+    "phonetic": "[sto-pa]",
+    "translation": {
+      "EN": "Foot",
+      "RU": "Стопа"
+    }
+  },
+  {
+    "id": "v-anatomy-53",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Pięta",
+    "phonetic": "[pyen-ta]",
+    "translation": {
+      "EN": "Heel",
+      "RU": "Пятка"
+    }
+  },
+  {
+    "id": "v-anatomy-54",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Kostka",
+    "phonetic": "[kost-ka]",
+    "translation": {
+      "EN": "Ankle",
+      "RU": "Лодыжка"
+    }
+  },
+  {
+    "id": "v-anatomy-55",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Kark",
+    "phonetic": "[kark]",
+    "translation": {
+      "EN": "Nape",
+      "RU": "Затылок / Шея"
+    }
+  },
+  {
+    "id": "v-anatomy-56",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Sutek",
+    "phonetic": "[soo-tek]",
+    "translation": {
+      "EN": "Nipple",
+      "RU": "Сосок"
+    }
+  },
+  {
+    "id": "v-anatomy-57",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Pierś",
+    "phonetic": "[pyersh]",
+    "translation": {
+      "EN": "Breast / Chest",
+      "RU": "Грудь"
+    }
+  },
+  {
+    "id": "v-anatomy-58",
+    "level": "A2",
+    "category": "anatomy",
+    "word": "Plecy",
+    "phonetic": "[ple-tsi]",
+    "translation": {
+      "EN": "Back",
+      "RU": "Спина"
+    }
+  },
+  {
+    "id": "v-anatomy-59",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Talia",
+    "phonetic": "[ta-lya]",
+    "translation": {
+      "EN": "Waist",
+      "RU": "Талия"
+    }
+  },
+  {
+    "id": "v-anatomy-60",
+    "level": "B1",
+    "category": "anatomy",
+    "word": "Pośladki",
+    "phonetic": "[posh-won-dkee]",
+    "translation": {
+      "EN": "Buttocks",
+      "RU": "Ягодицы"
+    }
+  },
+  {
+    "id": "v-anatomy-61",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Członek",
+    "phonetic": "[chwo-nek]",
+    "translation": {
+      "EN": "Penis",
+      "RU": "Пенис / Член"
+    }
+  },
+  {
+    "id": "v-anatomy-62",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Moszna",
+    "phonetic": "[mosh-na]",
+    "translation": {
+      "EN": "Scrotum",
+      "RU": "Мошонка"
+    }
+  },
+  {
+    "id": "v-anatomy-63",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Jądra",
+    "phonetic": "[yon-dra]",
+    "translation": {
+      "EN": "Testicles",
+      "RU": "Яички"
+    }
+  },
+  {
+    "id": "v-anatomy-64",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Pochwa",
+    "phonetic": "[pokh-va]",
+    "translation": {
+      "EN": "Vagina",
+      "RU": "Влагалище"
+    }
+  },
+  {
+    "id": "v-anatomy-65",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Macica",
+    "phonetic": "[ma-tsee-tsa]",
+    "translation": {
+      "EN": "Uterus",
+      "RU": "Матка"
+    }
+  },
+  {
+    "id": "v-anatomy-66",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Jajniki",
+    "phonetic": "[yay-nee-kee]",
+    "translation": {
+      "EN": "Ovaries",
+      "RU": "Яичники"
+    }
+  },
+  {
+    "id": "v-anatomy-67",
+    "level": "B2",
+    "category": "anatomy",
+    "word": "Odbyt",
+    "phonetic": "[od-bit]",
+    "translation": {
+      "EN": "Anus",
+      "RU": "Анальное отверстие"
+    }
+  },
+  {
+    "id": "v-traits-1",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Dobry",
+    "phonetic": "[dob-ri]",
+    "translation": {
+      "EN": "Good",
+      "RU": "Добрый"
+    }
+  },
+  {
+    "id": "v-traits-2",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Wrażliwy",
+    "phonetic": "[vrazh-lee-vi]",
+    "translation": {
+      "EN": "Sensitive",
+      "RU": "Чувствительный"
+    }
+  },
+  {
+    "id": "v-traits-3",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Szczery",
+    "phonetic": "[shche-ri]",
+    "translation": {
+      "EN": "Honest / Sincere",
+      "RU": "Искренний"
+    }
+  },
+  {
+    "id": "v-traits-4",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Leniwy",
+    "phonetic": "[le-nee-vi]",
+    "translation": {
+      "EN": "Lazy",
+      "RU": "Ленивый"
+    }
+  },
+  {
+    "id": "v-traits-5",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Ambitny",
+    "phonetic": "[am-beet-ni]",
+    "translation": {
+      "EN": "Ambitious",
+      "RU": "Амбициозный"
+    }
+  },
+  {
+    "id": "v-traits-6",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Bezczelny",
+    "phonetic": "[bez-chel-ni]",
+    "translation": {
+      "EN": "Cheeky / Insolent",
+      "RU": "Наглый"
+    }
+  },
+  {
+    "id": "v-traits-7",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Uparty",
+    "phonetic": "[oo-par-ti]",
+    "translation": {
+      "EN": "Stubborn",
+      "RU": "Упрямый"
+    }
+  },
+  {
+    "id": "v-traits-8",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Odważny",
+    "phonetic": "[od-vazh-ni]",
+    "translation": {
+      "EN": "Brave",
+      "RU": "Смелый"
+    }
+  },
+  {
+    "id": "v-traits-9",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Fałszywy",
+    "phonetic": "[faw-shi-vi]",
+    "translation": {
+      "EN": "Fake / Two-faced",
+      "RU": "Фальшивый"
+    }
+  },
+  {
+    "id": "v-traits-10",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Egoista",
+    "phonetic": "[e-go-ees-ta]",
+    "translation": {
+      "EN": "Egoist / Selfish",
+      "RU": "Эгоист"
+    }
+  },
+  {
+    "id": "v-traits-11",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Zły",
+    "phonetic": "[zwy]",
+    "translation": {
+      "EN": "Bad / Angry",
+      "RU": "Злой / Плохой"
+    }
+  },
+  {
+    "id": "v-traits-12",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Brutalny",
+    "phonetic": "[broo-tal-ny]",
+    "translation": {
+      "EN": "Brutal",
+      "RU": "Брутальный"
+    }
+  },
+  {
+    "id": "v-traits-13",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Agresywny",
+    "phonetic": "[ag-re-syv-ny]",
+    "translation": {
+      "EN": "Aggressive",
+      "RU": "Агрессивный"
+    }
+  },
+  {
+    "id": "v-traits-14",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Powierzchniowy",
+    "phonetic": "[po-vyerz-khnyo-vy]",
+    "translation": {
+      "EN": "Superficial",
+      "RU": "Поверхностный"
+    }
+  },
+  {
+    "id": "v-traits-15",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Koleżeński",
+    "phonetic": "[ko-le-zhen-skee]",
+    "translation": {
+      "EN": "Friendly / Collegial",
+      "RU": "Товарищеский"
+    }
+  },
+  {
+    "id": "v-traits-16",
+    "level": "A1",
+    "category": "character traits",
+    "word": "Miły",
+    "phonetic": "[mee-wy]",
+    "translation": {
+      "EN": "Nice / Kind",
+      "RU": "Милый"
+    }
+  },
+  {
+    "id": "v-traits-17",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Naiwny",
+    "phonetic": "[na-eev-ny]",
+    "translation": {
+      "EN": "Naive",
+      "RU": "Наивный"
+    }
+  },
+  {
+    "id": "v-traits-18",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Obojętny",
+    "phonetic": "[o-bo-yen-tny]",
+    "translation": {
+      "EN": "Indifferent",
+      "RU": "Безразличный"
+    }
+  },
+  {
+    "id": "v-traits-19",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Samolubny",
+    "phonetic": "[sa-mo-loob-ny]",
+    "translation": {
+      "EN": "Selfish",
+      "RU": "Эгоистичный"
+    }
+  },
+  {
+    "id": "v-traits-20",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Surowy",
+    "phonetic": "[soo-ro-vy]",
+    "translation": {
+      "EN": "Strict / Severe",
+      "RU": "Строгий"
+    }
+  },
+  {
+    "id": "v-traits-21",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Łagodny",
+    "phonetic": "[wa-god-ny]",
+    "translation": {
+      "EN": "Gentle / Mild",
+      "RU": "Мягкий / Кроткий"
+    }
+  },
+  {
+    "id": "v-traits-22",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Życzliwy",
+    "phonetic": "[zhi-chlee-vy]",
+    "translation": {
+      "EN": "Benevolent / Kind",
+      "RU": "Доброжелательный"
+    }
+  },
+  {
+    "id": "v-traits-23",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Skryty",
+    "phonetic": "[skry-ty]",
+    "translation": {
+      "EN": "Reserved / Secretive",
+      "RU": "Скрытный"
+    }
+  },
+  {
+    "id": "v-traits-24",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Cierpliwy",
+    "phonetic": "[chyer-plee-vy]",
+    "translation": {
+      "EN": "Patient",
+      "RU": "Терпеливый"
+    }
+  },
+  {
+    "id": "v-traits-25",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Spokojny",
+    "phonetic": "[spo-koy-ny]",
+    "translation": {
+      "EN": "Calm",
+      "RU": "Спокойный"
+    }
+  },
+  {
+    "id": "v-traits-26",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Nerwowy",
+    "phonetic": "[ner-vo-vy]",
+    "translation": {
+      "EN": "Nervous",
+      "RU": "Нервный"
+    }
+  },
+  {
+    "id": "v-traits-27",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Uprzejmy",
+    "phonetic": "[oop-zhey-my]",
+    "translation": {
+      "EN": "Polite",
+      "RU": "Вежливый"
+    }
+  },
+  {
+    "id": "v-traits-28",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Grzeczny",
+    "phonetic": "[gzhech-ny]",
+    "translation": {
+      "EN": "Well-behaved",
+      "RU": "Воспитанный"
+    }
+  },
+  {
+    "id": "v-traits-29",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Zdolny",
+    "phonetic": "[zdol-ny]",
+    "translation": {
+      "EN": "Talented",
+      "RU": "Способный"
+    }
+  },
+  {
+    "id": "v-traits-30",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Pilny",
+    "phonetic": "[peel-ny]",
+    "translation": {
+      "EN": "Diligent",
+      "RU": "Усердный"
+    }
+  },
+  {
+    "id": "v-traits-31",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Obowiązkowy",
+    "phonetic": "[o-bo-vyon-zko-vy]",
+    "translation": {
+      "EN": "Dutiful",
+      "RU": "Обязательный"
+    }
+  },
+  {
+    "id": "v-traits-32",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Solidny",
+    "phonetic": "[so-leed-ny]",
+    "translation": {
+      "EN": "Reliable / Solid",
+      "RU": "Надежный"
+    }
+  },
+  {
+    "id": "v-traits-33",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Punktualny",
+    "phonetic": "[poonk-too-al-ny]",
+    "translation": {
+      "EN": "Punctual",
+      "RU": "Пунктуальный"
+    }
+  },
+  {
+    "id": "v-traits-34",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Mądry",
+    "phonetic": "[mon-dry]",
+    "translation": {
+      "EN": "Wise / Smart",
+      "RU": "Мудрый / Умный"
+    }
+  },
+  {
+    "id": "v-traits-35",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Głupi",
+    "phonetic": "[gwoo-pee]",
+    "translation": {
+      "EN": "Stupid",
+      "RU": "Глупый"
+    }
+  },
+  {
+    "id": "v-traits-36",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Inteligentny",
+    "phonetic": "[een-te-lee-gent-ny]",
+    "translation": {
+      "EN": "Intelligent",
+      "RU": "Интеллигентный"
+    }
+  },
+  {
+    "id": "v-traits-37",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Sprytny",
+    "phonetic": "[spryt-ny]",
+    "translation": {
+      "EN": "Clever / Crafty",
+      "RU": "Хитрый / Смышленый"
+    }
+  },
+  {
+    "id": "v-traits-38",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Bystry",
+    "phonetic": "[bys-try]",
+    "translation": {
+      "EN": "Sharp / Quick-witted",
+      "RU": "Быстрый / Сметливый"
+    }
+  },
+  {
+    "id": "v-traits-39",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Elokwentny",
+    "phonetic": "[e-lok-vent-ny]",
+    "translation": {
+      "EN": "Eloquent",
+      "RU": "Красноречивый"
+    }
+  },
+  {
+    "id": "v-traits-40",
+    "level": "A1",
+    "category": "character traits",
+    "word": "Smutny",
+    "phonetic": "[smoot-ny]",
+    "translation": {
+      "EN": "Sad",
+      "RU": "Грустный"
+    }
+  },
+  {
+    "id": "v-traits-41",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Ponury",
+    "phonetic": "[po-noo-ry]",
+    "translation": {
+      "EN": "Gloomy",
+      "RU": "Угрюмый"
+    }
+  },
+  {
+    "id": "v-traits-42",
+    "level": "A1",
+    "category": "character traits",
+    "word": "Wesoły",
+    "phonetic": "[ve-so-wy]",
+    "translation": {
+      "EN": "Cheerful",
+      "RU": "Веселый"
+    }
+  },
+  {
+    "id": "v-traits-43",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Dowcipny",
+    "phonetic": "[dov-cheep-ny]",
+    "translation": {
+      "EN": "Witty",
+      "RU": "Остроумный"
+    }
+  },
+  {
+    "id": "v-traits-44",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Pogodny",
+    "phonetic": "[po-god-ny]",
+    "translation": {
+      "EN": "Sunny / Cheerful",
+      "RU": "Жизнерадостный"
+    }
+  },
+  {
+    "id": "v-traits-45",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Skąpy",
+    "phonetic": "[skon-py]",
+    "translation": {
+      "EN": "Stingy",
+      "RU": "Скупой"
+    }
+  },
+  {
+    "id": "v-traits-46",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Oszczędny",
+    "phonetic": "[osh-chend-ny]",
+    "translation": {
+      "EN": "Thrifty",
+      "RU": "Бережливый"
+    }
+  },
+  {
+    "id": "v-traits-47",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Rozrzutny",
+    "phonetic": "[roz-zhoot-ny]",
+    "translation": {
+      "EN": "Extravagant",
+      "RU": "Расточительный"
+    }
+  },
+  {
+    "id": "v-traits-48",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Gościnny",
+    "phonetic": "[gosh-cheen-ny]",
+    "translation": {
+      "EN": "Hospitable",
+      "RU": "Гостеприимный"
+    }
+  },
+  {
+    "id": "v-traits-49",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Tolerancyjny",
+    "phonetic": "[to-le-ran-tsyj-ny]",
+    "translation": {
+      "EN": "Tolerant",
+      "RU": "Толерантный"
+    }
+  },
+  {
+    "id": "v-traits-50",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Optymista",
+    "phonetic": "[op-ty-mees-ta]",
+    "translation": {
+      "EN": "Optimist",
+      "RU": "Оптимист"
+    }
+  },
+  {
+    "id": "v-traits-51",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Pesymista",
+    "phonetic": "[pe-sy-mees-ta]",
+    "translation": {
+      "EN": "Pessimist",
+      "RU": "Пессимист"
+    }
+  },
+  {
+    "id": "v-traits-52",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Bezinteresowny",
+    "phonetic": "[bez-een-te-re-sov-ny]",
+    "translation": {
+      "EN": "Unselfish",
+      "RU": "Бескорыстный"
+    }
+  },
+  {
+    "id": "v-traits-53",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Bezkompromisowy",
+    "phonetic": "[bez-kom-pro-mee-so-vy]",
+    "translation": {
+      "EN": "Uncompromising",
+      "RU": "Бескомпромиссный"
+    }
+  },
+  {
+    "id": "v-traits-54",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Bezstronny",
+    "phonetic": "[bez-stron-ny]",
+    "translation": {
+      "EN": "Impartial",
+      "RU": "Беспристрастный"
+    }
+  },
+  {
+    "id": "v-traits-55",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Dobroduszny",
+    "phonetic": "[do-bro-doosh-ny]",
+    "translation": {
+      "EN": "Good-natured",
+      "RU": "Добродушный"
+    }
+  },
+  {
+    "id": "v-traits-56",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Dumny",
+    "phonetic": "[doom-ny]",
+    "translation": {
+      "EN": "Proud",
+      "RU": "Гордый"
+    }
+  },
+  {
+    "id": "v-traits-57",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Energiczny",
+    "phonetic": "[e-ner-geet-chny]",
+    "translation": {
+      "EN": "Energetic",
+      "RU": "Энергичный"
+    }
+  },
+  {
+    "id": "v-traits-58",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Gorliwy",
+    "phonetic": "[gor-lee-vy]",
+    "translation": {
+      "EN": "Zealous / Eager",
+      "RU": "Ревностный"
+    }
+  },
+  {
+    "id": "v-traits-59",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Honorowy",
+    "phonetic": "[ho-no-ro-vy]",
+    "translation": {
+      "EN": "Honorable",
+      "RU": "Честный / Почетный"
+    }
+  },
+  {
+    "id": "v-traits-60",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Kulturalny",
+    "phonetic": "[kool-too-ral-ny]",
+    "translation": {
+      "EN": "Cultured / Polite",
+      "RU": "Культурный"
+    }
+  },
+  {
+    "id": "v-traits-61",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Mężny",
+    "phonetic": "[menzh-ny]",
+    "translation": {
+      "EN": "Courageous",
+      "RU": "Мужественный"
+    }
+  },
+  {
+    "id": "v-traits-62",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Nieugięty",
+    "phonetic": "[nye-oo-gyen-ty]",
+    "translation": {
+      "EN": "Unyielding",
+      "RU": "Непреклонный"
+    }
+  },
+  {
+    "id": "v-traits-63",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Obrotny",
+    "phonetic": "[ob-rot-ny]",
+    "translation": {
+      "EN": "Resourceful",
+      "RU": "Предприимчивый"
+    }
+  },
+  {
+    "id": "v-traits-64",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Odpowiedzialny",
+    "phonetic": "[od-po-vye-dzyal-ny]",
+    "translation": {
+      "EN": "Responsible",
+      "RU": "Ответственный"
+    }
+  },
+  {
+    "id": "v-traits-65",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Pokorny",
+    "phonetic": "[po-kor-ny]",
+    "translation": {
+      "EN": "Humble",
+      "RU": "Смиренный"
+    }
+  },
+  {
+    "id": "v-traits-66",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Potulny",
+    "phonetic": "[po-tool-ny]",
+    "translation": {
+      "EN": "Submissive",
+      "RU": "Покорный"
+    }
+  },
+  {
+    "id": "v-traits-67",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Pracowity",
+    "phonetic": "[pra-tso-vee-ty]",
+    "translation": {
+      "EN": "Hardworking",
+      "RU": "Трудолюбивый"
+    }
+  },
+  {
+    "id": "v-traits-68",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Prawdomówny",
+    "phonetic": "[prav-do-moov-ny]",
+    "translation": {
+      "EN": "Truthful",
+      "RU": "Правдивый"
+    }
+  },
+  {
+    "id": "v-traits-69",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Prawy",
+    "phonetic": "[pra-vy]",
+    "translation": {
+      "EN": "Righteous",
+      "RU": "Праведный"
+    }
+  },
+  {
+    "id": "v-traits-70",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Prostolinijny",
+    "phonetic": "[pros-to-lee-neey-ny]",
+    "translation": {
+      "EN": "Straightforward",
+      "RU": "Прямолинейный"
+    }
+  },
+  {
+    "id": "v-traits-71",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Przyjacielski",
+    "phonetic": "[pshy-ya-chyel-skee]",
+    "translation": {
+      "EN": "Friendly",
+      "RU": "Дружелюбный"
+    }
+  },
+  {
+    "id": "v-traits-72",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Rodzinny",
+    "phonetic": "[rod-geen-ny]",
+    "translation": {
+      "EN": "Family-oriented",
+      "RU": "Семейный"
+    }
+  },
+  {
+    "id": "v-traits-73",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Rozsądny",
+    "phonetic": "[roz-sond-ny]",
+    "translation": {
+      "EN": "Reasonable / Sensible",
+      "RU": "Разумный"
+    }
+  },
+  {
+    "id": "v-traits-74",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Rygorystyczny",
+    "phonetic": "[ry-go-ry-sty-chny]",
+    "translation": {
+      "EN": "Rigorous / Strict",
+      "RU": "Строгий"
+    }
+  },
+  {
+    "id": "v-traits-75",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Rzetelny",
+    "phonetic": "[zhe-tel-ny]",
+    "translation": {
+      "EN": "Thorough / Reliable",
+      "RU": "Добросовестный"
+    }
+  },
+  {
+    "id": "v-traits-76",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Skromny",
+    "phonetic": "[skrom-ny]",
+    "translation": {
+      "EN": "Modest",
+      "RU": "Скромный"
+    }
+  },
+  {
+    "id": "v-traits-77",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Skrupulatny",
+    "phonetic": "[skroo-poo-lat-ny]",
+    "translation": {
+      "EN": "Meticulous",
+      "RU": "Тщательный"
+    }
+  },
+  {
+    "id": "v-traits-78",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Solidarny",
+    "phonetic": "[so-lee-dar-ny]",
+    "translation": {
+      "EN": "Solidary",
+      "RU": "Солидарный"
+    }
+  },
+  {
+    "id": "v-traits-79",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Subtelny",
+    "phonetic": "[soob-tel-ny]",
+    "translation": {
+      "EN": "Subtle / Delicate",
+      "RU": "Утонченный"
+    }
+  },
+  {
+    "id": "v-traits-80",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Sumienny",
+    "phonetic": "[soo-myen-ny]",
+    "translation": {
+      "EN": "Conscientious",
+      "RU": "Добросовестный"
+    }
+  },
+  {
+    "id": "v-traits-81",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Szlachetny",
+    "phonetic": "[shla-khet-ny]",
+    "translation": {
+      "EN": "Noble",
+      "RU": "Благородный"
+    }
+  },
+  {
+    "id": "v-traits-82",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Taktowny",
+    "phonetic": "[tak-tov-ny]",
+    "translation": {
+      "EN": "Tactful",
+      "RU": "Тактичный"
+    }
+  },
+  {
+    "id": "v-traits-83",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Towarzyski",
+    "phonetic": "[to-va-zhi-skee]",
+    "translation": {
+      "EN": "Sociable",
+      "RU": "Общительный"
+    }
+  },
+  {
+    "id": "v-traits-84",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Uczciwy",
+    "phonetic": "[ooch-chee-vy]",
+    "translation": {
+      "EN": "Honest / Fair",
+      "RU": "Честный"
+    }
+  },
+  {
+    "id": "v-traits-85",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Uczuciowy",
+    "phonetic": "[oo-choo-chyo-vy]",
+    "translation": {
+      "EN": "Emotional",
+      "RU": "Эмоциональный"
+    }
+  },
+  {
+    "id": "v-traits-86",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Uczynny",
+    "phonetic": "[oo-chyn-ny]",
+    "translation": {
+      "EN": "Helpful",
+      "RU": "Готовый помочь"
+    }
+  },
+  {
+    "id": "v-traits-87",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Usłużny",
+    "phonetic": "[oo-swoozh-ny]",
+    "translation": {
+      "EN": "Obliging",
+      "RU": "Услужливый"
+    }
+  },
+  {
+    "id": "v-traits-88",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Wierny",
+    "phonetic": "[vyer-ny]",
+    "translation": {
+      "EN": "Faithful / Loyal",
+      "RU": "Верный"
+    }
+  },
+  {
+    "id": "v-traits-89",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Wspaniałomyślny",
+    "phonetic": "[vspa-nya-wo-mysh-lny]",
+    "translation": {
+      "EN": "Magnanimous",
+      "RU": "Великодушный"
+    }
+  },
+  {
+    "id": "v-traits-90",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Wyrozumiały",
+    "phonetic": "[vy-ro-zoo-mya-wy]",
+    "translation": {
+      "EN": "Understanding",
+      "RU": "Понимающий"
+    }
+  },
+  {
+    "id": "v-traits-91",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Wytrwały",
+    "phonetic": "[vyt-rva-wy]",
+    "translation": {
+      "EN": "Persistent",
+      "RU": "Настойчивый"
+    }
+  },
+  {
+    "id": "v-traits-92",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Zdyscyplinowany",
+    "phonetic": "[zdy-scy-plee-no-va-ny]",
+    "translation": {
+      "EN": "Disciplined",
+      "RU": "Дисциплинированный"
+    }
+  },
+  {
+    "id": "v-traits-93",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Zrównoważony",
+    "phonetic": "[zroov-no-va-zho-ny]",
+    "translation": {
+      "EN": "Balanced / Level-headed",
+      "RU": "Уравновешенный"
+    }
+  },
+  {
+    "id": "v-traits-94",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Szarmancki",
+    "phonetic": "[shar-man-tskee]",
+    "translation": {
+      "EN": "Gallant / Chivalrous",
+      "RU": "Галантный"
+    }
+  },
+  {
+    "id": "v-traits-95",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Amoralny",
+    "phonetic": "[a-mo-ral-ny]",
+    "translation": {
+      "EN": "Amoral",
+      "RU": "Аморальный"
+    }
+  },
+  {
+    "id": "v-traits-96",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Arogancki",
+    "phonetic": "[a-ro-gan-tskee]",
+    "translation": {
+      "EN": "Arrogant",
+      "RU": "Высокомерный"
+    }
+  },
+  {
+    "id": "v-traits-97",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Chciwy",
+    "phonetic": "[khchee-vy]",
+    "translation": {
+      "EN": "Greedy",
+      "RU": "Жадный"
+    }
+  },
+  {
+    "id": "v-traits-98",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Chełpliwy",
+    "phonetic": "[khew-plee-vy]",
+    "translation": {
+      "EN": "Boastful",
+      "RU": "Хвастливый"
+    }
+  },
+  {
+    "id": "v-traits-99",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Cyniczny",
+    "phonetic": "[tsy-neech-ny]",
+    "translation": {
+      "EN": "Cynical",
+      "RU": "Циничный"
+    }
+  },
+  {
+    "id": "v-traits-100",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Dokuczliwy",
+    "phonetic": "[do-kooch-lee-vy]",
+    "translation": {
+      "EN": "Annoying",
+      "RU": "Назойливый"
+    }
+  },
+  {
+    "id": "v-traits-101",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Drażliwy",
+    "phonetic": "[drazh-lee-vy]",
+    "translation": {
+      "EN": "Touchy",
+      "RU": "Обидчивый"
+    }
+  },
+  {
+    "id": "v-traits-102",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Dwulicowy",
+    "phonetic": "[dvoo-lee-tso-vy]",
+    "translation": {
+      "EN": "Two-faced",
+      "RU": "Двуличный"
+    }
+  },
+  {
+    "id": "v-traits-103",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Ekscentryczny",
+    "phonetic": "[eks-tsen-trych-ny]",
+    "translation": {
+      "EN": "Eccentric",
+      "RU": "Эксцентричный"
+    }
+  },
+  {
+    "id": "v-traits-104",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Gruboskórny",
+    "phonetic": "[groo-bo-skoor-ny]",
+    "translation": {
+      "EN": "Thick-skinned / Insensitive",
+      "RU": "Толстокожий"
+    }
+  },
+  {
+    "id": "v-traits-105",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Impulsywny",
+    "phonetic": "[eem-pool-syv-ny]",
+    "translation": {
+      "EN": "Impulsive",
+      "RU": "Импульсивный"
+    }
+  },
+  {
+    "id": "v-traits-106",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Kapryśny",
+    "phonetic": "[ka-prysh-ny]",
+    "translation": {
+      "EN": "Capricious / Moody",
+      "RU": "Капризный"
+    }
+  },
+  {
+    "id": "v-traits-107",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Kłótliwy",
+    "phonetic": "[kwoo-tlee-vy]",
+    "translation": {
+      "EN": "Quarrelsome",
+      "RU": "Сварливый"
+    }
+  },
+  {
+    "id": "v-traits-108",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Krnąbrny",
+    "phonetic": "[krnon-brny]",
+    "translation": {
+      "EN": "Disobedient",
+      "RU": "Непокорный"
+    }
+  },
+  {
+    "id": "v-traits-109",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Lekkomyślny",
+    "phonetic": "[lek-ko-mysh-lny]",
+    "translation": {
+      "EN": "Reckless",
+      "RU": "Легкомысленный"
+    }
+  },
+  {
+    "id": "v-traits-110",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Łatwowierny",
+    "phonetic": "[wat-vo-vyer-ny]",
+    "translation": {
+      "EN": "Gullible",
+      "RU": "Доверчивый"
+    }
+  },
+  {
+    "id": "v-traits-111",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Małoduszny",
+    "phonetic": "[ma-wo-doosh-ny]",
+    "translation": {
+      "EN": "Mean-spirited",
+      "RU": "Малодушный"
+    }
+  },
+  {
+    "id": "v-traits-112",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Małostkowy",
+    "phonetic": "[ma-wost-ko-vy]",
+    "translation": {
+      "EN": "Petty",
+      "RU": "Мелочный"
+    }
+  },
+  {
+    "id": "v-traits-113",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Mrukliwy",
+    "phonetic": "[mrook-lee-vy]",
+    "translation": {
+      "EN": "Sullen / Grumpy",
+      "RU": "Угрюмый"
+    }
+  },
+  {
+    "id": "v-traits-114",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Mściwy",
+    "phonetic": "[mshchee-vy]",
+    "translation": {
+      "EN": "Vindictive",
+      "RU": "Мстительный"
+    }
+  },
+  {
+    "id": "v-traits-115",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Nadwrażliwy",
+    "phonetic": "[nad-vrazh-lee-vy]",
+    "translation": {
+      "EN": "Oversensitive",
+      "RU": "Сверхчувствительный"
+    }
+  },
+  {
+    "id": "v-traits-116",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Niegrzeczny",
+    "phonetic": "[nye-gzhech-ny]",
+    "translation": {
+      "EN": "Naughty / Rude",
+      "RU": "Невежливый"
+    }
+  },
+  {
+    "id": "v-traits-117",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Nieodpowiedzialny",
+    "phonetic": "[nye-od-po-vye-dzyal-ny]",
+    "translation": {
+      "EN": "Irresponsible",
+      "RU": "Безответственный"
+    }
+  },
+  {
+    "id": "v-traits-118",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Nieokrzesany",
+    "phonetic": "[nye-o-kshe-sa-ny]",
+    "translation": {
+      "EN": "Uncouth / Boorish",
+      "RU": "Неотесанный"
+    }
+  },
+  {
+    "id": "v-traits-119",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Nietaktowny",
+    "phonetic": "[nye-tak-tov-ny]",
+    "translation": {
+      "EN": "Intactful",
+      "RU": "Бестактный"
+    }
+  },
+  {
+    "id": "v-traits-120",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Nieuczciwy",
+    "phonetic": "[nye-ooch-chee-vy]",
+    "translation": {
+      "EN": "Dishonest",
+      "RU": "Нечестный"
+    }
+  },
+  {
+    "id": "v-traits-121",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Niezaradny",
+    "phonetic": "[nye-za-rad-ny]",
+    "translation": {
+      "EN": "Helpless",
+      "RU": "Беспомощный"
+    }
+  },
+  {
+    "id": "v-traits-122",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Obłudny",
+    "phonetic": "[ob-wood-ny]",
+    "translation": {
+      "EN": "Hypocritical",
+      "RU": "Лицемерный"
+    }
+  },
+  {
+    "id": "v-traits-123",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Okrutny",
+    "phonetic": "[ok-root-ny]",
+    "translation": {
+      "EN": "Cruel",
+      "RU": "Жестокий"
+    }
+  },
+  {
+    "id": "v-traits-124",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Opieszały",
+    "phonetic": "[o-pye-sha-wy]",
+    "translation": {
+      "EN": "Sluggish",
+      "RU": "Медлительный"
+    }
+  },
+  {
+    "id": "v-traits-125",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Opryskliwy",
+    "phonetic": "[op-rysk-lee-vy]",
+    "translation": {
+      "EN": "Brusque",
+      "RU": "Грубый"
+    }
+  },
+  {
+    "id": "v-traits-126",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Ordynarny",
+    "phonetic": "[or-dy-nar-ny]",
+    "translation": {
+      "EN": "Vulgar",
+      "RU": "Вульгарный"
+    }
+  },
+  {
+    "id": "v-traits-127",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Oschły",
+    "phonetic": "[os-khwy]",
+    "translation": {
+      "EN": "Cold / Dry",
+      "RU": "Черствый"
+    }
+  },
+  {
+    "id": "v-traits-128",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Ospały",
+    "phonetic": "[os-pa-wy]",
+    "translation": {
+      "EN": "Lethargic",
+      "RU": "Вялый"
+    }
+  },
+  {
+    "id": "v-traits-129",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Oziębły",
+    "phonetic": "[o-zyemb-wy]",
+    "translation": {
+      "EN": "Frigid / Distant",
+      "RU": "Холодный"
+    }
+  },
+  {
+    "id": "v-traits-130",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Pobłażliwy",
+    "phonetic": "[po-bwahz-lee-vy]",
+    "translation": {
+      "EN": "Indulgent",
+      "RU": "Снисходительный"
+    }
+  },
+  {
+    "id": "v-traits-131",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Powolny",
+    "phonetic": "[po-vol-ny]",
+    "translation": {
+      "EN": "Slow",
+      "RU": "Медленный"
+    }
+  },
+  {
+    "id": "v-traits-132",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Prostacki",
+    "phonetic": "[pros-tats-kee]",
+    "translation": {
+      "EN": "Boorish",
+      "RU": "Простецкий"
+    }
+  },
+  {
+    "id": "v-traits-133",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Przekorny",
+    "phonetic": "[pshe-kor-ny]",
+    "translation": {
+      "EN": "Contrary",
+      "RU": "Упрямый"
+    }
+  },
+  {
+    "id": "v-traits-134",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Przewrażliwiony",
+    "phonetic": "[pshe-vrazh-lee-vyo-ny]",
+    "translation": {
+      "EN": "Hypersensitive",
+      "RU": "Перечувствовательный"
+    }
+  },
+  {
+    "id": "v-traits-135",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Przewrotny",
+    "phonetic": "[pshe-vrot-ny]",
+    "translation": {
+      "EN": "Perverse",
+      "RU": "Коварный"
+    }
+  },
+  {
+    "id": "v-traits-136",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Pusty",
+    "phonetic": "[poos-ty]",
+    "translation": {
+      "EN": "Shallow",
+      "RU": "Пустой"
+    }
+  },
+  {
+    "id": "v-traits-137",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Pyszałkowaty",
+    "phonetic": "[py-shaw-ko-va-ty]",
+    "translation": {
+      "EN": "Arrogant / Pompous",
+      "RU": "Самомнительный"
+    }
+  },
+  {
+    "id": "v-traits-138",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Raptowny",
+    "phonetic": "[rap-tov-ny]",
+    "translation": {
+      "EN": "Impetuous",
+      "RU": "Вспыльчивый"
+    }
+  },
+  {
+    "id": "v-traits-139",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Samowolny",
+    "phonetic": "[sa-mo-vol-ny]",
+    "translation": {
+      "EN": "Self-willed",
+      "RU": "Самовольный"
+    }
+  },
+  {
+    "id": "v-traits-140",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Srogi",
+    "phonetic": "[sro-gee]",
+    "translation": {
+      "EN": "Stern / Severe",
+      "RU": "Суровый"
+    }
+  },
+  {
+    "id": "v-traits-141",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Swarliwy",
+    "phonetic": "[svar-lee-vy]",
+    "translation": {
+      "EN": "Brawling",
+      "RU": "Задиристый"
+    }
+  },
+  {
+    "id": "v-traits-142",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Szorstki",
+    "phonetic": "[shorst-kee]",
+    "translation": {
+      "EN": "Harsh / Rough",
+      "RU": "Резкий"
+    }
+  },
+  {
+    "id": "v-traits-143",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Ślamazarny",
+    "phonetic": "[shla-ma-zar-ny]",
+    "translation": {
+      "EN": "Sluggish / Slow",
+      "RU": "Копуша"
+    }
+  },
+  {
+    "id": "v-traits-144",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Tchórzliwy",
+    "phonetic": "[tchoorz-lee-vy]",
+    "translation": {
+      "EN": "Cowardly",
+      "RU": "Трусливый"
+    }
+  },
+  {
+    "id": "v-traits-145",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Uszczypliwy",
+    "phonetic": "[oosh-chyip-lee-vy]",
+    "translation": {
+      "EN": "Sarcastic",
+      "RU": "Язвительный"
+    }
+  },
+  {
+    "id": "v-traits-146",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Wiarołomny",
+    "phonetic": "[vya-ro-wom-ny]",
+    "translation": {
+      "EN": "Treacherous",
+      "RU": "Вероломный"
+    }
+  },
+  {
+    "id": "v-traits-147",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Wścibski",
+    "phonetic": "[vshcheeb-skee]",
+    "translation": {
+      "EN": "Nosy",
+      "RU": "Любопытный"
+    }
+  },
+  {
+    "id": "v-traits-148",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Wulgarny",
+    "phonetic": "[vool-gar-ny]",
+    "translation": {
+      "EN": "Vulgar",
+      "RU": "Вульгарный"
+    }
+  },
+  {
+    "id": "v-traits-149",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Wybuchowy",
+    "phonetic": "[vy-boo-kho-vy]",
+    "translation": {
+      "EN": "Short-tempered",
+      "RU": "Вспыльчивый"
+    }
+  },
+  {
+    "id": "v-traits-150",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Wyniosły",
+    "phonetic": "[vy-nyos-wy]",
+    "translation": {
+      "EN": "Haughty",
+      "RU": "Заносчивый"
+    }
+  },
+  {
+    "id": "v-traits-151",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Zakłamany",
+    "phonetic": "[za-kwa-ma-ny]",
+    "translation": {
+      "EN": "Deceitful",
+      "RU": "Лживый"
+    }
+  },
+  {
+    "id": "v-traits-152",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Zamknięty w sobie",
+    "phonetic": "[zamk-nye-ty v so-bye]",
+    "translation": {
+      "EN": "Reserved",
+      "RU": "Замкнутый в себе"
+    }
+  },
+  {
+    "id": "v-traits-153",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Zapalczywy",
+    "phonetic": "[za-pal-chy-vy]",
+    "translation": {
+      "EN": "Hot-headed",
+      "RU": "Вспыльчивый"
+    }
+  },
+  {
+    "id": "v-traits-154",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Zarozumiały",
+    "phonetic": "[za-ro-zoo-mya-wy]",
+    "translation": {
+      "EN": "Conceited",
+      "RU": "Зазнавшийся"
+    }
+  },
+  {
+    "id": "v-traits-155",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Zjadliwy",
+    "phonetic": "[zyad-lee-vy]",
+    "translation": {
+      "EN": "Spiteful / Venomous",
+      "RU": "Ядовитый / Злобный"
+    }
+  },
+  {
+    "id": "v-traits-156",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Altruista",
+    "phonetic": "[al-troo-ees-ta]",
+    "translation": {
+      "EN": "Altruist",
+      "RU": "Альтруист"
+    }
+  },
+  {
+    "id": "v-traits-157",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Bałaganiarz",
+    "phonetic": "[ba-wa-ga-nyazh]",
+    "translation": {
+      "EN": "Messy person",
+      "RU": "Неряха"
+    }
+  },
+  {
+    "id": "v-traits-158",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Bohater",
+    "phonetic": "[bo-ha-ter]",
+    "translation": {
+      "EN": "Hero",
+      "RU": "Герой"
+    }
+  },
+  {
+    "id": "v-traits-159",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Brudas",
+    "phonetic": "[broo-das]",
+    "translation": {
+      "EN": "Slob",
+      "RU": "Грязнуля"
+    }
+  },
+  {
+    "id": "v-traits-160",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Chciwiec",
+    "phonetic": "[khchee-vyets]",
+    "translation": {
+      "EN": "Greedy person",
+      "RU": "Жадюга"
+    }
+  },
+  {
+    "id": "v-traits-161",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Chwalipięta",
+    "phonetic": "[khva-lee-pyen-ta]",
+    "translation": {
+      "EN": "Show-off",
+      "RU": "Хвастун"
+    }
+  },
+  {
+    "id": "v-traits-162",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Darmozjad",
+    "phonetic": "[dar-mo-zyad]",
+    "translation": {
+      "EN": "Freeloader",
+      "RU": "Дармоед"
+    }
+  },
+  {
+    "id": "v-traits-163",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Dusigrosz",
+    "phonetic": "[doo-see-grosh]",
+    "translation": {
+      "EN": "Miser",
+      "RU": "Скупердяй"
+    }
+  },
+  {
+    "id": "v-traits-164",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Dyletant",
+    "phonetic": "[dy-le-tant]",
+    "translation": {
+      "EN": "Dilettante",
+      "RU": "Дилетант"
+    }
+  },
+  {
+    "id": "v-traits-165",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Dziwak",
+    "phonetic": "[dzy-vak]",
+    "translation": {
+      "EN": "Weirdo",
+      "RU": "Чудак"
+    }
+  },
+  {
+    "id": "v-traits-166",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Erudyta",
+    "phonetic": "[e-roo-dy-ta]",
+    "translation": {
+      "EN": "Scholar",
+      "RU": "Эрудит"
+    }
+  },
+  {
+    "id": "v-traits-167",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Flejtuch",
+    "phonetic": "[fley-tookh]",
+    "translation": {
+      "EN": "Slob",
+      "RU": "Неряха"
+    }
+  },
+  {
+    "id": "v-traits-168",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Gaduła",
+    "phonetic": "[ga-doo-wa]",
+    "translation": {
+      "EN": "Chatterbox",
+      "RU": "Болтун"
+    }
+  },
+  {
+    "id": "v-traits-169",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Karierowicz",
+    "phonetic": "[ka-rye-ro-veech]",
+    "translation": {
+      "EN": "Careerist",
+      "RU": "Карьерист"
+    }
+  },
+  {
+    "id": "v-traits-170",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Kłamczuch",
+    "phonetic": "[kwam-chookh]",
+    "translation": {
+      "EN": "Liar",
+      "RU": "Лгунишка"
+    }
+  },
+  {
+    "id": "v-traits-171",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Lekkoduch",
+    "phonetic": "[lek-ko-dookh]",
+    "translation": {
+      "EN": "Easygoing person",
+      "RU": "Беззаботный человек"
+    }
+  },
+  {
+    "id": "v-traits-172",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Leń",
+    "phonetic": "[len]",
+    "translation": {
+      "EN": "Lazybones",
+      "RU": "Лентяй"
+    }
+  },
+  {
+    "id": "v-traits-173",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Łakomczuch",
+    "phonetic": "[wa-kom-chookh]",
+    "translation": {
+      "EN": "Glutton",
+      "RU": "Обжора"
+    }
+  },
+  {
+    "id": "v-traits-174",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Narwaniec",
+    "phonetic": "[nar-va-nyets]",
+    "translation": {
+      "EN": "Hothead",
+      "RU": "Сорвиголова"
+    }
+  },
+  {
+    "id": "v-traits-175",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Nerwus",
+    "phonetic": "[ner-voos]",
+    "translation": {
+      "EN": "Nervous person",
+      "RU": "Нервный человек"
+    }
+  },
+  {
+    "id": "v-traits-176",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Nieudacznik",
+    "phonetic": "[nye-oo-dach-neek]",
+    "translation": {
+      "EN": "Loser",
+      "RU": "Неудачник"
+    }
+  },
+  {
+    "id": "v-traits-177",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Obibok",
+    "phonetic": "[o-bee-bok]",
+    "translation": {
+      "EN": "Slacker",
+      "RU": "Бездельник"
+    }
+  },
+  {
+    "id": "v-traits-178",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Obłudnik",
+    "phonetic": "[ob-wood-neek]",
+    "translation": {
+      "EN": "Hypocrite",
+      "RU": "Лицемер"
+    }
+  },
+  {
+    "id": "v-traits-179",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Okrutnik",
+    "phonetic": "[ok-root-neek]",
+    "translation": {
+      "EN": "Cruel person",
+      "RU": "Изверг"
+    }
+  },
+  {
+    "id": "v-traits-180",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Oryginał",
+    "phonetic": "[o-ry-gee-naw]",
+    "translation": {
+      "EN": "Eccentric person",
+      "RU": "Оригинал"
+    }
+  },
+  {
+    "id": "v-traits-181",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Oszczerca",
+    "phonetic": "[osh-cher-tsa]",
+    "translation": {
+      "EN": "Slanderer",
+      "RU": "Клеветник"
+    }
+  },
+  {
+    "id": "v-traits-182",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Oszust",
+    "phonetic": "[o-shoost]",
+    "translation": {
+      "EN": "Cheat / Swindler",
+      "RU": "Обманщик"
+    }
+  },
+  {
+    "id": "v-traits-183",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Pedant",
+    "phonetic": "[pe-dant]",
+    "translation": {
+      "EN": "Pedant",
+      "RU": "Педант"
+    }
+  },
+  {
+    "id": "v-traits-184",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Perfekcjonista",
+    "phonetic": "[per-fek-tsyo-nees-ta]",
+    "translation": {
+      "EN": "Perfectionist",
+      "RU": "Перфекционист"
+    }
+  },
+  {
+    "id": "v-traits-185",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Pyszałek",
+    "phonetic": "[py-sha-wek]",
+    "translation": {
+      "EN": "Arrogant person",
+      "RU": "Зазнайка"
+    }
+  },
+  {
+    "id": "v-traits-186",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Ranny ptaszek",
+    "phonetic": "[ran-ny pta-shek]",
+    "translation": {
+      "EN": "Early bird",
+      "RU": "Ранняя пташка"
+    }
+  },
+  {
+    "id": "v-traits-187",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Samochwała",
+    "phonetic": "[sa-mo-chwa-wa]",
+    "translation": {
+      "EN": "Boaster",
+      "RU": "Хвастун"
+    }
+  },
+  {
+    "id": "v-traits-188",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Samotnik",
+    "phonetic": "[sa-mot-neek]",
+    "translation": {
+      "EN": "Loner",
+      "RU": "Одиночка"
+    }
+  },
+  {
+    "id": "v-traits-189",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Samouk",
+    "phonetic": "[sa-mo-ook]",
+    "translation": {
+      "EN": "Self-taught person",
+      "RU": "Самоучка"
+    }
+  },
+  {
+    "id": "v-traits-190",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Skąpiec",
+    "phonetic": "[skomp-yets]",
+    "translation": {
+      "EN": "Miser",
+      "RU": "Скупец"
+    }
+  },
+  {
+    "id": "v-traits-191",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Śmiałek",
+    "phonetic": "[shmya-wek]",
+    "translation": {
+      "EN": "Daredevil",
+      "RU": "Смельчак"
+    }
+  },
+  {
+    "id": "v-traits-192",
+    "level": "A2",
+    "category": "character traits",
+    "word": "Śpioch",
+    "phonetic": "[shpyokh]",
+    "translation": {
+      "EN": "Sleepyhead",
+      "RU": "Соня"
+    }
+  },
+  {
+    "id": "v-traits-193",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Tradycjonalista",
+    "phonetic": "[tra-dy-tsy-o-na-lees-ta]",
+    "translation": {
+      "EN": "Traditionalist",
+      "RU": "Традиционалист"
+    }
+  },
+  {
+    "id": "v-traits-194",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Zacofaniec",
+    "phonetic": "[za-tso-fa-nyets]",
+    "translation": {
+      "EN": "Reactionary",
+      "RU": "Отсталый человек"
+    }
+  },
+  {
+    "id": "v-traits-195",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Złośnik",
+    "phonetic": "[zwosh-neek]",
+    "translation": {
+      "EN": "Hothead",
+      "RU": "Злюка"
+    }
+  },
+  {
+    "id": "v-traits-196",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Żartowniś",
+    "phonetic": "[zhar-tov-neesh]",
+    "translation": {
+      "EN": "Joker",
+      "RU": "Шутник"
+    }
+  },
+  {
+    "id": "v-traits-197",
+    "level": "B1",
+    "category": "character traits",
+    "word": "Nocny marek",
+    "phonetic": "[nots-ny ma-rek]",
+    "translation": {
+      "EN": "Night owl",
+      "RU": "Сова"
+    }
+  },
+  {
+    "id": "v-traits-198",
+    "level": "B2",
+    "category": "character traits",
+    "word": "Męczydupa",
+    "phonetic": "[men-chy-doo-pa]",
+    "translation": {
+      "EN": "Bore / Pain in the neck",
+      "RU": "Зануда"
+    }
+  }
+]
