@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polska — Grammar, Vocabulary, Textbook &amp; Tutor Tips</title>
+<!--
+DESIGN: 3D Liquid Glassmorphism, per Polish_Learning_App_Design_Spec.docx.
+Palette: deep indigo-navy base (#0B1020 → #161B33) so glass panels & neon
+section tints (azure/emerald/amber/violet) actually pop via refraction.
+Type: Plus Jakarta Sans throughout (display + body, weight does the work),
+Space Mono only for small numeric labels (streak, level, counts).
+
+DATA SCHEMA (kept in sync with words.json / grammar.json / textbook.json /
+tips.json in THIS SAME repo — "Sync from Cloud" reads the repo name from
+the current page URL, so it always points at wherever this file lives).
+
+words.json    -> [{ id, level, category, word, phonetic, translation:{EN,RU},
+                     gender?: 'm'|'f'|'n', examples?: [string, string] }]
+grammar.json  -> [{ id, level, category, title:{EN,RU}, theory:{EN,RU},
+                     type?: 'fill'|'mcq' (default 'fill'),
+                     prompt, answer,            // used when type is 'fill'
+                     options?: [string,...] }]  // used when type is 'mcq' (answer is the correct option text)
+textbook.json -> [{ id, level, category, title:{EN,RU}, description:{EN,RU}, fileUrl }]
+  fileUrl accepts a Google Drive / Dropbox share link (auto-converted to an
+  inline preview) or a direct https:// URL / repo-relative path.
+tips.json     -> [{ id, level, category, title:{EN,RU}, body:{EN,RU},
+                     audioUrl?, imageUrl? }]
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web/src/regular/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web/src/fill/style.css">
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+:root{
+  --void:#0A0D16; --bg-1:#131A32; --bg-2:#1B2444;
+  --ink:#F6F3EE; --ink-dim:#AFB8D6; --ink-faint:#7C86AC;
+  --glass-fill:rgba(246,243,238,.07); --glass-fill-hi:rgba(246,243,238,.13);
+  --glass-border:rgba(246,243,238,.16); --glass-border-hi:rgba(246,243,238,.30);
+  --glass-shadow:0 20px 60px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.10);
+
+  --violet:#3B1E6B; --blue:#12294D; --crimson:#C8203D;
+  --accent:#E8536A;
+
+  --grammar-a:#2F7BFF;  --grammar-b:#5FD4FF;
+  --vocab-a:#12B886;    --vocab-b:#8CF2C7;
+  --textbook-a:#F0A73C; --textbook-b:#F2B9A0;
+  --tips-a:#8A4FEE;     --tips-b:#EA7CF0;
+  --profile-a:#E8536A;  --profile-b:#FF9E9E;
+
+  --good:#3ED598; --bad:#FF6B7A;
+  --font-display:'Bricolage Grotesque', sans-serif;
+  --font-ui:'Manrope', sans-serif;
+  --font-mono:'Space Mono', monospace;
+  --r-lg:28px; --r-md:20px; --r-sm:14px;
+}
+*{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body{ height:100%; overflow:hidden; }
+body{
+  margin:0; font-family:var(--font-ui); color:var(--ink);
+  background:var(--void);
+  overflow-x:hidden;
+}
+/* Liquid-glass mesh background: large blurred blobs drifting on transform only
+   (compositor-thread animation, no layout thrash) — oversized + inset-negative
+   so drifting never reveals a hard edge. */
+.mesh{ position:fixed; inset:-10%; z-index:0; pointer-events:none; background:var(--void); }
+.mesh::before, .mesh::after, .mesh .blob-c{
+  content:''; position:absolute; border-radius:50%; filter:blur(90px); opacity:.6; will-change:transform;
+}
+.mesh::before{ width:70vw; height:70vw; left:-15vw; top:-10vh; background:radial-gradient(circle, var(--violet), transparent 70%); animation:driftA 26s ease-in-out infinite; }
+.mesh::after{ width:65vw; height:65vw; right:-20vw; top:20vh; background:radial-gradient(circle, var(--blue), transparent 70%); animation:driftB 32s ease-in-out infinite; }
+.mesh .blob-c{ width:55vw; height:55vw; left:20vw; bottom:-25vh; background:radial-gradient(circle, var(--crimson), transparent 72%); opacity:.35; animation:driftC 38s ease-in-out infinite; }
+@keyframes driftA{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(8vw,10vh) scale(1.15); } }
+@keyframes driftB{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-10vw,-6vh) scale(1.08); } }
+@keyframes driftC{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(6vw,-8vh) scale(1.12); } }
+@media (prefers-reduced-motion:reduce){ .mesh::before, .mesh::after, .mesh .blob-c{ animation:none; } }
+
+/* ---------- Full-screen app shell (liquid-glass-demo architecture) ---------- */
+#app{ position:relative; width:100vw; height:100dvh; overflow:hidden; isolation:isolate; }
+
+/* Compact global HUD — brand, level, language only; stats live in Profile */
+.topbar-compact{
+  position:relative; z-index:5; margin:0; border-radius:0; border-left:none; border-right:none; border-top:none;
+  padding:calc(env(safe-area-inset-top) + 10px) 18px 10px;
+  display:flex; align-items:center; gap:10px;
+}
+.topbar-compact .brand{ margin-right:auto; }
+.topbar-compact .level-select{ width:60px; padding:6px 8px; font-size:12px; }
+.ph-spin{ animation:spin 1s linear infinite; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+.view{
+  position:absolute; z-index:1;
+  top:58px; left:0; right:0; bottom:calc(84px + env(safe-area-inset-bottom));
+  overflow-y:auto; -ms-overflow-style:none; scrollbar-width:none;
+  max-width:760px; margin:0 auto;
+}
+.view::-webkit-scrollbar{ display:none; }
+
+/* ---------- Glass dock ---------- */
+.dock{
+  position:fixed; z-index:10; display:flex; gap:4px; padding:8px;
+  left:50%; bottom:calc(env(safe-area-inset-bottom) + 14px); transform:translateX(-50%);
+  border-radius:100px;
+}
+.dock-item{
+  display:flex; flex-direction:column; align-items:center; gap:5px;
+  width:74px; padding:10px 4px 9px; border-radius:100px;
+  color:var(--ink-faint); background:transparent; border:none; cursor:pointer;
+  font-family:var(--font-ui); transition:color .2s ease, background .2s ease, transform .15s ease;
+}
+.dock-item:active{ transform:scale(.94); }
+.dock-item i{ font-size:22px; }
+.dock-item span{ font-size:10.5px; font-weight:700; }
+.dock-item.active{ color:var(--ink); background:var(--glass-fill-hi); }
+@media (min-width:900px){
+  .dock{ left:24px; top:50%; bottom:auto; transform:translateY(-50%); flex-direction:column; border-radius:30px; padding:18px 10px; gap:14px; }
+  .dock-item{ width:92px; padding:14px 6px 12px; }
+  .dock-item i{ font-size:26px; }
+  .dock-item span{ font-size:11.5px; }
+  .view{ left:150px; right:28px; max-width:800px; }
+}
+
+.toast{ position:fixed; left:50%; bottom:calc(90px + env(safe-area-inset-bottom)); transform:translateX(-50%); padding:12px 20px; border-radius:14px; font-size:12.5px; z-index:50; max-width:90vw; animation:toastIn .28s cubic-bezier(.2,.9,.3,1.3); }
+
+/* ---------- Glass primitives ---------- */
+.glass{
+  background:var(--glass-fill); backdrop-filter:blur(28px) saturate(160%); -webkit-backdrop-filter:blur(28px) saturate(160%);
+  border:1px solid var(--glass-border); border-radius:var(--r-lg);
+  box-shadow:var(--glass-shadow);
+}
+@media (prefers-reduced-transparency:reduce){
+  .glass{ background:var(--bg-1); backdrop-filter:none; -webkit-backdrop-filter:none; }
+  .glass-hi, .glass-btn.ghost, .field, .mcq-option{ background:var(--bg-2) !important; }
+}
+.icon, .section-card .icon, .choice-card .icon, .avatar-ring, .tip-thumb{ font-style:normal; }
+.glass-tight{ border-radius:var(--r-md); }
+.glass-btn{
+  font-family:var(--font-ui); font-weight:700; font-size:14px; letter-spacing:.1px;
+  color:var(--ink); background:var(--glass-fill-hi); border:1px solid var(--glass-border-hi);
+  border-radius:100px; padding:13px 22px; cursor:pointer; text-align:center;
+  backdrop-filter:blur(14px); transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.glass-btn:hover{ transform:translateY(-1px); border-color:rgba(255,255,255,.5); }
+.glass-btn:active{ transform:translateY(0); }
+.glass-btn.primary{ background:linear-gradient(135deg, var(--accent-a, var(--grammar-a)), var(--accent-b, var(--grammar-b))); color:#0B1020; border-color:transparent; box-shadow:0 10px 30px color-mix(in srgb, var(--accent-a, var(--grammar-a)) 45%, transparent); }
+.glass-btn.ghost{ background:transparent; box-shadow:none; }
+.glass-btn.block{ width:100%; }
+.glass-btn:disabled{ opacity:.5; cursor:default; transform:none; }
+.icon-btn{ width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--glass-fill-hi); border:1px solid var(--glass-border); color:var(--ink); cursor:pointer; font-size:16px; flex-shrink:0; }
+.field{ width:100%; padding:12px 14px; border-radius:14px; border:1px solid var(--glass-border); background:rgba(255,255,255,.06); color:var(--ink); font-family:var(--font-ui); font-size:13.5px; outline:none; }
+.field::placeholder{ color:var(--ink-faint); }
+.field:focus{ border-color:var(--accent-a, var(--grammar-a)); }
+.textarea{ font-family:var(--font-mono); resize:vertical; }
+.mono{ font-family:var(--font-mono); }
+button, [role="button"]{ outline:none; }
+button:focus-visible, [role="button"]:focus-visible, .field:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+
+.top-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; gap:10px; }
+.brand{ display:flex; align-items:center; gap:9px; font-weight:800; font-size:15px; }
+.brand .flag{ font-size:18px; }
+.lang-toggle{ display:flex; gap:4px; background:var(--glass-fill); border:1px solid var(--glass-border); border-radius:100px; padding:3px; }
+.lang-toggle button{ border:none; background:transparent; color:var(--ink-faint); font-family:var(--font-mono); font-weight:700; font-size:11px; padding:6px 10px; border-radius:100px; cursor:pointer; }
+.lang-toggle button.active{ background:#fff; color:#0B1020; }
+
+/* ---------- Main Menu ---------- */
+.menu-hero{ padding:38px 26px; text-align:center; display:flex; flex-direction:column; align-items:center; }
+.avatar-ring{ width:74px; height:74px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:30px; background:linear-gradient(135deg, var(--grammar-a), var(--tips-a)); box-shadow:0 0 0 5px rgba(255,255,255,.08), 0 14px 34px rgba(90,90,255,.35); margin-bottom:16px; }
+.hero-title{ font-family:var(--font-display); font-size:32px; font-weight:700; margin:0 0 6px; letter-spacing:-.4px; }
+.hero-sub{ color:var(--ink-dim); font-size:13.5px; max-width:320px; line-height:1.55; margin:0 0 22px; }
+.stat-row{ display:flex; gap:10px; margin-bottom:26px; }
+.start-screen{ position:relative; z-index:1; min-height:100vh; min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:24px; }
+.start-card{ max-width:400px; width:100%; padding:40px 30px; border-radius:var(--r-lg); text-align:center; display:flex; flex-direction:column; align-items:center; }
+.start-stats{ display:flex; gap:10px; margin-bottom:26px; width:100%; justify-content:center; }
+.start-stats > div{ flex:1; max-width:100px; padding:10px 8px; border-radius:16px; background:var(--glass-fill); text-align:center; }
+.start-stats span{ display:block; font-size:18px; font-weight:700; }
+.start-stats small{ display:block; font-size:10px; color:var(--ink-faint); margin-top:2px; }
+.start-card .glass-btn{ width:100%; }
+.stat-chip{ padding:10px 16px; border-radius:16px; text-align:center; min-width:84px; }
+.stat-chip .num{ font-family:var(--font-mono); font-weight:700; font-size:18px; }
+.stat-chip .lbl{ font-size:10px; color:var(--ink-faint); margin-top:2px; }
+.profile-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.profile-stat{ padding:20px 14px; border-radius:var(--r-md); display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center; }
+.profile-stat i{ font-size:22px; color:var(--accent); }
+.profile-stat span{ font-family:var(--font-mono); font-size:22px; font-weight:800; }
+.profile-stat small{ font-size:11px; color:var(--ink-dim); }
+.menu-actions{ display:flex; flex-direction:column; gap:10px; width:100%; max-width:240px; }
+
+/* ---------- Section Choice Page ---------- */
+.section-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:22px; }
+.section-card{
+  position:relative; padding:20px 16px; border-radius:var(--r-md); cursor:pointer; overflow:hidden;
+  border:1px solid var(--glass-border); background:var(--glass-fill);
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  display:flex; flex-direction:column; gap:10px; min-height:140px; justify-content:space-between;
+}
+.section-card::before{ content:''; position:absolute; inset:0; opacity:.35; background:radial-gradient(120% 120% at 20% 0%, var(--accent-a), transparent 60%); pointer-events:none; }
+.section-card:hover{ transform:translateY(-4px) scale(1.015); border-color:var(--glass-border-hi); box-shadow:0 18px 40px color-mix(in srgb, var(--accent-a) 30%, transparent); }
+.section-card .icon{ font-size:24px; }
+.section-card .title{ font-weight:800; font-size:15.5px; position:relative; z-index:1; }
+.section-card .count{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); position:relative; z-index:1; }
+
+/* ---------- Hub / lists ---------- */
+.pad{ padding:22px; }
+.wotd{ padding:22px 20px; margin:0 0 18px; border-radius:var(--r-lg); }
+.wotd-tag{ display:flex; align-items:center; gap:8px; font-size:12px; font-weight:700; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.04em; }
+.wotd-tag .dot{ width:6px; height:6px; border-radius:50%; }
+.wotd-word{ font-family:var(--font-display); font-size:clamp(30px,8vw,40px); font-weight:700; line-height:1.05; margin:10px 0 4px; }
+.wotd-phonetic{ font-size:13px; color:var(--ink-faint); font-style:italic; }
+.wotd-translation{ display:inline-block; margin-top:14px; padding:6px 14px; border-radius:100px; border:1px solid; font-weight:700; font-size:14px; }
+.wotd-sentence{ margin-top:16px; padding-top:14px; border-top:1px solid var(--glass-border); font-size:15px; line-height:1.5; color:var(--ink); }
+.section-header{ display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+.section-header h2{ font-family:var(--font-display); font-size:23px; font-weight:700; margin:0; }
+.back-link{ background:none; border:none; color:var(--ink-dim); font-weight:700; font-size:12.5px; cursor:pointer; padding:0; margin-bottom:14px; display:flex; align-items:center; gap:5px; transition:transform .15s ease, color .15s ease; }
+.back-link:hover{ color:var(--ink); transform:translateX(-2px); }
+.hub-top-bar{ display:flex; align-items:center; justify-content:space-between; padding:0 22px; margin-bottom:8px; gap:10px; }
+.level-select{ width:auto; flex-shrink:0; }
+.category-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.category-tile{ padding:18px 16px; border-radius:16px; cursor:pointer; font-weight:700; font-size:14.5px; }
+.list-scroll{ display:flex; flex-direction:column; gap:10px; padding-right:2px; }
+.glass-row{ display:flex; justify-content:space-between; align-items:center; padding:16px 18px; border-radius:18px; cursor:pointer; font-size:15px; transition:background .15s ease, transform .12s ease; }
+.glass-row:hover{ background:var(--glass-fill-hi); transform:translateX(2px); }
+.glass-row strong{ display:block; font-size:14px; }
+.glass-row .sub{ font-size:11px; color:var(--ink-faint); margin-top:2px; }
+.chev{ color:var(--ink-faint); }
+.empty-note{ color:var(--ink-faint); font-size:12.5px; font-style:italic; padding:16px 4px; }
+.filter-row{ display:flex; gap:8px; margin-bottom:12px; }
+.select-narrow{ max-width:130px; flex-shrink:0; }
+.toolbar{ display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+
+/* ---------- Grammar: theory + split screen ---------- */
+.theory-card{ padding:22px; }
+.theory-card h3{ font-family:var(--font-display); font-size:20px; font-weight:700; margin:0 0 12px; }
+.grammar-example{ margin:14px 0 18px; padding:14px 16px; border-radius:var(--r-sm); background:var(--glass-fill-hi); border-left:3px solid var(--accent); }
+.grammar-example .ex-pl{ font-weight:700; font-size:14.5px; margin:0 0 4px; }
+.grammar-example .ex-tr{ font-size:13px; color:var(--ink-dim); margin:0; font-style:italic; }
+.theory-body{ font-size:13.5px; line-height:1.65; color:var(--ink-dim); background:rgba(255,255,255,.05); border:1px solid var(--glass-border); border-radius:16px; padding:16px; margin-bottom:18px; }
+.split{ display:grid; grid-template-columns:1fr 1.6fr; gap:14px; padding:18px; align-items:start; }
+.split .theory-pane{ position:sticky; top:14px; padding:16px; max-height:70vh; overflow-y:auto; }
+.split .theory-pane h4{ font-size:13px; margin:0 0 8px; }
+.split .theory-pane p{ font-size:12px; color:var(--ink-dim); line-height:1.6; margin:0; }
+.practice-pane{ padding:18px; }
+.prompt-text{ font-weight:700; font-size:14.5px; margin-bottom:14px; line-height:1.5; }
+.mcq-options{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+.mcq-option{ text-align:left; padding:12px 14px; border-radius:14px; border:1px solid var(--glass-border); background:rgba(255,255,255,.05); color:var(--ink); font-family:var(--font-ui); font-size:13px; cursor:pointer; }
+.mcq-option:hover{ background:var(--glass-fill-hi); }
+.mcq-option.correct{ border-color:var(--good); background:rgba(62,213,152,.16); }
+.mcq-option.incorrect{ border-color:var(--bad); background:rgba(255,107,122,.16); }
+.feedback{ font-size:12.5px; font-weight:700; margin:10px 0 0; }
+.feedback.ok{ color:var(--good); }
+.feedback.bad{ color:var(--bad); }
+@media (max-width:600px){ .split{ grid-template-columns:1fr; } .split .theory-pane{ position:static; max-height:none; } }
+
+/* ---------- Vocabulary ---------- */
+.two-col-choice{ display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:22px; }
+.choice-card{ padding:32px 16px; border-radius:22px; text-align:center; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:10px; }
+.choice-card .icon{ font-size:30px; }
+.choice-card .title{ font-weight:800; font-size:15px; }
+.flash-wrap{ padding:22px; display:flex; flex-direction:column; align-items:center; }
+.flash-deck{ position:relative; width:100%; max-width:280px; height:340px; margin-bottom:16px; touch-action:pan-y; perspective:1200px; }
+.flash-card{
+  position:absolute; inset:0; border-radius:26px; cursor:grab; user-select:none;
+  transform-style:preserve-3d; transition:transform .5s cubic-bezier(.3,.7,.3,1);
+}
+.flash-card.flipped{ transform:rotateY(180deg); }
+.flash-face{
+  position:absolute; inset:0; border-radius:26px; padding:26px 20px; display:flex; flex-direction:column;
+  justify-content:center; align-items:center; text-align:center; backface-visibility:hidden;
+  color:#0B1020; box-shadow:0 24px 50px rgba(0,0,0,.4);
+}
+.flash-face.back{ transform:rotateY(180deg); }
+@media (prefers-reduced-motion:reduce){ .flash-card{ transition:none; } }
+.flash-card .gender-badge{ font-family:var(--font-mono); font-size:10.5px; font-weight:700; background:rgba(11,16,32,.18); padding:3px 10px; border-radius:100px; margin-bottom:10px; }
+.flash-card .word{ font-family:var(--font-display); font-size:30px; font-weight:700; margin:0 0 6px; }
+.flash-card .phonetic{ font-size:12px; opacity:.75; margin-bottom:14px; }
+.flash-card .translation{ font-weight:700; font-size:15px; margin-bottom:10px; }
+.flash-card .examples{ font-size:11.5px; opacity:.85; line-height:1.5; }
+.flash-controls{ display:flex; align-items:center; justify-content:center; gap:16px; }
+.flash-progress{ font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); min-width:52px; text-align:center; }
+.icon-btn.good{ color:var(--good); } .icon-btn.bad{ color:var(--bad); }
+.icon-btn.ghost-nav{ opacity:.6; }
+.flash-card.tilt-good{ box-shadow:0 0 0 4px rgba(62,213,152,.5); }
+.flash-card.tilt-bad{ box-shadow:0 0 0 4px rgba(255,107,122,.5); }
+.deck-complete{ text-align:center; padding:36px 24px; border-radius:var(--r-lg); }
+.deck-complete i{ font-size:40px; color:var(--accent); margin-bottom:10px; }
+.deck-complete h2{ font-family:var(--font-display); font-size:22px; margin:0 0 18px; }
+.deck-complete-stats{ display:flex; justify-content:center; gap:28px; margin-bottom:22px; }
+.deck-complete-stats > div{ display:flex; flex-direction:column; align-items:center; gap:4px; }
+.deck-complete-stats span{ font-size:26px; font-weight:800; }
+.deck-complete-stats small{ font-size:11px; color:var(--ink-dim); }
+.deck-complete .glass-btn{ width:100%; max-width:220px; margin:0 auto 10px; }
+.vocab-detail{ padding:22px; }
+.gender-pill{ display:inline-block; font-family:var(--font-mono); font-size:11px; font-weight:700; padding:4px 12px; border-radius:100px; background:var(--glass-fill-hi); border:1px solid var(--glass-border); margin-bottom:12px; }
+.example-line{ font-size:13px; color:var(--ink-dim); padding:8px 0; border-top:1px solid var(--glass-border); }
+.wsjp-link{ display:inline-flex; align-items:center; gap:6px; margin-top:14px; font-size:13px; font-weight:700; color:var(--accent, #E8536A); text-decoration:none; }
+.wsjp-link i{ font-size:14px; }
+.wsjp-chip{ display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; color:var(--ink-faint); flex-shrink:0; margin-right:6px; transition:background .15s ease, color .15s ease; }
+.wsjp-chip:hover{ background:rgba(255,255,255,.08); color:var(--ink); }
+.flash-face.back .wsjp-link{ color:#fff; opacity:.85; }
+
+/* ---------- Textbook ---------- */
+.book-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:22px; }
+.book-cover{ border-radius:20px; padding:18px 16px 20px; height:172px; display:flex; flex-direction:column; justify-content:flex-end; gap:3px; cursor:pointer; position:relative; overflow:hidden; box-shadow:0 16px 34px rgba(0,0,0,.35); }
+.book-cover::before{ content:''; position:absolute; inset:0; background:linear-gradient(150deg, rgba(255,255,255,.22), transparent 55%); }
+.book-cover .level-chip{ position:absolute; top:12px; right:12px; font-family:var(--font-mono); font-size:10px; font-weight:700; background:rgba(0,0,0,.28); padding:3px 9px; border-radius:100px; }
+.book-cover .b-category{ font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:rgba(11,16,32,.6); position:relative; z-index:1; }
+.book-cover .b-title{ font-family:var(--font-display); font-weight:700; font-size:16px; line-height:1.2; color:#0B1020; position:relative; z-index:1; }
+.book-cover .b-desc{ font-size:11.5px; line-height:1.4; color:rgba(11,16,32,.72); position:relative; z-index:1; }
+@media (min-width:640px){ .book-grid{ grid-template-columns:1fr 1fr 1fr; } }
+.viewer-wrap{ padding:20px; }
+.viewer-category{ font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:4px; }
+.viewer-title{ font-family:var(--font-display); font-size:22px; font-weight:700; margin:0 0 8px; }
+.viewer-desc{ color:var(--ink-dim); font-size:13.5px; line-height:1.5; margin-bottom:18px; }
+.viewer-frame-shell{ border-radius:18px; overflow:hidden; border:1px solid var(--glass-border); margin-bottom:12px; background:#0d1224; }
+.viewer-frame{ width:100%; height:420px; border:none; display:block; }
+
+/* ---------- Tutor Tips ---------- */
+.tips-feed{ padding:18px; display:flex; flex-direction:column; gap:12px; max-height:460px; overflow-y:auto; }
+.tip-card{ display:flex; gap:12px; padding:14px; border-radius:18px; cursor:pointer; align-items:center; }
+.tip-thumb{ width:52px; height:52px; border-radius:14px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:20px; background:linear-gradient(135deg, var(--tips-a), var(--tips-b)); }
+.tip-thumb img{ width:100%; height:100%; object-fit:cover; border-radius:14px; }
+.tip-title{ font-weight:700; font-size:13.5px; margin:0 0 3px; }
+.tip-snippet{ font-size:11.5px; color:var(--ink-faint); margin:0; }
+.tip-overlay{ position:fixed; inset:0; z-index:40; background:rgba(6,8,18,.72); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:20px; animation:fadeIn .2s ease; }
+.tip-overlay-card{ width:100%; max-width:420px; padding:26px; max-height:82vh; overflow-y:auto; }
+.tip-overlay-img{ width:100%; border-radius:16px; margin-bottom:14px; }
+.tip-overlay-body{ font-size:13.5px; line-height:1.6; color:var(--ink-dim); }
+.audio-player{ width:100%; margin-top:12px; }
+
+.import-modal{ padding:16px; border-radius:18px; }
+.modal-hint{ font-size:11px; color:var(--ink-faint); margin:0 0 10px; }
+
+
+.toast.error{ border-color:rgba(255,107,122,.5); }
+
+/* ---------- Motion system ---------- */
+@keyframes toastIn{ from{ opacity:0; transform:translate(-50%,14px) scale(.94);} to{ opacity:1; transform:translate(-50%,0) scale(1);} }
+@keyframes screenIn{ from{ opacity:0; transform:translateY(10px) scale(.985); filter:blur(4px);} to{ opacity:1; transform:translateY(0) scale(1); filter:blur(0);} }
+@keyframes riseIn{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
+@keyframes popIn{ from{ opacity:0; transform:scale(.85);} to{ opacity:1; transform:scale(1);} }
+@keyframes pulseGood{ 0%{ transform:scale(1);} 35%{ transform:scale(1.045);} 100%{ transform:scale(1);} }
+@keyframes shakeBad{ 0%,100%{ transform:translateX(0);} 25%{ transform:translateX(-4px);} 75%{ transform:translateX(4px);} }
+@keyframes checkPop{ 0%{ opacity:0; transform:scale(.4) rotate(-8deg);} 60%{ opacity:1; transform:scale(1.15) rotate(2deg);} 100%{ opacity:1; transform:scale(1) rotate(0);} }
+
+.screen{ animation:screenIn .38s cubic-bezier(.2,.7,.2,1) both; }
+.section-grid > .section-card,
+.category-grid > .category-tile,
+.book-grid > .book-cover,
+.list-scroll > .glass-row,
+.tips-feed > .tip-card,
+.two-col-choice > .choice-card,
+.mcq-options > .mcq-option{
+  animation:riseIn .38s cubic-bezier(.2,.7,.2,1) both;
+}
+.section-grid > *:nth-child(1){ animation-delay:.02s; } .section-grid > *:nth-child(2){ animation-delay:.07s; }
+.section-grid > *:nth-child(3){ animation-delay:.12s; } .section-grid > *:nth-child(4){ animation-delay:.17s; }
+.category-grid > *:nth-child(n), .book-grid > *:nth-child(n){ animation-delay:calc(var(--i, 0) * 45ms); }
+.list-scroll > *:nth-child(1){ animation-delay:0ms; } .list-scroll > *:nth-child(2){ animation-delay:35ms; }
+.list-scroll > *:nth-child(3){ animation-delay:70ms; } .list-scroll > *:nth-child(4){ animation-delay:105ms; }
+.list-scroll > *:nth-child(5){ animation-delay:140ms; } .list-scroll > *:nth-child(n+6){ animation-delay:160ms; }
+.tips-feed > *:nth-child(1){ animation-delay:0ms; } .tips-feed > *:nth-child(2){ animation-delay:40ms; }
+.tips-feed > *:nth-child(3){ animation-delay:80ms; } .tips-feed > *:nth-child(n+4){ animation-delay:110ms; }
+.mcq-options > *:nth-child(1){ animation-delay:0ms; } .mcq-options > *:nth-child(2){ animation-delay:50ms; }
+.mcq-options > *:nth-child(3){ animation-delay:100ms; } .mcq-options > *:nth-child(4){ animation-delay:150ms; }
+
+.stat-chip{ animation:popIn .4s cubic-bezier(.3,.9,.3,1.2) both; }
+.stat-chip:nth-child(1){ animation-delay:.05s; } .stat-chip:nth-child(2){ animation-delay:.13s; } .stat-chip:nth-child(3){ animation-delay:.21s; }
+.avatar-ring{ animation:popIn .5s cubic-bezier(.3,.9,.3,1.25) both; }
+
+/* Tactile press feedback everywhere interactive */
+.glass-btn, .icon-btn, .section-card, .category-tile, .book-cover, .choice-card, .glass-row, .mcq-option, .tip-card{
+  transition:transform .15s cubic-bezier(.3,.7,.4,1), background .15s ease, border-color .15s ease, box-shadow .18s ease;
+}
+.glass-btn:active, .icon-btn:active, .section-card:active, .category-tile:active, .book-cover:active, .choice-card:active, .glass-row:active, .mcq-option:active, .tip-card:active{
+  transform:scale(.96);
+}
+
+.feedback.ok{ animation:pulseGood .4s ease; }
+.feedback.bad{ animation:shakeBad .35s ease; }
+.mcq-option.correct{ animation:pulseGood .4s ease; }
+.mcq-option.incorrect{ animation:shakeBad .35s ease; }
+
+.mastered-check{ display:inline-block; animation:checkPop .45s cubic-bezier(.3,1.4,.4,1) both; }
+
+@media (prefers-reduced-motion:reduce){
+  .screen, .section-grid > *, .category-grid > *, .book-grid > *, .list-scroll > *, .tips-feed > *,
+  .two-col-choice > *, .mcq-options > *, .stat-chip, .avatar-ring, .toast, .feedback, .mastered-check{
+    animation:none !important;
+  }
+  .glass-btn, .icon-btn, .section-card, .category-tile, .book-cover, .choice-card, .glass-row, .mcq-option, .tip-card{
+    transition:none !important;
+  }
+}
+
+@media (max-width:480px){
+  .section-grid,.book-grid,.two-col-choice,.category-grid{ grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useMemo, useRef } = React;
+
+const MODULES = [
+  { key: 'grammar',  label: { EN: 'Grammar',    RU: 'Грамматика' },   icon: 'ph-book-open',        a: 'var(--grammar-a)',  b: 'var(--grammar-b)' },
+  { key: 'vocab',    label: { EN: 'Vocabulary', RU: 'Словарь' },      icon: 'ph-leaf',             a: 'var(--vocab-a)',    b: 'var(--vocab-b)' },
+  { key: 'textbook', label: { EN: 'Textbook',   RU: 'Учебник' },      icon: 'ph-books',           a: 'var(--textbook-a)', b: 'var(--textbook-b)' },
+  { key: 'tips',     label: { EN: 'Tutor Tips', RU: 'Советы репетитора' }, icon: 'ph-chat-circle-dots', a: 'var(--tips-a)',     b: 'var(--tips-b)' },
+  { key: 'profile',  label: { EN: 'Profile',    RU: 'Профиль' },      icon: 'ph-user-circle',     a: 'var(--profile-a)',  b: 'var(--profile-b)' },
+];
+const ACCENT_HEX = {
+  grammar: ['#2F7BFF', '#5FD4FF'], vocab: ['#12B886', '#8CF2C7'],
+  textbook: ['#F0A73C', '#F2B9A0'], tips: ['#8A4FEE', '#EA7CF0'],
+  profile: ['#E8536A', '#FF9E9E'],
+};
+const GENDER_LABEL = { m: 'masc.', f: 'fem.', n: 'neut.' };
+const CATEGORY_LABEL = {
+  calendar: { EN: 'Days & Months', RU: 'Дни и месяцы' },
+  colors: { EN: 'Colors', RU: 'Цвета' },
+  family: { EN: 'Family', RU: 'Семья' },
+  clothing: { EN: 'Clothing', RU: 'Одежда' },
+  weather: { EN: 'Weather', RU: 'Погода' },
+  nationalities: { EN: 'Nationalities', RU: 'Национальности' },
+  apartment: { EN: 'Apartment', RU: 'Квартира' },
+  food: { EN: 'Food', RU: 'Еда' },
+  professions: { EN: 'Professions', RU: 'Профессии' },
+};
+
+const INITIAL_CURRICULUM = {
+  grammar: [
+    {
+      id: 'case-1', level: 'A1', category: 'Cases (Przypadki)',
+      title: { EN: '1. Nominative (Mianownik)', RU: '1. Именительный (Mianownik)' },
+      theory: { EN: 'The dictionary form used for the subject of the sentence or after "to jest" (this is).', RU: 'Базовая форма слова для подлежащего или после "to jest".' },
+      type: 'fill', prompt: 'To jest (mój stół) ➔ ?', answer: 'mój stół',
+      example: { pl: 'To jest mój stół.', translation: { EN: 'This is my table.', RU: 'Это мой стол.' } }
+    },
+    {
+      id: 'case-1-mcq', level: 'A1', category: 'Cases (Przypadki)',
+      title: { EN: '1. Nominative (Mianownik)', RU: '1. Именительный (Mianownik)' },
+      theory: { EN: 'Also used for the subject of a sentence — "who/what is doing the action".', RU: 'Также используется для подлежащего — "кто/что выполняет действие".' },
+      type: 'mcq', prompt: '(Ta szkoła) jest duża. ➔ ?', options: ['Ta szkoła', 'Tej szkoły', 'Tą szkołą', 'Tej szkole'], answer: 'Ta szkoła',
+      example: { pl: 'Ta szkoła jest duża.', translation: { EN: 'This school is big.', RU: 'Эта школа большая.' } }
+    },
+    {
+      id: 'case-2', level: 'A1', category: 'Cases (Przypadki)',
+      title: { EN: '2. Genitive (Dopełniacz)', RU: '2. Родительный (Dopełniacz)' },
+      theory: { EN: 'Used for possession, after negation, and after "nie ma" (there isn\u2019t).', RU: 'Используется для обозначения принадлежности, после отрицания и после "nie ma".' },
+      type: 'fill', prompt: 'Nie ma (stół) w pokoju. ➔ ?', answer: 'stołu',
+      example: { pl: 'Nie ma stołu w pokoju.', translation: { EN: 'There is no table in the room.', RU: 'В комнате нет стола.' } }
+    },
+    {
+      id: 'case-2-mcq', level: 'A1', category: 'Cases (Przypadki)',
+      title: { EN: '2. Genitive (Dopełniacz)', RU: '2. Родительный (Dopełniacz)' },
+      theory: { EN: 'Required after the preposition "do" (to/towards).', RU: 'Требуется после предлога "do" (в/к).' },
+      type: 'mcq', prompt: 'Idę do (szkoła) ➔ ?', options: ['szkoła', 'szkoły', 'szkole', 'szkołę'], answer: 'szkoły',
+      example: { pl: 'Idę do szkoły.', translation: { EN: 'I am going to school.', RU: 'Я иду в школу.' } }
+    },
+    {
+      id: 'case-3', level: 'A2', category: 'Cases (Przypadki)',
+      title: { EN: '3. Dative (Celownik)', RU: '3. Дательный (Celownik)' },
+      theory: { EN: 'Marks the indirect object — "to/for whom". Used after verbs like "pomagać" (to help).', RU: 'Обозначает косвенное дополнение — "кому/чему". Используется после глаголов вроде "pomagać".' },
+      type: 'fill', prompt: 'Pomagam (kolega) ➔ ?', answer: 'koledze',
+      example: { pl: 'Pomagam koledze.', translation: { EN: 'I am helping my friend.', RU: 'Я помогаю другу.' } }
+    },
+    {
+      id: 'case-3-mcq', level: 'A2', category: 'Cases (Przypadki)',
+      title: { EN: '3. Dative (Celownik)', RU: '3. Дательный (Celownik)' },
+      theory: { EN: 'Also used after "przyglądać się" (to look at/observe).', RU: 'Также используется после "przyglądać się" (рассматривать).' },
+      type: 'mcq', prompt: 'Przyglądam się (szkoła) ➔ ?', options: ['szkoła', 'szkoły', 'szkole', 'szkołę'], answer: 'szkole',
+      example: { pl: 'Przyglądam się szkole.', translation: { EN: 'I am looking at the school.', RU: 'Я рассматриваю школу.' } }
+    },
+    {
+      id: 'case-4', level: 'A1', category: 'Cases (Przypadki)',
+      title: { EN: '4. Accusative (Biernik)', RU: '4. Винительный (Biernik)' },
+      theory: { EN: 'Marks the direct object — answers "kogo? co?" (whom? what?). Used after verbs like "mieć", "widzieć", "lubić".', RU: 'Обозначает прямое дополнение — отвечает на "kogo? co?". Используется после глаголов "mieć", "widzieć", "lubić".' },
+      type: 'fill', prompt: 'Widzę (kolega) na ulicy. ➔ ?', answer: 'kolegę',
+      example: { pl: 'Widzę kolegę na ulicy.', translation: { EN: 'I see my friend on the street.', RU: 'Я вижу друга на улице.' } }
+    },
+    {
+      id: 'case-4-mcq', level: 'A1', category: 'Cases (Przypadki)',
+      title: { EN: '4. Accusative (Biernik)', RU: '4. Винительный (Biernik)' },
+      theory: { EN: 'For inanimate masculine nouns, the accusative form matches the nominative.', RU: 'Для неодушевлённых существительных мужского рода винительный падеж совпадает с именительным.' },
+      type: 'mcq', prompt: 'Mam (nowy stół) ➔ ?', options: ['nowy stół', 'nowego stołu', 'nowym stołem', 'nowym stole'], answer: 'nowy stół',
+      example: { pl: 'Mam nowy stół.', translation: { EN: 'I have a new table.', RU: 'У меня есть новый стол.' } }
+    },
+    {
+      id: 'case-5', level: 'A2', category: 'Cases (Przypadki)',
+      title: { EN: '5. Instrumental (Narzędnik)', RU: '5. Творительный (Narzędnik)' },
+      theory: { EN: 'Used after "z" (with) when accompanying someone, and to say what tool/means is used.', RU: 'Используется после "z" (с) в значении "вместе с кем-то", а также для обозначения орудия действия.' },
+      type: 'fill', prompt: 'Idę do kina z (kolega) ➔ ?', answer: 'kolegą',
+      example: { pl: 'Idę do kina z kolegą.', translation: { EN: 'I am going to the cinema with my friend.', RU: 'Я иду в кино с другом.' } }
+    },
+    {
+      id: 'case-5-mcq', level: 'A2', category: 'Cases (Przypadki)',
+      title: { EN: '5. Instrumental (Narzędnik)', RU: '5. Творительный (Narzędnik)' },
+      theory: { EN: 'Also used after "pod" (under), "nad" (above), "za" (behind) for location.', RU: 'Также используется после "pod" (под), "nad" (над), "za" (за) для обозначения места.' },
+      type: 'mcq', prompt: 'Kot śpi pod (stół) ➔ ?', options: ['stół', 'stołu', 'stołem', 'stole'], answer: 'stołem',
+      example: { pl: 'Kot śpi pod stołem.', translation: { EN: 'The cat is sleeping under the table.', RU: 'Кот спит под столом.' } }
+    },
+    {
+      id: 'case-6', level: 'A2', category: 'Cases (Przypadki)',
+      title: { EN: '6. Locative (Miejscownik)', RU: '6. Предложный (Miejscownik)' },
+      theory: { EN: 'Always appears after a preposition — "na" (on), "w" (in), "o" (about). Never stands alone.', RU: 'Всегда употребляется после предлога — "na" (на), "w" (в), "o" (о). Никогда не используется отдельно.' },
+      type: 'fill', prompt: 'Książka leży na (stół) ➔ ?', answer: 'stole',
+      example: { pl: 'Książka leży na stole.', translation: { EN: 'The book is lying on the table.', RU: 'Книга лежит на столе.' } }
+    },
+    {
+      id: 'case-6-mcq', level: 'A2', category: 'Cases (Przypadki)',
+      title: { EN: '6. Locative (Miejscownik)', RU: '6. Предложный (Miejscownik)' },
+      theory: { EN: 'Used after "o" (about/of) when talking about a topic.', RU: 'Используется после "o" (о/об), когда речь идёт о какой-то теме.' },
+      type: 'mcq', prompt: 'Rozmawiamy o (szkoła) ➔ ?', options: ['szkoła', 'szkoły', 'szkole', 'szkołę'], answer: 'szkole',
+      example: { pl: 'Rozmawiamy o szkole.', translation: { EN: 'We are talking about the school.', RU: 'Мы говорим о школе.' } }
+    },
+    {
+      id: 'case-7', level: 'B1', category: 'Cases (Przypadki)',
+      title: { EN: '7. Vocative (Wołacz)', RU: '7. Звательный (Wołacz)' },
+      theory: { EN: 'Used for directly addressing someone. Increasingly informal in speech, but still standard for names and titles.', RU: 'Используется для прямого обращения к кому-либо. В речи всё чаще заменяется именительным, но остаётся нормой для имён и обращений.' },
+      type: 'fill', prompt: '(Kolega), chodź tutaj! ➔ ?', answer: 'Kolego',
+      example: { pl: 'Kolego, chodź tutaj!', translation: { EN: 'Buddy, come here!', RU: 'Дружище, иди сюда!' } }
+    },
+    {
+      id: 'case-7-mcq', level: 'B1', category: 'Cases (Przypadki)',
+      title: { EN: '7. Vocative (Wołacz)', RU: '7. Звательный (Wołacz)' },
+      theory: { EN: 'Feminine names ending in "-a" typically take "-o" in the vocative.', RU: 'Женские имена, оканчивающиеся на "-a", в звательном падеже обычно получают окончание "-o".' },
+      type: 'mcq', prompt: '(Anna), jak się masz? ➔ ?', options: ['Anna', 'Anny', 'Anno', 'Annę'], answer: 'Anno',
+      example: { pl: 'Anno, jak się masz?', translation: { EN: 'Anna, how are you?', RU: 'Анна, как дела?' } }
+    },
+    {
+      id: 'comp-1', level: 'A2', category: 'Comparatives (Stopniowanie)',
+      title: { EN: 'Comparative degree (Stopień wyższy)', RU: 'Сравнительная степень (Stopień wyższy)' },
+      theory: { EN: 'Most adjectives form the comparative with the suffix "-szy" or "-ejszy". Some common adjectives are irregular — "duży" (big) becomes "większy" (bigger), not "duższy".', RU: 'Большинство прилагательных образуют сравнительную степень с суффиксом "-szy" или "-ejszy". Некоторые частые прилагательные неправильные — "duży" (большой) превращается в "większy" (больше), а не "duższy".' },
+      type: 'fill', prompt: 'Ten dom jest (duży) niż tamten. ➔ ?', answer: 'większy',
+      example: { pl: 'Ten dom jest większy niż tamten.', translation: { EN: 'This house is bigger than that one.', RU: 'Этот дом больше, чем тот.' } }
+    },
+    {
+      id: 'comp-2', level: 'A2', category: 'Comparatives (Stopniowanie)',
+      title: { EN: 'Comparative degree (Stopień wyższy)', RU: 'Сравнительная степень (Stopień wyższy)' },
+      theory: { EN: 'Regular pattern: "mądry" (smart) → "mądrzejszy" (smarter). The adjective still agrees in gender with the subject — here "ona" (she) takes the feminine ending "-a".', RU: 'Регулярная модель: "mądry" (умный) → "mądrzejszy" (умнее). Прилагательное согласуется в роде с подлежащим — здесь "ona" (она) требует окончания женского рода "-a".' },
+      type: 'fill', prompt: 'Ona jest (mądry) ode mnie. ➔ ?', answer: 'mądrzejsza',
+      example: { pl: 'Ona jest mądrzejsza ode mnie.', translation: { EN: 'She is smarter than me.', RU: 'Она умнее меня.' } }
+    },
+    {
+      id: 'comp-3-mcq', level: 'B1', category: 'Comparatives (Stopniowanie)',
+      title: { EN: 'Superlative degree (Stopień najwyższy)', RU: 'Превосходная степень (Stopień najwyższy)' },
+      theory: { EN: 'The superlative adds the prefix "naj-" to the comparative form. "dobry" (good) → "lepszy" (better, irregular) → "najlepszy" (best).', RU: 'Превосходная степень образуется добавлением приставки "naj-" к сравнительной форме. "dobry" (хороший) → "lepszy" (лучше, неправильная форма) → "najlepszy" (лучший).' },
+      type: 'mcq', prompt: 'To jest (dobry) restauracja w mieście. ➔ ?', options: ['dobra', 'lepsza', 'najlepsza', 'dobrzejsza'], answer: 'najlepsza',
+      example: { pl: 'To jest najlepsza restauracja w mieście.', translation: { EN: 'This is the best restaurant in the city.', RU: 'Это лучший ресторан в городе.' } }
+    },
+    {
+      id: 'comp-4-mcq', level: 'B1', category: 'Comparatives (Stopniowanie)',
+      title: { EN: 'Superlative degree (Stopień najwyższy)', RU: 'Превосходная степень (Stopień najwyższy)' },
+      theory: { EN: 'Regular superlative: "szybki" (fast) → "szybszy" (faster) → "najszybszy" (fastest). "Naj-" always attaches directly to the comparative, never the base form.', RU: 'Регулярная превосходная форма: "szybki" (быстрый) → "szybszy" (быстрее) → "najszybszy" (самый быстрый). Приставка "naj-" всегда присоединяется к сравнительной форме, а не к исходной.' },
+      type: 'mcq', prompt: 'On jest (szybki) w klasie. ➔ ?', options: ['szybki', 'szybszy', 'najszybszy', 'szybszym'], answer: 'najszybszy',
+      example: { pl: 'On jest najszybszy w klasie.', translation: { EN: 'He is the fastest in the class.', RU: 'Он самый быстрый в классе.' } }
+    }
+  ],
+  vocab: [
+    {"id": "v-calendar-1", "level": "A1", "category": "calendar", "word": "poniedziałek", "translation": {"EN": "Monday", "RU": "понедельник"}},
+    {"id": "v-calendar-2", "level": "A1", "category": "calendar", "word": "wtorek", "translation": {"EN": "Tuesday", "RU": "вторник"}},
+    {"id": "v-calendar-3", "level": "A1", "category": "calendar", "word": "środa", "translation": {"EN": "Wednesday", "RU": "среда"}},
+    {"id": "v-calendar-4", "level": "A1", "category": "calendar", "word": "czwartek", "translation": {"EN": "Thursday", "RU": "четверг"}},
+    {"id": "v-calendar-5", "level": "A1", "category": "calendar", "word": "piątek", "translation": {"EN": "Friday", "RU": "пятница"}},
+    {"id": "v-calendar-6", "level": "A1", "category": "calendar", "word": "sobota", "translation": {"EN": "Saturday", "RU": "суббота"}},
+    {"id": "v-calendar-7", "level": "A1", "category": "calendar", "word": "niedziela", "translation": {"EN": "Sunday", "RU": "воскресенье"}},
+    {"id": "v-calendar-8", "level": "A1", "category": "calendar", "word": "styczeń", "translation": {"EN": "January", "RU": "январь"}},
+    {"id": "v-calendar-9", "level": "A1", "category": "calendar", "word": "luty", "translation": {"EN": "February", "RU": "февраль"}},
+    {"id": "v-calendar-10", "level": "A1", "category": "calendar", "word": "marzec", "translation": {"EN": "March", "RU": "март"}},
+    {"id": "v-calendar-11", "level": "A1", "category": "calendar", "word": "kwiecień", "translation": {"EN": "April", "RU": "апрель"}},
+    {"id": "v-calendar-12", "level": "A1", "category": "calendar", "word": "maj", "translation": {"EN": "May", "RU": "май"}},
+    {"id": "v-calendar-13", "level": "A1", "category": "calendar", "word": "czerwiec", "translation": {"EN": "June", "RU": "июнь"}},
+    {"id": "v-calendar-14", "level": "A1", "category": "calendar", "word": "lipiec", "translation": {"EN": "July", "RU": "июль"}},
+    {"id": "v-calendar-15", "level": "A1", "category": "calendar", "word": "sierpień", "translation": {"EN": "August", "RU": "август"}},
+    {"id": "v-calendar-16", "level": "A1", "category": "calendar", "word": "wrzesień", "translation": {"EN": "September", "RU": "сентябрь"}},
+    {"id": "v-calendar-17", "level": "A1", "category": "calendar", "word": "październik", "translation": {"EN": "October", "RU": "октябрь"}},
+    {"id": "v-calendar-18", "level": "A1", "category": "calendar", "word": "listopad", "translation": {"EN": "November", "RU": "ноябрь"}},
+    {"id": "v-calendar-19", "level": "A1", "category": "calendar", "word": "grudzień", "translation": {"EN": "December", "RU": "декабрь"}},
+    {"id": "v-colors-1", "level": "A1", "category": "colors", "word": "czerwony", "translation": {"EN": "red", "RU": "красный"}},
+    {"id": "v-colors-2", "level": "A1", "category": "colors", "word": "pomarańczowy", "translation": {"EN": "orange", "RU": "оранжевый"}},
+    {"id": "v-colors-3", "level": "A1", "category": "colors", "word": "żółty", "translation": {"EN": "yellow", "RU": "жёлтый"}},
+    {"id": "v-colors-4", "level": "A1", "category": "colors", "word": "zielony", "translation": {"EN": "green", "RU": "зелёный"}},
+    {"id": "v-colors-5", "level": "A1", "category": "colors", "word": "niebieski", "translation": {"EN": "blue", "RU": "голубой"}},
+    {"id": "v-colors-6", "level": "A1", "category": "colors", "word": "granatowy", "translation": {"EN": "navy blue", "RU": "тёмно-синий"}},
+    {"id": "v-colors-7", "level": "A1", "category": "colors", "word": "fioletowy", "translation": {"EN": "purple", "RU": "фиолетовый"}},
+    {"id": "v-colors-8", "level": "A1", "category": "colors", "word": "czarny", "translation": {"EN": "black", "RU": "чёрный"}},
+    {"id": "v-colors-9", "level": "A1", "category": "colors", "word": "szary", "translation": {"EN": "gray", "RU": "серый"}},
+    {"id": "v-colors-10", "level": "A1", "category": "colors", "word": "srebrzysty", "translation": {"EN": "silvery", "RU": "серебристый"}},
+    {"id": "v-colors-11", "level": "A1", "category": "colors", "word": "biały", "translation": {"EN": "white", "RU": "белый"}},
+    {"id": "v-colors-12", "level": "A1", "category": "colors", "word": "złocisty", "translation": {"EN": "golden", "RU": "золотистый"}},
+    {"id": "v-colors-13", "level": "A1", "category": "colors", "word": "kasztanowy", "translation": {"EN": "chestnut", "RU": "каштановый"}},
+    {"id": "v-colors-14", "level": "A1", "category": "colors", "word": "brązowy", "translation": {"EN": "brown", "RU": "коричневый"}},
+    {"id": "v-colors-15", "level": "A1", "category": "colors", "word": "brunatny", "translation": {"EN": "tawny brown", "RU": "бурый"}},
+    {"id": "v-colors-16", "level": "A1", "category": "colors", "word": "oliwkowy", "translation": {"EN": "olive", "RU": "оливковый"}},
+    {"id": "v-colors-17", "level": "A1", "category": "colors", "word": "błotnisty", "translation": {"EN": "murky green", "RU": "болотный"}},
+    {"id": "v-colors-18", "level": "A1", "category": "colors", "word": "jaskrawa zieleń", "translation": {"EN": "bright grass green", "RU": "травяной"}},
+    {"id": "v-colors-19", "level": "A1", "category": "colors", "word": "różowy", "translation": {"EN": "pink", "RU": "розовый"}},
+    {"id": "v-colors-20", "level": "A1", "category": "colors", "word": "malinowy", "translation": {"EN": "raspberry", "RU": "малиновый"}},
+    {"id": "v-colors-21", "level": "A1", "category": "colors", "word": "purpurowy", "translation": {"EN": "crimson / purple", "RU": "пурпурный"}},
+    {"id": "v-colors-22", "level": "A1", "category": "colors", "word": "jasnoczerwony", "translation": {"EN": "scarlet", "RU": "алый"}},
+    {"id": "v-colors-23", "level": "A1", "category": "colors", "word": "bordowy", "translation": {"EN": "maroon / burgundy", "RU": "бордовый"}},
+    {"id": "v-colors-24", "level": "A1", "category": "colors", "word": "wiśniowy", "translation": {"EN": "cherry", "RU": "вишнёвый"}},
+    {"id": "v-colors-25", "level": "A1", "category": "colors", "word": "czekoladowy", "translation": {"EN": "chocolate", "RU": "шоколадный"}},
+    {"id": "v-colors-26", "level": "A1", "category": "colors", "word": "khaki", "translation": {"EN": "khaki", "RU": "хаки"}},
+    {"id": "v-colors-27", "level": "A1", "category": "colors", "word": "beżowy", "translation": {"EN": "beige", "RU": "бежевый"}},
+    {"id": "v-colors-28", "level": "A1", "category": "colors", "word": "rudy", "translation": {"EN": "ginger / auburn", "RU": "рыжий"}},
+    {"id": "v-colors-29", "level": "A1", "category": "colors", "word": "lazurowy", "translation": {"EN": "azure", "RU": "лазурный"}},
+    {"id": "v-colors-30", "level": "A1", "category": "colors", "word": "miedziany", "translation": {"EN": "copper", "RU": "медный"}},
+    {"id": "v-colors-31", "level": "A1", "category": "colors", "word": "kremowy", "translation": {"EN": "cream", "RU": "кремовый"}},
+    {"id": "v-colors-32", "level": "A1", "category": "colors", "word": "szmaragdowy", "translation": {"EN": "emerald", "RU": "изумрудный"}},
+    {"id": "v-colors-33", "level": "A1", "category": "colors", "word": "bakłażanowy", "translation": {"EN": "eggplant / aubergine", "RU": "баклажановый"}},
+    {"id": "v-colors-34", "level": "A1", "category": "colors", "word": "lniany", "translation": {"EN": "flax / linen", "RU": "льняной"}},
+    {"id": "v-colors-35", "level": "A1", "category": "colors", "word": "kolor odcieniu bzu", "translation": {"EN": "lilac", "RU": "сиреневый"}},
+    {"id": "v-family-1", "level": "A1", "category": "family", "word": "ojciec", "translation": {"EN": "father", "RU": "отец"}},
+    {"id": "v-family-2", "level": "A1", "category": "family", "word": "matka", "translation": {"EN": "mother", "RU": "мать"}},
+    {"id": "v-family-3", "level": "A1", "category": "family", "word": "rodzice", "translation": {"EN": "parents", "RU": "родители"}},
+    {"id": "v-family-4", "level": "A1", "category": "family", "word": "ojczym", "translation": {"EN": "stepfather", "RU": "отчим"}},
+    {"id": "v-family-5", "level": "A1", "category": "family", "word": "macocha", "translation": {"EN": "stepmother", "RU": "мачеха"}},
+    {"id": "v-family-6", "level": "A1", "category": "family", "word": "mąż", "translation": {"EN": "husband", "RU": "муж"}},
+    {"id": "v-family-7", "level": "A1", "category": "family", "word": "żona", "translation": {"EN": "wife", "RU": "жена"}},
+    {"id": "v-family-8", "level": "A1", "category": "family", "word": "małżeństwo", "translation": {"EN": "marriage / married couple", "RU": "брак / супруги"}},
+    {"id": "v-family-9", "level": "A1", "category": "family", "word": "małżonkowie", "translation": {"EN": "spouses", "RU": "супруги"}},
+    {"id": "v-family-10", "level": "A1", "category": "family", "word": "syn", "translation": {"EN": "son", "RU": "сын"}},
+    {"id": "v-family-11", "level": "A1", "category": "family", "word": "córka", "translation": {"EN": "daughter", "RU": "дочь"}},
+    {"id": "v-family-12", "level": "A1", "category": "family", "word": "dzieci", "translation": {"EN": "children", "RU": "дети"}},
+    {"id": "v-family-13", "level": "A1", "category": "family", "word": "brat", "translation": {"EN": "brother", "RU": "брат"}},
+    {"id": "v-family-14", "level": "A1", "category": "family", "word": "siostra", "translation": {"EN": "sister", "RU": "сестра"}},
+    {"id": "v-family-15", "level": "A1", "category": "family", "word": "rodzeństwo", "translation": {"EN": "siblings", "RU": "родные брат и сестра"}},
+    {"id": "v-family-16", "level": "A1", "category": "family", "word": "przyrodni brat", "translation": {"EN": "half-brother", "RU": "сводный брат"}},
+    {"id": "v-family-17", "level": "A1", "category": "family", "word": "przyrodnia siostra", "translation": {"EN": "half-sister", "RU": "сводная сестра"}},
+    {"id": "v-family-18", "level": "A1", "category": "family", "word": "kuzyn", "translation": {"EN": "cousin (m)", "RU": "двоюродный брат"}},
+    {"id": "v-family-19", "level": "A1", "category": "family", "word": "kuzynka", "translation": {"EN": "cousin (f)", "RU": "двоюродная сестра"}},
+    {"id": "v-family-20", "level": "A1", "category": "family", "word": "dziadek", "translation": {"EN": "grandfather", "RU": "дедушка"}},
+    {"id": "v-family-21", "level": "A1", "category": "family", "word": "babcia", "translation": {"EN": "grandmother", "RU": "бабушка"}},
+    {"id": "v-family-22", "level": "A1", "category": "family", "word": "dziadkowie", "translation": {"EN": "grandparents", "RU": "дедушка и бабушка"}},
+    {"id": "v-family-23", "level": "A1", "category": "family", "word": "wnuk", "translation": {"EN": "grandson", "RU": "внук"}},
+    {"id": "v-family-24", "level": "A1", "category": "family", "word": "wnuczka", "translation": {"EN": "granddaughter", "RU": "внучка"}},
+    {"id": "v-family-25", "level": "A1", "category": "family", "word": "wujek / wuj", "translation": {"EN": "uncle (mother's brother)", "RU": "дядя"}},
+    {"id": "v-family-26", "level": "A1", "category": "family", "word": "stryjek / stryj", "translation": {"EN": "uncle (father's brother)", "RU": "дядя"}},
+    {"id": "v-family-27", "level": "A1", "category": "family", "word": "ciocia / ciotka", "translation": {"EN": "aunt", "RU": "тётя"}},
+    {"id": "v-family-28", "level": "A1", "category": "family", "word": "bratanek", "translation": {"EN": "nephew (brother's son)", "RU": "племянник"}},
+    {"id": "v-family-29", "level": "A1", "category": "family", "word": "bratanica", "translation": {"EN": "niece (brother's daughter)", "RU": "племянница"}},
+    {"id": "v-family-30", "level": "A1", "category": "family", "word": "siostrzeniec", "translation": {"EN": "nephew (sister's son)", "RU": "племянник"}},
+    {"id": "v-family-31", "level": "A1", "category": "family", "word": "siostrzenica", "translation": {"EN": "niece (sister's daughter)", "RU": "племянница"}},
+    {"id": "v-family-32", "level": "A1", "category": "family", "word": "teść", "translation": {"EN": "father-in-law", "RU": "тесть / свёкор"}},
+    {"id": "v-family-33", "level": "A1", "category": "family", "word": "teściowa", "translation": {"EN": "mother-in-law", "RU": "тёща / свекровь"}},
+    {"id": "v-family-34", "level": "A1", "category": "family", "word": "zięć", "translation": {"EN": "son-in-law", "RU": "зять"}},
+    {"id": "v-family-35", "level": "A1", "category": "family", "word": "synowa", "translation": {"EN": "daughter-in-law", "RU": "невестка"}},
+    {"id": "v-family-36", "level": "A1", "category": "family", "word": "krewny", "translation": {"EN": "relative", "RU": "родственник"}},
+    {"id": "v-clothing-1", "level": "A1", "category": "clothing", "word": "bielizna", "translation": {"EN": "underwear", "RU": "бельё"}},
+    {"id": "v-clothing-2", "level": "A1", "category": "clothing", "word": "majtki", "translation": {"EN": "panties", "RU": "трусы"}},
+    {"id": "v-clothing-3", "level": "A1", "category": "clothing", "word": "biustonosz", "translation": {"EN": "bra", "RU": "бюстгальтер"}},
+    {"id": "v-clothing-4", "level": "A1", "category": "clothing", "word": "szlafrok", "translation": {"EN": "robe", "RU": "халат"}},
+    {"id": "v-clothing-5", "level": "A1", "category": "clothing", "word": "strój kąpielowy", "translation": {"EN": "swimsuit", "RU": "купальник"}},
+    {"id": "v-clothing-6", "level": "A1", "category": "clothing", "word": "okulary przeciwsłoneczne", "translation": {"EN": "sunglasses", "RU": "солнечные очки"}},
+    {"id": "v-clothing-7", "level": "A1", "category": "clothing", "word": "rajstopy", "translation": {"EN": "tights", "RU": "колготки"}},
+    {"id": "v-clothing-8", "level": "A1", "category": "clothing", "word": "pończochy", "translation": {"EN": "stockings", "RU": "чулки"}},
+    {"id": "v-clothing-9", "level": "A1", "category": "clothing", "word": "skarpetki", "translation": {"EN": "socks", "RU": "носки"}},
+    {"id": "v-clothing-10", "level": "A1", "category": "clothing", "word": "płaszcz", "translation": {"EN": "coat", "RU": "плащ, пальто"}},
+    {"id": "v-clothing-11", "level": "A1", "category": "clothing", "word": "kurtka", "translation": {"EN": "jacket", "RU": "куртка"}},
+    {"id": "v-clothing-12", "level": "A1", "category": "clothing", "word": "kożuch", "translation": {"EN": "sheepskin coat", "RU": "дублёнка"}},
+    {"id": "v-clothing-13", "level": "A1", "category": "clothing", "word": "futro", "translation": {"EN": "fur coat", "RU": "шуба"}},
+    {"id": "v-clothing-14", "level": "A1", "category": "clothing", "word": "sukienka", "translation": {"EN": "dress", "RU": "платье"}},
+    {"id": "v-clothing-15", "level": "A1", "category": "clothing", "word": "spódnica", "translation": {"EN": "skirt", "RU": "юбка"}},
+    {"id": "v-clothing-16", "level": "A1", "category": "clothing", "word": "bluzka", "translation": {"EN": "blouse", "RU": "блузка"}},
+    {"id": "v-clothing-17", "level": "A1", "category": "clothing", "word": "spodenki", "translation": {"EN": "shorts", "RU": "шорты"}},
+    {"id": "v-clothing-18", "level": "A1", "category": "clothing", "word": "żakiet", "translation": {"EN": "blazer", "RU": "жакет"}},
+    {"id": "v-clothing-19", "level": "A1", "category": "clothing", "word": "golf", "translation": {"EN": "turtleneck", "RU": "гольф"}},
+    {"id": "v-clothing-20", "level": "A1", "category": "clothing", "word": "sweter", "translation": {"EN": "sweater", "RU": "свитер"}},
+    {"id": "v-clothing-21", "level": "A1", "category": "clothing", "word": "spodnie", "translation": {"EN": "trousers", "RU": "брюки"}},
+    {"id": "v-clothing-22", "level": "A1", "category": "clothing", "word": "dres", "translation": {"EN": "tracksuit", "RU": "спортивный костюм"}},
+    {"id": "v-clothing-23", "level": "A1", "category": "clothing", "word": "kostium", "translation": {"EN": "suit (women's)", "RU": "костюм"}},
+    {"id": "v-clothing-24", "level": "A1", "category": "clothing", "word": "kapelusz", "translation": {"EN": "hat", "RU": "шляпа, панама"}},
+    {"id": "v-clothing-25", "level": "A1", "category": "clothing", "word": "czapka", "translation": {"EN": "cap / hat", "RU": "шапка"}},
+    {"id": "v-clothing-26", "level": "A1", "category": "clothing", "word": "szalik", "translation": {"EN": "scarf", "RU": "шарф"}},
+    {"id": "v-clothing-27", "level": "A1", "category": "clothing", "word": "rękawiczki", "translation": {"EN": "gloves", "RU": "перчатки, варежки"}},
+    {"id": "v-clothing-28", "level": "A1", "category": "clothing", "word": "kapcie", "translation": {"EN": "slippers", "RU": "домашние тапочки"}},
+    {"id": "v-clothing-29", "level": "A1", "category": "clothing", "word": "klapki", "translation": {"EN": "flip-flops", "RU": "шлёпанцы"}},
+    {"id": "v-clothing-30", "level": "A1", "category": "clothing", "word": "sandały", "translation": {"EN": "sandals", "RU": "сандалии"}},
+    {"id": "v-clothing-31", "level": "A1", "category": "clothing", "word": "buty", "translation": {"EN": "shoes", "RU": "туфли, ботинки, сапоги"}},
+    {"id": "v-clothing-32", "level": "A1", "category": "clothing", "word": "półbuty", "translation": {"EN": "low shoes", "RU": "полуботинки"}},
+    {"id": "v-clothing-33", "level": "A1", "category": "clothing", "word": "kozaki", "translation": {"EN": "winter boots", "RU": "зимние сапоги"}},
+    {"id": "v-clothing-34", "level": "A1", "category": "clothing", "word": "obcas", "translation": {"EN": "heel", "RU": "каблук"}},
+    {"id": "v-clothing-35", "level": "A1", "category": "clothing", "word": "pasek", "translation": {"EN": "belt", "RU": "ремень"}},
+    {"id": "v-clothing-36", "level": "A1", "category": "clothing", "word": "torebka", "translation": {"EN": "handbag", "RU": "сумочка"}},
+    {"id": "v-clothing-37", "level": "A1", "category": "clothing", "word": "parasol", "translation": {"EN": "umbrella", "RU": "зонт"}},
+    {"id": "v-clothing-38", "level": "A1", "category": "clothing", "word": "biżuteria", "translation": {"EN": "jewelry", "RU": "бижутерия"}},
+    {"id": "v-clothing-39", "level": "A1", "category": "clothing", "word": "pierścionek", "translation": {"EN": "ring", "RU": "кольцо"}},
+    {"id": "v-clothing-40", "level": "A1", "category": "clothing", "word": "łańcuszek", "translation": {"EN": "chain", "RU": "цепочка"}},
+    {"id": "v-clothing-41", "level": "A1", "category": "clothing", "word": "wisiorek", "translation": {"EN": "pendant", "RU": "кулон"}},
+    {"id": "v-clothing-42", "level": "A1", "category": "clothing", "word": "kolczyki", "translation": {"EN": "earrings", "RU": "серёжки"}},
+    {"id": "v-clothing-43", "level": "A1", "category": "clothing", "word": "slipy", "translation": {"EN": "briefs", "RU": "плавки"}},
+    {"id": "v-clothing-44", "level": "A1", "category": "clothing", "word": "podkoszulek", "translation": {"EN": "undershirt", "RU": "майка"}},
+    {"id": "v-clothing-45", "level": "A1", "category": "clothing", "word": "koszula", "translation": {"EN": "shirt", "RU": "рубашка"}},
+    {"id": "v-clothing-46", "level": "A1", "category": "clothing", "word": "kołnierzyk", "translation": {"EN": "collar", "RU": "воротник"}},
+    {"id": "v-clothing-47", "level": "A1", "category": "clothing", "word": "rękaw", "translation": {"EN": "sleeve", "RU": "рукав"}},
+    {"id": "v-clothing-48", "level": "A1", "category": "clothing", "word": "marynarka", "translation": {"EN": "blazer / jacket", "RU": "пиджак"}},
+    {"id": "v-clothing-49", "level": "A1", "category": "clothing", "word": "kieszeń", "translation": {"EN": "pocket", "RU": "карман"}},
+    {"id": "v-clothing-50", "level": "A1", "category": "clothing", "word": "garnitur", "translation": {"EN": "suit", "RU": "костюм"}},
+    {"id": "v-clothing-51", "level": "A1", "category": "clothing", "word": "krawat", "translation": {"EN": "tie", "RU": "галстук"}},
+    {"id": "v-clothing-52", "level": "A1", "category": "clothing", "word": "dżinsy", "translation": {"EN": "jeans", "RU": "джинсы"}},
+    {"id": "v-clothing-53", "level": "A1", "category": "clothing", "word": "adidasy", "translation": {"EN": "sneakers", "RU": "кроссовки"}},
+    {"id": "v-clothing-54", "level": "A1", "category": "clothing", "word": "trampki", "translation": {"EN": "sneakers / plimsolls", "RU": "кеды"}},
+    {"id": "v-clothing-55", "level": "A1", "category": "clothing", "word": "zegarek", "translation": {"EN": "watch", "RU": "часы"}},
+    {"id": "v-weather-1", "level": "A2", "category": "weather", "word": "pory roku", "translation": {"EN": "seasons", "RU": "поры года"}},
+    {"id": "v-weather-2", "level": "A2", "category": "weather", "word": "zima", "translation": {"EN": "winter", "RU": "зима"}},
+    {"id": "v-weather-3", "level": "A2", "category": "weather", "word": "wiosna", "translation": {"EN": "spring", "RU": "весна"}},
+    {"id": "v-weather-4", "level": "A2", "category": "weather", "word": "lato", "translation": {"EN": "summer", "RU": "лето"}},
+    {"id": "v-weather-5", "level": "A2", "category": "weather", "word": "jesień", "translation": {"EN": "autumn", "RU": "осень"}},
+    {"id": "v-weather-6", "level": "A2", "category": "weather", "word": "klimat", "translation": {"EN": "climate", "RU": "климат"}},
+    {"id": "v-weather-7", "level": "A2", "category": "weather", "word": "pogoda", "translation": {"EN": "weather", "RU": "погода"}},
+    {"id": "v-weather-8", "level": "A2", "category": "weather", "word": "zimno", "translation": {"EN": "cold", "RU": "холодно"}},
+    {"id": "v-weather-9", "level": "A2", "category": "weather", "word": "ciepło", "translation": {"EN": "warm", "RU": "тепло"}},
+    {"id": "v-weather-10", "level": "A2", "category": "weather", "word": "gorąco", "translation": {"EN": "hot", "RU": "жарко"}},
+    {"id": "v-weather-11", "level": "A2", "category": "weather", "word": "niebo", "translation": {"EN": "sky", "RU": "небо"}},
+    {"id": "v-weather-12", "level": "A2", "category": "weather", "word": "słońce", "translation": {"EN": "sun", "RU": "солнце"}},
+    {"id": "v-weather-13", "level": "A2", "category": "weather", "word": "księżyc", "translation": {"EN": "moon", "RU": "луна"}},
+    {"id": "v-weather-14", "level": "A2", "category": "weather", "word": "gwiazda", "translation": {"EN": "star", "RU": "звезда"}},
+    {"id": "v-weather-15", "level": "A2", "category": "weather", "word": "chmura", "translation": {"EN": "cloud", "RU": "туча, облако"}},
+    {"id": "v-weather-16", "level": "A2", "category": "weather", "word": "zachmurzenie", "translation": {"EN": "cloudiness", "RU": "облачность"}},
+    {"id": "v-weather-17", "level": "A2", "category": "weather", "word": "opady", "translation": {"EN": "precipitation", "RU": "осадки"}},
+    {"id": "v-weather-18", "level": "A2", "category": "weather", "word": "deszcz", "translation": {"EN": "rain", "RU": "дождь"}},
+    {"id": "v-weather-19", "level": "A2", "category": "weather", "word": "mżawka", "translation": {"EN": "drizzle", "RU": "мелкий дождь"}},
+    {"id": "v-weather-20", "level": "A2", "category": "weather", "word": "ulewa", "translation": {"EN": "downpour", "RU": "ливень"}},
+    {"id": "v-weather-21", "level": "A2", "category": "weather", "word": "pada deszcz", "translation": {"EN": "it's raining", "RU": "идёт дождь"}},
+    {"id": "v-weather-22", "level": "A2", "category": "weather", "word": "jest mokro", "translation": {"EN": "it's wet", "RU": "мокро"}},
+    {"id": "v-weather-23", "level": "A2", "category": "weather", "word": "wilgotny", "translation": {"EN": "humid", "RU": "влажный"}},
+    {"id": "v-weather-24", "level": "A2", "category": "weather", "word": "przestało padać", "translation": {"EN": "it stopped raining", "RU": "дождь прекратился"}},
+    {"id": "v-weather-25", "level": "A2", "category": "weather", "word": "mgła", "translation": {"EN": "fog", "RU": "туман"}},
+    {"id": "v-weather-26", "level": "A2", "category": "weather", "word": "rosa", "translation": {"EN": "dew", "RU": "роса"}},
+    {"id": "v-weather-27", "level": "A2", "category": "weather", "word": "tęcza", "translation": {"EN": "rainbow", "RU": "радуга"}},
+    {"id": "v-weather-28", "level": "A2", "category": "weather", "word": "jest bezwietrznie", "translation": {"EN": "it's calm / windless", "RU": "безветренная погода"}},
+    {"id": "v-weather-29", "level": "A2", "category": "weather", "word": "wiatr", "translation": {"EN": "wind", "RU": "ветер"}},
+    {"id": "v-weather-30", "level": "A2", "category": "weather", "word": "wiać", "translation": {"EN": "to blow", "RU": "дуть"}},
+    {"id": "v-weather-31", "level": "A2", "category": "weather", "word": "burza", "translation": {"EN": "storm", "RU": "гроза"}},
+    {"id": "v-weather-32", "level": "A2", "category": "weather", "word": "błyskawica", "translation": {"EN": "lightning", "RU": "молния"}},
+    {"id": "v-weather-33", "level": "A2", "category": "weather", "word": "piorun", "translation": {"EN": "thunderbolt", "RU": "гром"}},
+    {"id": "v-weather-34", "level": "A2", "category": "weather", "word": "grzmi", "translation": {"EN": "it's thundering", "RU": "гремит"}},
+    {"id": "v-weather-35", "level": "A2", "category": "weather", "word": "grad", "translation": {"EN": "hail", "RU": "град"}},
+    {"id": "v-weather-36", "level": "A2", "category": "weather", "word": "świeci słońce", "translation": {"EN": "the sun is shining", "RU": "светит солнце"}},
+    {"id": "v-weather-37", "level": "A2", "category": "weather", "word": "upał", "translation": {"EN": "heatwave", "RU": "жара"}},
+    {"id": "v-weather-38", "level": "A2", "category": "weather", "word": "śnieg", "translation": {"EN": "snow", "RU": "снег"}},
+    {"id": "v-weather-39", "level": "A2", "category": "weather", "word": "płatki śniegu", "translation": {"EN": "snowflakes", "RU": "снежинки"}},
+    {"id": "v-weather-40", "level": "A2", "category": "weather", "word": "pada śnieg", "translation": {"EN": "it's snowing", "RU": "идёт снег"}},
+    {"id": "v-weather-41", "level": "A2", "category": "weather", "word": "zawieja śnieżna", "translation": {"EN": "snowstorm", "RU": "метель"}},
+    {"id": "v-weather-42", "level": "A2", "category": "weather", "word": "mróz", "translation": {"EN": "frost", "RU": "мороз"}},
+    {"id": "v-weather-43", "level": "A2", "category": "weather", "word": "szron", "translation": {"EN": "hoarfrost", "RU": "иней"}},
+    {"id": "v-weather-44", "level": "A2", "category": "weather", "word": "sopel", "translation": {"EN": "icicle", "RU": "сосулька"}},
+    {"id": "v-weather-45", "level": "A2", "category": "weather", "word": "gołoledź", "translation": {"EN": "black ice", "RU": "гололёд"}},
+    {"id": "v-weather-46", "level": "A2", "category": "weather", "word": "jest ślisko", "translation": {"EN": "it's slippery", "RU": "скользко"}},
+    {"id": "v-weather-47", "level": "A2", "category": "weather", "word": "śnieg topnieje", "translation": {"EN": "the snow is melting", "RU": "снег тает"}},
+    {"id": "v-weather-48", "level": "A2", "category": "weather", "word": "termometr", "translation": {"EN": "thermometer", "RU": "термометр"}},
+    {"id": "v-weather-49", "level": "A2", "category": "weather", "word": "skala", "translation": {"EN": "scale", "RU": "шкала"}},
+    {"id": "v-weather-50", "level": "A2", "category": "weather", "word": "temperatura", "translation": {"EN": "temperature", "RU": "температура"}},
+    {"id": "v-weather-51", "level": "A2", "category": "weather", "word": "dodatnia", "translation": {"EN": "positive", "RU": "положительная"}},
+    {"id": "v-weather-52", "level": "A2", "category": "weather", "word": "ujemna", "translation": {"EN": "negative", "RU": "отрицательная"}},
+    {"id": "v-weather-53", "level": "A2", "category": "weather", "word": "niż", "translation": {"EN": "cyclone (low pressure)", "RU": "циклон"}},
+    {"id": "v-weather-54", "level": "A2", "category": "weather", "word": "wyż", "translation": {"EN": "anticyclone (high pressure)", "RU": "антициклон"}},
+    {"id": "v-weather-55", "level": "A2", "category": "weather", "word": "żywioł", "translation": {"EN": "natural force", "RU": "стихия"}},
+    {"id": "v-weather-56", "level": "A2", "category": "weather", "word": "klęska żywiołowa", "translation": {"EN": "natural disaster", "RU": "стихийное бедствие"}},
+    {"id": "v-weather-57", "level": "A2", "category": "weather", "word": "huragan", "translation": {"EN": "hurricane", "RU": "ураган"}},
+    {"id": "v-weather-58", "level": "A2", "category": "weather", "word": "powódź", "translation": {"EN": "flood", "RU": "наводнение"}},
+    {"id": "v-weather-59", "level": "A2", "category": "weather", "word": "pożar", "translation": {"EN": "fire", "RU": "пожар"}},
+    {"id": "v-weather-60", "level": "A2", "category": "weather", "word": "trzęsienie ziemi", "translation": {"EN": "earthquake", "RU": "землетрясение"}},
+    {"id": "v-nationalities-1", "level": "A2", "category": "nationalities", "word": "Rosjanin / Rosjanka", "translation": {"EN": "Russian (m/f)", "RU": "русский / русская"}},
+    {"id": "v-nationalities-2", "level": "A2", "category": "nationalities", "word": "Białorusin / Białorusinka", "translation": {"EN": "Belarusian (m/f)", "RU": "белорус / белоруска"}},
+    {"id": "v-nationalities-3", "level": "A2", "category": "nationalities", "word": "Polak / Polka", "translation": {"EN": "Polish (m/f)", "RU": "поляк / полька"}},
+    {"id": "v-nationalities-4", "level": "A2", "category": "nationalities", "word": "Ukrainiec / Ukrainka", "translation": {"EN": "Ukrainian (m/f)", "RU": "украинец / украинка"}},
+    {"id": "v-nationalities-5", "level": "A2", "category": "nationalities", "word": "Litwin / Litwinka", "translation": {"EN": "Lithuanian (m/f)", "RU": "литовец / литовка"}},
+    {"id": "v-nationalities-6", "level": "A2", "category": "nationalities", "word": "Łotysz / Łotyszka", "translation": {"EN": "Latvian (m/f)", "RU": "латыш / латышка"}},
+    {"id": "v-nationalities-7", "level": "A2", "category": "nationalities", "word": "Estończyk / Estonka", "translation": {"EN": "Estonian (m/f)", "RU": "эстонец / эстонка"}},
+    {"id": "v-nationalities-8", "level": "A2", "category": "nationalities", "word": "Bułgar / Bułgarka", "translation": {"EN": "Bulgarian (m/f)", "RU": "болгарин / болгарка"}},
+    {"id": "v-nationalities-9", "level": "A2", "category": "nationalities", "word": "Czech / Czeszka", "translation": {"EN": "Czech (m/f)", "RU": "чех / чешка"}},
+    {"id": "v-nationalities-10", "level": "A2", "category": "nationalities", "word": "Słowak / Słowaczka", "translation": {"EN": "Slovak (m/f)", "RU": "словак / словачка"}},
+    {"id": "v-nationalities-11", "level": "A2", "category": "nationalities", "word": "Serb / Serbka", "translation": {"EN": "Serbian (m/f)", "RU": "серб / сербка"}},
+    {"id": "v-nationalities-12", "level": "A2", "category": "nationalities", "word": "Niemiec / Niemka", "translation": {"EN": "German (m/f)", "RU": "немец / немка"}},
+    {"id": "v-nationalities-13", "level": "A2", "category": "nationalities", "word": "Fin / Finka", "translation": {"EN": "Finnish (m/f)", "RU": "финн / финка"}},
+    {"id": "v-nationalities-14", "level": "A2", "category": "nationalities", "word": "Austriak / Austriaczka", "translation": {"EN": "Austrian (m/f)", "RU": "австриец / австрийка"}},
+    {"id": "v-nationalities-15", "level": "A2", "category": "nationalities", "word": "Norweg / Norweżka", "translation": {"EN": "Norwegian (m/f)", "RU": "норвежец / норвежка"}},
+    {"id": "v-nationalities-16", "level": "A2", "category": "nationalities", "word": "Duńczyk / Dunka", "translation": {"EN": "Danish (m/f)", "RU": "датчанин / датчанка"}},
+    {"id": "v-nationalities-17", "level": "A2", "category": "nationalities", "word": "Szwed / Szwedka", "translation": {"EN": "Swedish (m/f)", "RU": "швед / шведка"}},
+    {"id": "v-nationalities-18", "level": "A2", "category": "nationalities", "word": "Holender / Holenderka", "translation": {"EN": "Dutch (m/f)", "RU": "голландец / голландка"}},
+    {"id": "v-nationalities-19", "level": "A2", "category": "nationalities", "word": "Anglik / Angielka", "translation": {"EN": "English (m/f)", "RU": "англичанин / англичанка"}},
+    {"id": "v-nationalities-20", "level": "A2", "category": "nationalities", "word": "Belg / Belgijka", "translation": {"EN": "Belgian (m/f)", "RU": "бельгиец / бельгийка"}},
+    {"id": "v-nationalities-21", "level": "A2", "category": "nationalities", "word": "Francuz / Francuzka", "translation": {"EN": "French (m/f)", "RU": "француз / француженка"}},
+    {"id": "v-nationalities-22", "level": "A2", "category": "nationalities", "word": "Włoch / Włoszka", "translation": {"EN": "Italian (m/f)", "RU": "итальянец / итальянка"}},
+    {"id": "v-nationalities-23", "level": "A2", "category": "nationalities", "word": "Hiszpan / Hiszpanka", "translation": {"EN": "Spanish (m/f)", "RU": "испанец / испанка"}},
+    {"id": "v-nationalities-24", "level": "A2", "category": "nationalities", "word": "Portugalczyk / Portugalka", "translation": {"EN": "Portuguese (m/f)", "RU": "португалец / португалка"}},
+    {"id": "v-nationalities-25", "level": "A2", "category": "nationalities", "word": "Grek / Greczynka", "translation": {"EN": "Greek (m/f)", "RU": "грек / гречанка"}},
+    {"id": "v-nationalities-26", "level": "A2", "category": "nationalities", "word": "Turek / Turczynka", "translation": {"EN": "Turkish (m/f)", "RU": "турок / турчанка"}},
+    {"id": "v-nationalities-27", "level": "A2", "category": "nationalities", "word": "Chińczyk / Chinka", "translation": {"EN": "Chinese (m/f)", "RU": "китаец / китайка"}},
+    {"id": "v-nationalities-28", "level": "A2", "category": "nationalities", "word": "Japończyk / Japonka", "translation": {"EN": "Japanese (m/f)", "RU": "японец / японка"}},
+    {"id": "v-nationalities-29", "level": "A2", "category": "nationalities", "word": "Kanadyjczyk / Kanadyjka", "translation": {"EN": "Canadian (m/f)", "RU": "канадец / канадка"}},
+    {"id": "v-nationalities-30", "level": "A2", "category": "nationalities", "word": "Amerykanin / Amerykanka", "translation": {"EN": "American (m/f)", "RU": "американец / американка"}},
+    {"id": "v-nationalities-31", "level": "A2", "category": "nationalities", "word": "Brazylijczyk / Brazylijka", "translation": {"EN": "Brazilian (m/f)", "RU": "бразилец / бразильянка"}},
+    {"id": "v-nationalities-32", "level": "A2", "category": "nationalities", "word": "Argentyńczyk / Argentynka", "translation": {"EN": "Argentinian (m/f)", "RU": "аргентинец / аргентинка"}},
+    {"id": "v-nationalities-33", "level": "A2", "category": "nationalities", "word": "Australijczyk / Australijka", "translation": {"EN": "Australian (m/f)", "RU": "австралиец / австралийка"}},
+    {"id": "v-apartment-1", "level": "A2", "category": "apartment", "word": "mieszkanie", "translation": {"EN": "apartment", "RU": "квартира"}},
+    {"id": "v-apartment-2", "level": "A2", "category": "apartment", "word": "blok", "translation": {"EN": "apartment block", "RU": "многоэтажный дом"}},
+    {"id": "v-apartment-3", "level": "A2", "category": "apartment", "word": "parter", "translation": {"EN": "ground floor", "RU": "первый этаж"}},
+    {"id": "v-apartment-4", "level": "A2", "category": "apartment", "word": "piętro", "translation": {"EN": "floor / storey", "RU": "этаж"}},
+    {"id": "v-apartment-5", "level": "A2", "category": "apartment", "word": "winda", "translation": {"EN": "elevator", "RU": "лифт"}},
+    {"id": "v-apartment-6", "level": "A2", "category": "apartment", "word": "schody", "translation": {"EN": "stairs", "RU": "лестница"}},
+    {"id": "v-apartment-7", "level": "A2", "category": "apartment", "word": "klatka schodowa", "translation": {"EN": "stairwell / landing", "RU": "лестничная площадка"}},
+    {"id": "v-apartment-8", "level": "A2", "category": "apartment", "word": "drzwi", "translation": {"EN": "door", "RU": "дверь"}},
+    {"id": "v-apartment-9", "level": "A2", "category": "apartment", "word": "klamka", "translation": {"EN": "door handle", "RU": "дверная ручка"}},
+    {"id": "v-apartment-10", "level": "A2", "category": "apartment", "word": "okno", "translation": {"EN": "window", "RU": "окно"}},
+    {"id": "v-apartment-11", "level": "A2", "category": "apartment", "word": "parapet", "translation": {"EN": "windowsill", "RU": "подоконник"}},
+    {"id": "v-apartment-12", "level": "A2", "category": "apartment", "word": "centralne ogrzewanie", "translation": {"EN": "central heating", "RU": "центральное отопление"}},
+    {"id": "v-apartment-13", "level": "A2", "category": "apartment", "word": "kaloryfer", "translation": {"EN": "radiator", "RU": "батарея"}},
+    {"id": "v-apartment-14", "level": "A2", "category": "apartment", "word": "podłoga", "translation": {"EN": "floor", "RU": "пол"}},
+    {"id": "v-apartment-15", "level": "A2", "category": "apartment", "word": "sufit", "translation": {"EN": "ceiling", "RU": "потолок"}},
+    {"id": "v-apartment-16", "level": "A2", "category": "apartment", "word": "ściana", "translation": {"EN": "wall", "RU": "стена"}},
+    {"id": "v-apartment-17", "level": "A2", "category": "apartment", "word": "balkon", "translation": {"EN": "balcony", "RU": "балкон"}},
+    {"id": "v-apartment-18", "level": "A2", "category": "apartment", "word": "przedpokój", "translation": {"EN": "hallway", "RU": "прихожая"}},
+    {"id": "v-apartment-19", "level": "A2", "category": "apartment", "word": "pokój", "translation": {"EN": "room", "RU": "комната"}},
+    {"id": "v-apartment-20", "level": "A2", "category": "apartment", "word": "sypialnia", "translation": {"EN": "bedroom", "RU": "спальня"}},
+    {"id": "v-apartment-21", "level": "A2", "category": "apartment", "word": "kuchnia", "translation": {"EN": "kitchen", "RU": "кухня"}},
+    {"id": "v-apartment-22", "level": "A2", "category": "apartment", "word": "łazienka", "translation": {"EN": "bathroom", "RU": "ванная"}},
+    {"id": "v-apartment-23", "level": "A2", "category": "apartment", "word": "firanki", "translation": {"EN": "net curtains", "RU": "тюль"}},
+    {"id": "v-apartment-24", "level": "A2", "category": "apartment", "word": "zasłony", "translation": {"EN": "curtains", "RU": "шторы"}},
+    {"id": "v-apartment-25", "level": "A2", "category": "apartment", "word": "żyrandol", "translation": {"EN": "chandelier", "RU": "люстра"}},
+    {"id": "v-apartment-26", "level": "A2", "category": "apartment", "word": "tapety", "translation": {"EN": "wallpaper", "RU": "обои"}},
+    {"id": "v-apartment-27", "level": "A2", "category": "apartment", "word": "dywan", "translation": {"EN": "carpet / rug", "RU": "ковёр"}},
+    {"id": "v-apartment-28", "level": "A2", "category": "apartment", "word": "wykładzina", "translation": {"EN": "flooring / carpeting", "RU": "ковровое покрытие"}},
+    {"id": "v-apartment-29", "level": "A2", "category": "apartment", "word": "wieszak", "translation": {"EN": "hanger / coat rack", "RU": "вешалка"}},
+    {"id": "v-apartment-30", "level": "A2", "category": "apartment", "word": "lustro", "translation": {"EN": "mirror", "RU": "зеркало"}},
+    {"id": "v-apartment-31", "level": "A2", "category": "apartment", "word": "zegar", "translation": {"EN": "clock", "RU": "часы"}},
+    {"id": "v-apartment-32", "level": "A2", "category": "apartment", "word": "półka", "translation": {"EN": "shelf", "RU": "полка"}},
+    {"id": "v-apartment-33", "level": "A2", "category": "apartment", "word": "półka pod telewizor", "translation": {"EN": "TV stand", "RU": "телевизионная тумба"}},
+    {"id": "v-apartment-34", "level": "A2", "category": "apartment", "word": "regał na książki", "translation": {"EN": "bookshelf", "RU": "книжный шкаф"}},
+    {"id": "v-apartment-35", "level": "A2", "category": "apartment", "word": "szafa", "translation": {"EN": "wardrobe", "RU": "шкаф"}},
+    {"id": "v-apartment-36", "level": "A2", "category": "apartment", "word": "szafka nocna", "translation": {"EN": "nightstand", "RU": "тумбочка"}},
+    {"id": "v-apartment-37", "level": "A2", "category": "apartment", "word": "komoda", "translation": {"EN": "dresser", "RU": "комод"}},
+    {"id": "v-apartment-38", "level": "A2", "category": "apartment", "word": "łóżko", "translation": {"EN": "bed", "RU": "кровать"}},
+    {"id": "v-apartment-39", "level": "A2", "category": "apartment", "word": "materac", "translation": {"EN": "mattress", "RU": "матрас"}},
+    {"id": "v-apartment-40", "level": "A2", "category": "apartment", "word": "poduszka", "translation": {"EN": "pillow", "RU": "подушка"}},
+    {"id": "v-apartment-41", "level": "A2", "category": "apartment", "word": "jasiek", "translation": {"EN": "small pillow", "RU": "подушечка"}},
+    {"id": "v-apartment-42", "level": "A2", "category": "apartment", "word": "kołdra", "translation": {"EN": "duvet / blanket", "RU": "одеяло"}},
+    {"id": "v-apartment-43", "level": "A2", "category": "apartment", "word": "koc", "translation": {"EN": "blanket", "RU": "плед"}},
+    {"id": "v-apartment-44", "level": "A2", "category": "apartment", "word": "pościel", "translation": {"EN": "bedding", "RU": "постель"}},
+    {"id": "v-apartment-45", "level": "A2", "category": "apartment", "word": "poszewka", "translation": {"EN": "pillowcase", "RU": "наволочка"}},
+    {"id": "v-apartment-46", "level": "A2", "category": "apartment", "word": "prześcieradło", "translation": {"EN": "bedsheet", "RU": "простыня"}},
+    {"id": "v-apartment-47", "level": "A2", "category": "apartment", "word": "tapczan", "translation": {"EN": "sofa bed", "RU": "тахта"}},
+    {"id": "v-apartment-48", "level": "A2", "category": "apartment", "word": "stół", "translation": {"EN": "table", "RU": "стол"}},
+    {"id": "v-apartment-49", "level": "A2", "category": "apartment", "word": "biurko", "translation": {"EN": "desk", "RU": "письменный стол"}},
+    {"id": "v-apartment-50", "level": "A2", "category": "apartment", "word": "krzesło", "translation": {"EN": "chair", "RU": "стул"}},
+    {"id": "v-apartment-51", "level": "A2", "category": "apartment", "word": "taboret", "translation": {"EN": "stool", "RU": "табуретка"}},
+    {"id": "v-apartment-52", "level": "A2", "category": "apartment", "word": "fotel", "translation": {"EN": "armchair", "RU": "кресло"}},
+    {"id": "v-apartment-53", "level": "A2", "category": "apartment", "word": "telefon", "translation": {"EN": "telephone", "RU": "телефон"}},
+    {"id": "v-apartment-54", "level": "A2", "category": "apartment", "word": "telewizor", "translation": {"EN": "TV set", "RU": "телевизор"}},
+    {"id": "v-apartment-55", "level": "A2", "category": "apartment", "word": "komputer", "translation": {"EN": "computer", "RU": "компьютер"}},
+    {"id": "v-apartment-56", "level": "A2", "category": "apartment", "word": "kuchenka gazowa", "translation": {"EN": "gas stove", "RU": "газовая плита"}},
+    {"id": "v-apartment-57", "level": "A2", "category": "apartment", "word": "lodówka", "translation": {"EN": "refrigerator", "RU": "холодильник"}},
+    {"id": "v-apartment-58", "level": "A2", "category": "apartment", "word": "zlew", "translation": {"EN": "sink", "RU": "раковина"}},
+    {"id": "v-apartment-59", "level": "A2", "category": "apartment", "word": "czajnik", "translation": {"EN": "kettle", "RU": "чайник"}},
+    {"id": "v-apartment-60", "level": "A2", "category": "apartment", "word": "garnek", "translation": {"EN": "pot", "RU": "кастрюля"}},
+    {"id": "v-apartment-61", "level": "A2", "category": "apartment", "word": "patelnia", "translation": {"EN": "frying pan", "RU": "сковорода"}},
+    {"id": "v-apartment-62", "level": "A2", "category": "apartment", "word": "płyn do naczyń", "translation": {"EN": "dish soap", "RU": "средство для мытья посуды"}},
+    {"id": "v-apartment-63", "level": "A2", "category": "apartment", "word": "wanna", "translation": {"EN": "bathtub", "RU": "ванна"}},
+    {"id": "v-apartment-64", "level": "A2", "category": "apartment", "word": "umywalka", "translation": {"EN": "washbasin", "RU": "умывальник"}},
+    {"id": "v-apartment-65", "level": "A2", "category": "apartment", "word": "prysznic", "translation": {"EN": "shower", "RU": "душ"}},
+    {"id": "v-apartment-66", "level": "A2", "category": "apartment", "word": "pralka", "translation": {"EN": "washing machine", "RU": "стиральная машина"}},
+    {"id": "v-apartment-67", "level": "A2", "category": "apartment", "word": "kosz na bieliznę", "translation": {"EN": "laundry basket", "RU": "бельевая корзина"}},
+    {"id": "v-apartment-68", "level": "A2", "category": "apartment", "word": "proszek do prania", "translation": {"EN": "laundry detergent", "RU": "стиральный порошок"}},
+    {"id": "v-apartment-69", "level": "A2", "category": "apartment", "word": "sedes", "translation": {"EN": "toilet", "RU": "унитаз"}},
+    {"id": "v-apartment-70", "level": "A2", "category": "apartment", "word": "papier toaletowy", "translation": {"EN": "toilet paper", "RU": "туалетная бумага"}},
+    {"id": "v-apartment-71", "level": "A2", "category": "apartment", "word": "kosz na śmieci", "translation": {"EN": "trash can", "RU": "мусорное ведро"}},
+    {"id": "v-apartment-72", "level": "A2", "category": "apartment", "word": "worek na śmieci", "translation": {"EN": "trash bag", "RU": "мусорный пакет"}},
+    {"id": "v-apartment-73", "level": "A2", "category": "apartment", "word": "miotła", "translation": {"EN": "broom", "RU": "веник"}},
+    {"id": "v-apartment-74", "level": "A2", "category": "apartment", "word": "szczotka", "translation": {"EN": "brush", "RU": "щётка"}},
+    {"id": "v-apartment-75", "level": "A2", "category": "apartment", "word": "śmietniczka", "translation": {"EN": "dustpan", "RU": "совок"}},
+    {"id": "v-apartment-76", "level": "A2", "category": "apartment", "word": "gąbka", "translation": {"EN": "sponge", "RU": "губка"}},
+    {"id": "v-apartment-77", "level": "A2", "category": "apartment", "word": "wiadro", "translation": {"EN": "bucket", "RU": "ведро"}},
+    {"id": "v-apartment-78", "level": "A2", "category": "apartment", "word": "ścierka", "translation": {"EN": "rag / cloth", "RU": "тряпка"}},
+    {"id": "v-apartment-79", "level": "A2", "category": "apartment", "word": "serwetka", "translation": {"EN": "napkin", "RU": "салфетка"}},
+    {"id": "v-apartment-80", "level": "A2", "category": "apartment", "word": "nakrycia stołowe", "translation": {"EN": "table setting", "RU": "столовые приборы"}},
+    {"id": "v-apartment-81", "level": "A2", "category": "apartment", "word": "talerz głęboki", "translation": {"EN": "deep / soup plate", "RU": "глубокая тарелка"}},
+    {"id": "v-apartment-82", "level": "A2", "category": "apartment", "word": "talerz płytki", "translation": {"EN": "dinner plate", "RU": "мелкая тарелка"}},
+    {"id": "v-apartment-83", "level": "A2", "category": "apartment", "word": "sztućce", "translation": {"EN": "cutlery", "RU": "столовые приборы"}},
+    {"id": "v-apartment-84", "level": "A2", "category": "apartment", "word": "łyżka", "translation": {"EN": "spoon", "RU": "столовая ложка"}},
+    {"id": "v-apartment-85", "level": "A2", "category": "apartment", "word": "łyżeczka", "translation": {"EN": "teaspoon", "RU": "чайная ложка"}},
+    {"id": "v-apartment-86", "level": "A2", "category": "apartment", "word": "widelec", "translation": {"EN": "fork", "RU": "вилка"}},
+    {"id": "v-apartment-87", "level": "A2", "category": "apartment", "word": "nóż", "translation": {"EN": "knife", "RU": "нож"}},
+    {"id": "v-apartment-88", "level": "A2", "category": "apartment", "word": "kubek", "translation": {"EN": "mug", "RU": "кружка"}},
+    {"id": "v-apartment-89", "level": "A2", "category": "apartment", "word": "filiżanka", "translation": {"EN": "cup", "RU": "чашка"}},
+    {"id": "v-apartment-90", "level": "A2", "category": "apartment", "word": "szklanka", "translation": {"EN": "glass", "RU": "стакан"}},
+    {"id": "v-apartment-91", "level": "A2", "category": "apartment", "word": "kieliszek", "translation": {"EN": "shot glass", "RU": "рюмка"}},
+    {"id": "v-food-1", "level": "A2", "category": "food", "word": "śniadanie", "translation": {"EN": "breakfast", "RU": "завтрак"}},
+    {"id": "v-food-2", "level": "A2", "category": "food", "word": "obiad", "translation": {"EN": "dinner / lunch", "RU": "обед"}},
+    {"id": "v-food-3", "level": "A2", "category": "food", "word": "kolacja", "translation": {"EN": "supper", "RU": "ужин"}},
+    {"id": "v-food-4", "level": "A2", "category": "food", "word": "gotować", "translation": {"EN": "to cook", "RU": "готовить"}},
+    {"id": "v-food-5", "level": "A2", "category": "food", "word": "smażyć", "translation": {"EN": "to fry", "RU": "жарить"}},
+    {"id": "v-food-6", "level": "A2", "category": "food", "word": "dusić", "translation": {"EN": "to stew", "RU": "тушить"}},
+    {"id": "v-food-7", "level": "A2", "category": "food", "word": "piec", "translation": {"EN": "to bake", "RU": "печь"}},
+    {"id": "v-food-8", "level": "A2", "category": "food", "word": "jeść", "translation": {"EN": "to eat", "RU": "есть"}},
+    {"id": "v-food-9", "level": "A2", "category": "food", "word": "przepis", "translation": {"EN": "recipe", "RU": "рецепт"}},
+    {"id": "v-food-10", "level": "A2", "category": "food", "word": "zupa jarzynowa", "translation": {"EN": "vegetable soup", "RU": "суп овощной"}},
+    {"id": "v-food-11", "level": "A2", "category": "food", "word": "zupa owocowa", "translation": {"EN": "fruit soup", "RU": "фруктовый суп"}},
+    {"id": "v-food-12", "level": "A2", "category": "food", "word": "zupa ogórkowa", "translation": {"EN": "dill pickle soup", "RU": "рассольник"}},
+    {"id": "v-food-13", "level": "A2", "category": "food", "word": "barszcz", "translation": {"EN": "borscht", "RU": "борщ"}},
+    {"id": "v-food-14", "level": "A2", "category": "food", "word": "drugie danie", "translation": {"EN": "main course", "RU": "второе блюдо"}},
+    {"id": "v-food-15", "level": "A2", "category": "food", "word": "deser", "translation": {"EN": "dessert", "RU": "десерт"}},
+    {"id": "v-food-16", "level": "A2", "category": "food", "word": "cukier", "translation": {"EN": "sugar", "RU": "сахар"}},
+    {"id": "v-food-17", "level": "A2", "category": "food", "word": "sól", "translation": {"EN": "salt", "RU": "соль"}},
+    {"id": "v-food-18", "level": "A2", "category": "food", "word": "wrzątek", "translation": {"EN": "boiling water", "RU": "кипяток"}},
+    {"id": "v-food-19", "level": "A2", "category": "food", "word": "ocet", "translation": {"EN": "vinegar", "RU": "уксус"}},
+    {"id": "v-food-20", "level": "A2", "category": "food", "word": "miód", "translation": {"EN": "honey", "RU": "мёд"}},
+    {"id": "v-food-21", "level": "A2", "category": "food", "word": "konfitury", "translation": {"EN": "jam / preserves", "RU": "варенье"}},
+    {"id": "v-food-22", "level": "A2", "category": "food", "word": "kanapka", "translation": {"EN": "sandwich", "RU": "бутерброд"}},
+    {"id": "v-food-23", "level": "A2", "category": "food", "word": "jajecznica", "translation": {"EN": "scrambled eggs", "RU": "яичница"}},
+    {"id": "v-food-24", "level": "A2", "category": "food", "word": "kasza", "translation": {"EN": "grain / porridge", "RU": "каша"}},
+    {"id": "v-food-25", "level": "A2", "category": "food", "word": "płatki", "translation": {"EN": "cereal flakes", "RU": "хлопья"}},
+    {"id": "v-food-26", "level": "A2", "category": "food", "word": "makaron", "translation": {"EN": "pasta", "RU": "макароны"}},
+    {"id": "v-food-27", "level": "A2", "category": "food", "word": "ryż", "translation": {"EN": "rice", "RU": "рис"}},
+    {"id": "v-food-28", "level": "A2", "category": "food", "word": "mąka", "translation": {"EN": "flour", "RU": "мука"}},
+    {"id": "v-food-29", "level": "A2", "category": "food", "word": "mąka ziemniaczana", "translation": {"EN": "potato starch", "RU": "крахмал"}},
+    {"id": "v-food-30", "level": "A2", "category": "food", "word": "naleśniki", "translation": {"EN": "crepes / pancakes", "RU": "блинчики"}},
+    {"id": "v-food-31", "level": "A2", "category": "food", "word": "nadzienie", "translation": {"EN": "filling", "RU": "начинка"}},
+    {"id": "v-food-32", "level": "A2", "category": "food", "word": "ziemniaki", "translation": {"EN": "potatoes", "RU": "картофель"}},
+    {"id": "v-food-33", "level": "A2", "category": "food", "word": "kotlet mielony", "translation": {"EN": "meat patty / cutlet", "RU": "котлета"}},
+    {"id": "v-food-34", "level": "A2", "category": "food", "word": "kotlet schabowy", "translation": {"EN": "breaded pork cutlet", "RU": "свиная отбивная"}},
+    {"id": "v-food-35", "level": "A2", "category": "food", "word": "pieczarka", "translation": {"EN": "button mushroom", "RU": "шампиньон"}},
+    {"id": "v-food-36", "level": "A2", "category": "food", "word": "surówka", "translation": {"EN": "raw vegetable salad", "RU": "салат из сырых овощей"}},
+    {"id": "v-food-37", "level": "A2", "category": "food", "word": "sałata", "translation": {"EN": "lettuce / salad", "RU": "салат"}},
+    {"id": "v-food-38", "level": "A2", "category": "food", "word": "pomidor", "translation": {"EN": "tomato", "RU": "помидор"}},
+    {"id": "v-food-39", "level": "A2", "category": "food", "word": "ogórek", "translation": {"EN": "cucumber", "RU": "огурец"}},
+    {"id": "v-food-40", "level": "A2", "category": "food", "word": "koper", "translation": {"EN": "dill", "RU": "укроп"}},
+    {"id": "v-food-41", "level": "A2", "category": "food", "word": "cytryna", "translation": {"EN": "lemon", "RU": "лимон"}},
+    {"id": "v-food-42", "level": "A2", "category": "food", "word": "banan", "translation": {"EN": "banana", "RU": "банан"}},
+    {"id": "v-food-43", "level": "A2", "category": "food", "word": "musztarda", "translation": {"EN": "mustard", "RU": "горчица"}},
+    {"id": "v-food-44", "level": "A2", "category": "food", "word": "keczup", "translation": {"EN": "ketchup", "RU": "кетчуп"}},
+    {"id": "v-food-45", "level": "A2", "category": "food", "word": "tort", "translation": {"EN": "cake", "RU": "торт"}},
+    {"id": "v-food-46", "level": "A2", "category": "food", "word": "napój", "translation": {"EN": "drink / beverage", "RU": "напиток"}},
+    {"id": "v-food-47", "level": "A2", "category": "food", "word": "herbata", "translation": {"EN": "tea", "RU": "чай"}},
+    {"id": "v-food-48", "level": "A2", "category": "food", "word": "kawa", "translation": {"EN": "coffee", "RU": "кофе"}},
+    {"id": "v-food-49", "level": "A2", "category": "food", "word": "kakao", "translation": {"EN": "cocoa", "RU": "какао"}},
+    {"id": "v-food-50", "level": "A2", "category": "food", "word": "woda mineralna", "translation": {"EN": "mineral water", "RU": "вода минеральная"}},
+    {"id": "v-food-51", "level": "A2", "category": "food", "word": "gazowana", "translation": {"EN": "sparkling / carbonated", "RU": "газированная"}},
+    {"id": "v-food-52", "level": "A2", "category": "food", "word": "niegazowana", "translation": {"EN": "still / non-carbonated", "RU": "негазированная"}},
+    {"id": "v-food-53", "level": "A2", "category": "food", "word": "sok owocowy", "translation": {"EN": "fruit juice", "RU": "фруктовый сок"}},
+    {"id": "v-food-54", "level": "A2", "category": "food", "word": "kompot", "translation": {"EN": "compote", "RU": "компот"}},
+    {"id": "v-food-55", "level": "A2", "category": "food", "word": "piwo", "translation": {"EN": "beer", "RU": "пиво"}},
+    {"id": "v-food-56", "level": "A2", "category": "food", "word": "wino", "translation": {"EN": "wine", "RU": "вино"}},
+    {"id": "v-food-57", "level": "A2", "category": "food", "word": "wódka", "translation": {"EN": "vodka", "RU": "водка"}},
+    {"id": "v-food-58", "level": "A2", "category": "food", "word": "szampan", "translation": {"EN": "champagne", "RU": "шампанское"}},
+    {"id": "v-food-59", "level": "A2", "category": "food", "word": "obrus", "translation": {"EN": "tablecloth", "RU": "скатерть"}},
+    {"id": "v-food-60", "level": "A2", "category": "food", "word": "zakupy", "translation": {"EN": "shopping", "RU": "покупки"}},
+    {"id": "v-food-61", "level": "A2", "category": "food", "word": "sklep spożywczy", "translation": {"EN": "grocery store", "RU": "продуктовый магазин"}},
+    {"id": "v-food-62", "level": "A2", "category": "food", "word": "centrum handlowe", "translation": {"EN": "shopping mall", "RU": "торговый центр"}},
+    {"id": "v-food-63", "level": "A2", "category": "food", "word": "targ", "translation": {"EN": "market", "RU": "рынок"}},
+    {"id": "v-food-64", "level": "A2", "category": "food", "word": "artykuły spożywcze", "translation": {"EN": "groceries", "RU": "продукты"}},
+    {"id": "v-food-65", "level": "A2", "category": "food", "word": "wędliny", "translation": {"EN": "cold cuts", "RU": "колбасные изделия"}},
+    {"id": "v-food-66", "level": "A2", "category": "food", "word": "kiełbasa", "translation": {"EN": "sausage", "RU": "колбаса"}},
+    {"id": "v-food-67", "level": "A2", "category": "food", "word": "parówki", "translation": {"EN": "hot dogs", "RU": "сосиски"}},
+    {"id": "v-food-68", "level": "A2", "category": "food", "word": "szynka", "translation": {"EN": "ham", "RU": "ветчина"}},
+    {"id": "v-food-69", "level": "A2", "category": "food", "word": "słonina", "translation": {"EN": "salt pork / lard", "RU": "сало"}},
+    {"id": "v-food-70", "level": "A2", "category": "food", "word": "mięso", "translation": {"EN": "meat", "RU": "мясо"}},
+    {"id": "v-food-71", "level": "A2", "category": "food", "word": "wieprzowina", "translation": {"EN": "pork", "RU": "свинина"}},
+    {"id": "v-food-72", "level": "A2", "category": "food", "word": "wołowina", "translation": {"EN": "beef", "RU": "говядина"}},
+    {"id": "v-food-73", "level": "A2", "category": "food", "word": "cielęcina", "translation": {"EN": "veal", "RU": "телятина"}},
+    {"id": "v-food-74", "level": "A2", "category": "food", "word": "baranina", "translation": {"EN": "mutton", "RU": "баранина"}},
+    {"id": "v-food-75", "level": "A2", "category": "food", "word": "drób", "translation": {"EN": "poultry", "RU": "птица"}},
+    {"id": "v-food-76", "level": "A2", "category": "food", "word": "kurczak", "translation": {"EN": "chicken", "RU": "курица"}},
+    {"id": "v-food-77", "level": "A2", "category": "food", "word": "kaczka", "translation": {"EN": "duck", "RU": "утка"}},
+    {"id": "v-food-78", "level": "A2", "category": "food", "word": "indyk", "translation": {"EN": "turkey", "RU": "индейка"}},
+    {"id": "v-food-79", "level": "A2", "category": "food", "word": "ryba", "translation": {"EN": "fish", "RU": "рыба"}},
+    {"id": "v-food-80", "level": "A2", "category": "food", "word": "śledź", "translation": {"EN": "herring", "RU": "сельдь"}},
+    {"id": "v-food-81", "level": "A2", "category": "food", "word": "karp", "translation": {"EN": "carp", "RU": "карп"}},
+    {"id": "v-food-82", "level": "A2", "category": "food", "word": "szczupak", "translation": {"EN": "pike", "RU": "щука"}},
+    {"id": "v-food-83", "level": "A2", "category": "food", "word": "węgorz", "translation": {"EN": "eel", "RU": "угорь"}},
+    {"id": "v-food-84", "level": "A2", "category": "food", "word": "pstrąg", "translation": {"EN": "trout", "RU": "форель"}},
+    {"id": "v-food-85", "level": "A2", "category": "food", "word": "homar", "translation": {"EN": "lobster", "RU": "омар"}},
+    {"id": "v-food-86", "level": "A2", "category": "food", "word": "krewetka", "translation": {"EN": "shrimp", "RU": "креветка"}},
+    {"id": "v-food-87", "level": "A2", "category": "food", "word": "kawior", "translation": {"EN": "caviar", "RU": "икра"}},
+    {"id": "v-food-88", "level": "A2", "category": "food", "word": "jajko", "translation": {"EN": "egg", "RU": "яйцо"}},
+    {"id": "v-food-89", "level": "A2", "category": "food", "word": "nabiał", "translation": {"EN": "dairy", "RU": "молочные продукты"}},
+    {"id": "v-food-90", "level": "A2", "category": "food", "word": "mleko", "translation": {"EN": "milk", "RU": "молоко"}},
+    {"id": "v-food-91", "level": "A2", "category": "food", "word": "śmietanka", "translation": {"EN": "cream", "RU": "сливки"}},
+    {"id": "v-food-92", "level": "A2", "category": "food", "word": "kefir", "translation": {"EN": "kefir", "RU": "кефир"}},
+    {"id": "v-food-93", "level": "A2", "category": "food", "word": "śmietana", "translation": {"EN": "sour cream", "RU": "сметана"}},
+    {"id": "v-food-94", "level": "A2", "category": "food", "word": "jogurt", "translation": {"EN": "yogurt", "RU": "йогурт"}},
+    {"id": "v-food-95", "level": "A2", "category": "food", "word": "ser biały", "translation": {"EN": "cottage cheese", "RU": "творог"}},
+    {"id": "v-food-96", "level": "A2", "category": "food", "word": "ser żółty", "translation": {"EN": "cheese", "RU": "сыр"}},
+    {"id": "v-food-97", "level": "A2", "category": "food", "word": "serek", "translation": {"EN": "cheese spread", "RU": "сырок"}},
+    {"id": "v-food-98", "level": "A2", "category": "food", "word": "twarożek", "translation": {"EN": "sweet curd cheese", "RU": "творожок"}},
+    {"id": "v-food-99", "level": "A2", "category": "food", "word": "masło", "translation": {"EN": "butter", "RU": "сливочное масло"}},
+    {"id": "v-food-100", "level": "A2", "category": "food", "word": "margaryna", "translation": {"EN": "margarine", "RU": "маргарин"}},
+    {"id": "v-food-101", "level": "A2", "category": "food", "word": "chleb", "translation": {"EN": "bread", "RU": "хлеб"}},
+    {"id": "v-food-102", "level": "A2", "category": "food", "word": "bułka", "translation": {"EN": "bread roll", "RU": "булка"}},
+    {"id": "v-food-103", "level": "A2", "category": "food", "word": "słodycze i ciasta", "translation": {"EN": "sweets and pastries", "RU": "кондитерские изделия"}},
+    {"id": "v-food-104", "level": "A2", "category": "food", "word": "cukierek", "translation": {"EN": "candy", "RU": "конфета"}},
+    {"id": "v-food-105", "level": "A2", "category": "food", "word": "czekolada", "translation": {"EN": "chocolate", "RU": "шоколад"}},
+    {"id": "v-food-106", "level": "A2", "category": "food", "word": "herbatnik", "translation": {"EN": "biscuit / cookie", "RU": "печенье"}},
+    {"id": "v-food-107", "level": "A2", "category": "food", "word": "wafelek", "translation": {"EN": "wafer", "RU": "вафля"}},
+    {"id": "v-food-108", "level": "A2", "category": "food", "word": "konserwy", "translation": {"EN": "canned goods", "RU": "консервы"}},
+    {"id": "v-food-109", "level": "A2", "category": "food", "word": "sos", "translation": {"EN": "sauce", "RU": "соус"}},
+    {"id": "v-food-110", "level": "A2", "category": "food", "word": "warzywa", "translation": {"EN": "vegetables", "RU": "овощи"}},
+    {"id": "v-food-111", "level": "A2", "category": "food", "word": "burak", "translation": {"EN": "beet", "RU": "свёкла"}},
+    {"id": "v-food-112", "level": "A2", "category": "food", "word": "cebula", "translation": {"EN": "onion", "RU": "лук"}},
+    {"id": "v-food-113", "level": "A2", "category": "food", "word": "czosnek", "translation": {"EN": "garlic", "RU": "чеснок"}},
+    {"id": "v-food-114", "level": "A2", "category": "food", "word": "fasola", "translation": {"EN": "beans", "RU": "фасоль"}},
+    {"id": "v-food-115", "level": "A2", "category": "food", "word": "groch", "translation": {"EN": "peas", "RU": "горох"}},
+    {"id": "v-food-116", "level": "A2", "category": "food", "word": "kalafior", "translation": {"EN": "cauliflower", "RU": "цветная капуста"}},
+    {"id": "v-food-117", "level": "A2", "category": "food", "word": "kapusta", "translation": {"EN": "cabbage", "RU": "капуста"}},
+    {"id": "v-food-118", "level": "A2", "category": "food", "word": "kukurydza", "translation": {"EN": "corn", "RU": "кукуруза"}},
+    {"id": "v-food-119", "level": "A2", "category": "food", "word": "marchew", "translation": {"EN": "carrot", "RU": "морковь"}},
+    {"id": "v-food-120", "level": "A2", "category": "food", "word": "papryka", "translation": {"EN": "bell pepper", "RU": "сладкий перец"}},
+    {"id": "v-food-121", "level": "A2", "category": "food", "word": "pietruszka", "translation": {"EN": "parsley", "RU": "петрушка"}},
+    {"id": "v-food-122", "level": "A2", "category": "food", "word": "rzodkiewka", "translation": {"EN": "radish", "RU": "редис"}},
+    {"id": "v-food-123", "level": "A2", "category": "food", "word": "seler", "translation": {"EN": "celery", "RU": "сельдерей"}},
+    {"id": "v-food-124", "level": "A2", "category": "food", "word": "owoce", "translation": {"EN": "fruits", "RU": "фрукты"}},
+    {"id": "v-food-125", "level": "A2", "category": "food", "word": "jagoda", "translation": {"EN": "berry", "RU": "ягода"}},
+    {"id": "v-food-126", "level": "A2", "category": "food", "word": "agrest", "translation": {"EN": "gooseberry", "RU": "крыжовник"}},
+    {"id": "v-food-127", "level": "A2", "category": "food", "word": "ananas", "translation": {"EN": "pineapple", "RU": "ананас"}},
+    {"id": "v-food-128", "level": "A2", "category": "food", "word": "arbuz", "translation": {"EN": "watermelon", "RU": "арбуз"}},
+    {"id": "v-food-129", "level": "A2", "category": "food", "word": "borówka", "translation": {"EN": "blueberry", "RU": "черника"}},
+    {"id": "v-food-130", "level": "A2", "category": "food", "word": "brzoskwinia", "translation": {"EN": "peach", "RU": "персик"}},
+    {"id": "v-food-131", "level": "A2", "category": "food", "word": "czereśnia", "translation": {"EN": "sweet cherry", "RU": "черешня"}},
+    {"id": "v-food-132", "level": "A2", "category": "food", "word": "grejpfrut", "translation": {"EN": "grapefruit", "RU": "грейпфрут"}},
+    {"id": "v-food-133", "level": "A2", "category": "food", "word": "gruszka", "translation": {"EN": "pear", "RU": "груша"}},
+    {"id": "v-food-134", "level": "A2", "category": "food", "word": "jabłko", "translation": {"EN": "apple", "RU": "яблоко"}},
+    {"id": "v-food-135", "level": "A2", "category": "food", "word": "kiwi", "translation": {"EN": "kiwi", "RU": "киви"}},
+    {"id": "v-food-136", "level": "A2", "category": "food", "word": "malina", "translation": {"EN": "raspberry", "RU": "малина"}},
+    {"id": "v-food-137", "level": "A2", "category": "food", "word": "mandarynka", "translation": {"EN": "tangerine", "RU": "мандарин"}},
+    {"id": "v-food-138", "level": "A2", "category": "food", "word": "melon", "translation": {"EN": "melon", "RU": "дыня"}},
+    {"id": "v-food-139", "level": "A2", "category": "food", "word": "morela", "translation": {"EN": "apricot", "RU": "абрикос"}},
+    {"id": "v-food-140", "level": "A2", "category": "food", "word": "pomarańcza", "translation": {"EN": "orange", "RU": "апельсин"}},
+    {"id": "v-food-141", "level": "A2", "category": "food", "word": "porzeczka", "translation": {"EN": "currant", "RU": "смородина"}},
+    {"id": "v-food-142", "level": "A2", "category": "food", "word": "poziomka", "translation": {"EN": "wild strawberry", "RU": "земляника"}},
+    {"id": "v-food-143", "level": "A2", "category": "food", "word": "śliwka", "translation": {"EN": "plum", "RU": "слива"}},
+    {"id": "v-food-144", "level": "A2", "category": "food", "word": "truskawka", "translation": {"EN": "strawberry", "RU": "клубника"}},
+    {"id": "v-food-145", "level": "A2", "category": "food", "word": "winogrono", "translation": {"EN": "grape", "RU": "виноград"}},
+    {"id": "v-food-146", "level": "A2", "category": "food", "word": "wiśnia", "translation": {"EN": "sour cherry", "RU": "вишня"}},
+    {"id": "v-food-147", "level": "A2", "category": "food", "word": "bakalie", "translation": {"EN": "dried fruit and nuts", "RU": "сухофрукты"}},
+    {"id": "v-food-148", "level": "A2", "category": "food", "word": "rodzynki", "translation": {"EN": "raisins", "RU": "изюм"}},
+    {"id": "v-food-149", "level": "A2", "category": "food", "word": "orzech", "translation": {"EN": "nut", "RU": "орех"}},
+    {"id": "v-food-150", "level": "A2", "category": "food", "word": "mrożonki warzywne", "translation": {"EN": "frozen vegetables", "RU": "замороженные овощи"}},
+    {"id": "v-food-151", "level": "A2", "category": "food", "word": "mrożonki owocowe", "translation": {"EN": "frozen fruits", "RU": "замороженные фрукты"}},
+    {"id": "v-food-152", "level": "A2", "category": "food", "word": "olej", "translation": {"EN": "vegetable oil", "RU": "растительное масло"}},
+    {"id": "v-food-153", "level": "A2", "category": "food", "word": "waga", "translation": {"EN": "weight", "RU": "вес"}},
+    {"id": "v-food-154", "level": "A2", "category": "food", "word": "dekagram", "translation": {"EN": "decagram (10g)", "RU": "10 граммов"}},
+    {"id": "v-food-155", "level": "A2", "category": "food", "word": "kilogram", "translation": {"EN": "kilogram", "RU": "килограмм"}},
+    {"id": "v-food-156", "level": "A2", "category": "food", "word": "litr", "translation": {"EN": "liter", "RU": "литр"}},
+    {"id": "v-food-157", "level": "A2", "category": "food", "word": "drogi", "translation": {"EN": "expensive", "RU": "дорогой"}},
+    {"id": "v-food-158", "level": "A2", "category": "food", "word": "tani", "translation": {"EN": "cheap", "RU": "дешёвый"}},
+    {"id": "v-food-159", "level": "A2", "category": "food", "word": "pieniądze", "translation": {"EN": "money", "RU": "деньги"}},
+    {"id": "v-food-160", "level": "A2", "category": "food", "word": "gotówka", "translation": {"EN": "cash", "RU": "наличные"}},
+    {"id": "v-food-161", "level": "A2", "category": "food", "word": "banknot", "translation": {"EN": "banknote", "RU": "купюра"}},
+    {"id": "v-food-162", "level": "A2", "category": "food", "word": "moneta", "translation": {"EN": "coin", "RU": "монета"}},
+    {"id": "v-food-163", "level": "A2", "category": "food", "word": "drobne", "translation": {"EN": "small change", "RU": "мелочь"}},
+    {"id": "v-food-164", "level": "A2", "category": "food", "word": "reszta", "translation": {"EN": "change (in a transaction)", "RU": "сдача"}},
+    {"id": "v-food-165", "level": "A2", "category": "food", "word": "karta płatnicza", "translation": {"EN": "payment card", "RU": "платёжная карточка"}},
+    {"id": "v-food-166", "level": "A2", "category": "food", "word": "paragon", "translation": {"EN": "receipt", "RU": "чек"}},
+    {"id": "v-professions-1", "level": "A2", "category": "professions", "word": "architekt", "translation": {"EN": "architect", "RU": "архитектор"}},
+    {"id": "v-professions-2", "level": "A2", "category": "professions", "word": "adwokat", "translation": {"EN": "attorney", "RU": "адвокат"}},
+    {"id": "v-professions-3", "level": "A2", "category": "professions", "word": "rzeźbiarz", "translation": {"EN": "sculptor", "RU": "скульптор"}},
+    {"id": "v-professions-4", "level": "A2", "category": "professions", "word": "sanitariusz", "translation": {"EN": "paramedic / orderly", "RU": "санитар"}},
+    {"id": "v-professions-5", "level": "A2", "category": "professions", "word": "sekretarka", "translation": {"EN": "secretary", "RU": "секретарша"}},
+    {"id": "v-professions-6", "level": "A2", "category": "professions", "word": "sędzia", "translation": {"EN": "judge", "RU": "судья"}},
+    {"id": "v-professions-7", "level": "A2", "category": "professions", "word": "sprzątaczka", "translation": {"EN": "cleaner", "RU": "уборщица"}},
+    {"id": "v-professions-8", "level": "A2", "category": "professions", "word": "strażak", "translation": {"EN": "firefighter", "RU": "пожарник"}},
+    {"id": "v-professions-9", "level": "A2", "category": "professions", "word": "taksówkarz", "translation": {"EN": "taxi driver", "RU": "таксист"}},
+    {"id": "v-professions-10", "level": "A2", "category": "professions", "word": "tłumacz", "translation": {"EN": "translator", "RU": "переводчик"}},
+    {"id": "v-professions-11", "level": "A2", "category": "professions", "word": "urzędnik", "translation": {"EN": "official / clerk", "RU": "чиновник"}},
+    {"id": "v-professions-12", "level": "A2", "category": "professions", "word": "zamiatacz", "translation": {"EN": "street sweeper", "RU": "дворник"}},
+    {"id": "v-professions-13", "level": "A2", "category": "professions", "word": "żołnierz", "translation": {"EN": "soldier", "RU": "солдат"}},
+    {"id": "v-professions-14", "level": "A2", "category": "professions", "word": "agent ubezpieczeniowy", "translation": {"EN": "insurance agent", "RU": "страховой агент"}},
+    {"id": "v-professions-15", "level": "A2", "category": "professions", "word": "projektant / dekorator wnętrz", "translation": {"EN": "interior designer", "RU": "дизайнер"}},
+    {"id": "v-professions-16", "level": "A2", "category": "professions", "word": "dziennikarz", "translation": {"EN": "journalist", "RU": "журналист"}},
+    {"id": "v-professions-17", "level": "A2", "category": "professions", "word": "ekonomista", "translation": {"EN": "economist", "RU": "экономист"}},
+    {"id": "v-professions-18", "level": "A2", "category": "professions", "word": "farmaceuta", "translation": {"EN": "pharmacist", "RU": "фармацевт"}},
+    {"id": "v-professions-19", "level": "A2", "category": "professions", "word": "fryzjer", "translation": {"EN": "hairdresser", "RU": "парикмахер"}},
+    {"id": "v-professions-20", "level": "A2", "category": "professions", "word": "gospodyni domowa", "translation": {"EN": "homemaker", "RU": "домохозяйка"}},
+    {"id": "v-professions-21", "level": "A2", "category": "professions", "word": "górnik", "translation": {"EN": "miner", "RU": "шахтёр"}},
+    {"id": "v-professions-22", "level": "A2", "category": "professions", "word": "historyk sztuki", "translation": {"EN": "art historian", "RU": "искусствовед"}},
+    {"id": "v-professions-23", "level": "A2", "category": "professions", "word": "informatyk", "translation": {"EN": "IT specialist", "RU": "информатик"}},
+    {"id": "v-professions-24", "level": "A2", "category": "professions", "word": "inżynier", "translation": {"EN": "engineer", "RU": "инженер"}},
+    {"id": "v-professions-25", "level": "A2", "category": "professions", "word": "komornik", "translation": {"EN": "bailiff", "RU": "судебный исполнитель"}},
+    {"id": "v-professions-26", "level": "A2", "category": "professions", "word": "księgowa", "translation": {"EN": "accountant", "RU": "бухгалтер"}},
+    {"id": "v-professions-27", "level": "A2", "category": "professions", "word": "kasjer", "translation": {"EN": "cashier", "RU": "кассир"}},
+    {"id": "v-professions-28", "level": "A2", "category": "professions", "word": "kucharz", "translation": {"EN": "cook", "RU": "повар"}},
+    {"id": "v-professions-29", "level": "A2", "category": "professions", "word": "kelner", "translation": {"EN": "waiter", "RU": "официант"}},
+    {"id": "v-professions-30", "level": "A2", "category": "professions", "word": "kierowca", "translation": {"EN": "driver", "RU": "водитель"}},
+    {"id": "v-professions-31", "level": "A2", "category": "professions", "word": "lekarz", "translation": {"EN": "doctor", "RU": "врач"}},
+    {"id": "v-professions-32", "level": "A2", "category": "professions", "word": "malarz", "translation": {"EN": "painter", "RU": "художник"}},
+    {"id": "v-professions-33", "level": "A2", "category": "professions", "word": "marynarz", "translation": {"EN": "sailor", "RU": "моряк"}},
+    {"id": "v-professions-34", "level": "A2", "category": "professions", "word": "masażysta", "translation": {"EN": "masseur", "RU": "массажист"}},
+    {"id": "v-professions-35", "level": "A2", "category": "professions", "word": "mechanik", "translation": {"EN": "mechanic", "RU": "механик"}},
+    {"id": "v-professions-36", "level": "A2", "category": "professions", "word": "menadżer", "translation": {"EN": "manager", "RU": "менеджер"}},
+    {"id": "v-professions-37", "level": "A2", "category": "professions", "word": "modelka", "translation": {"EN": "model", "RU": "модель"}},
+    {"id": "v-professions-38", "level": "A2", "category": "professions", "word": "muzyk", "translation": {"EN": "musician", "RU": "музыкант"}},
+    {"id": "v-professions-39", "level": "A2", "category": "professions", "word": "nurek", "translation": {"EN": "diver", "RU": "водолаз"}},
+    {"id": "v-professions-40", "level": "A2", "category": "professions", "word": "pielęgniarka", "translation": {"EN": "nurse", "RU": "медсестра"}},
+    {"id": "v-professions-41", "level": "A2", "category": "professions", "word": "pilot", "translation": {"EN": "pilot", "RU": "пилот"}},
+    {"id": "v-professions-42", "level": "A2", "category": "professions", "word": "piosenkarz", "translation": {"EN": "singer", "RU": "певец"}},
+    {"id": "v-professions-43", "level": "A2", "category": "professions", "word": "pisarz", "translation": {"EN": "writer", "RU": "писатель"}},
+    {"id": "v-professions-44", "level": "A2", "category": "professions", "word": "policjant", "translation": {"EN": "police officer", "RU": "полицейский"}},
+    {"id": "v-professions-45", "level": "A2", "category": "professions", "word": "prawnik", "translation": {"EN": "lawyer", "RU": "юрист"}},
+    {"id": "v-professions-46", "level": "A2", "category": "professions", "word": "producent", "translation": {"EN": "producer", "RU": "продюсер"}},
+    {"id": "v-professions-47", "level": "A2", "category": "professions", "word": "programista", "translation": {"EN": "programmer", "RU": "программист"}},
+    {"id": "v-professions-48", "level": "A2", "category": "professions", "word": "przewodnik turystyczny", "translation": {"EN": "tour guide", "RU": "гид"}},
+    {"id": "v-professions-49", "level": "A2", "category": "professions", "word": "psycholog", "translation": {"EN": "psychologist", "RU": "психолог"}},
+    {"id": "v-professions-50", "level": "A2", "category": "professions", "word": "rolnik", "translation": {"EN": "farmer", "RU": "фермер"}},
+    {"id": "v-professions-51", "level": "A2", "category": "professions", "word": "kolejarz", "translation": {"EN": "railway worker", "RU": "железнодорожник"}},
+    {"id": "v-professions-52", "level": "A2", "category": "professions", "word": "krawcowa / krawiec", "translation": {"EN": "tailor (f/m)", "RU": "портниха / портной"}},
+    {"id": "v-professions-53", "level": "A2", "category": "professions", "word": "nauczyciel / nauczycielka", "translation": {"EN": "teacher (m/f)", "RU": "учитель / учительница"}},
+    {"id": "v-professions-54", "level": "A2", "category": "professions", "word": "murarz", "translation": {"EN": "bricklayer", "RU": "каменщик"}},
+    {"id": "v-professions-55", "level": "A2", "category": "professions", "word": "piekarz", "translation": {"EN": "baker", "RU": "пекарь"}},
+    {"id": "v-professions-56", "level": "A2", "category": "professions", "word": "przedsiębiorca", "translation": {"EN": "entrepreneur", "RU": "предприниматель"}},
+    {"id": "v-professions-57", "level": "A2", "category": "professions", "word": "robotnik", "translation": {"EN": "worker", "RU": "рабочий"}},
+    {"id": "v-professions-58", "level": "A2", "category": "professions", "word": "rzemieślnik", "translation": {"EN": "craftsman", "RU": "ремесленник"}},
+    {"id": "v-professions-59", "level": "A2", "category": "professions", "word": "sprzedawca / sprzedawczyni", "translation": {"EN": "salesperson (m/f)", "RU": "продавец / продавщица"}},
+    {"id": "v-professions-60", "level": "A2", "category": "professions", "word": "szewc", "translation": {"EN": "shoemaker", "RU": "сапожник"}},
+    {"id": "v-professions-61", "level": "A2", "category": "professions", "word": "ślusarz", "translation": {"EN": "locksmith", "RU": "слесарь"}},
+    {"id": "v-professions-62", "level": "A2", "category": "professions", "word": "urzędniczka / urzędnik", "translation": {"EN": "clerk (f/m)", "RU": "служащая / служащий"}},
+    {"id": "v-professions-63", "level": "A2", "category": "professions", "word": "wojskowy", "translation": {"EN": "military person", "RU": "военный"}},
+    {"id": "v-professions-64", "level": "A2", "category": "professions", "word": "bezrobotna / bezrobotny", "translation": {"EN": "unemployed (f/m)", "RU": "безработная / безработный"}},
+    {"id": "v-professions-65", "level": "A2", "category": "professions", "word": "emerytka / emeryt", "translation": {"EN": "retiree (f/m)", "RU": "пенсионерка / пенсионер"}},
+    {"id": "v-professions-66", "level": "A2", "category": "professions", "word": "pracowniczka / pracownik", "translation": {"EN": "employee (f/m)", "RU": "работница / работник"}},
+    {"id": "v-professions-67", "level": "A2", "category": "professions", "word": "studentka / student", "translation": {"EN": "student (f/m)", "RU": "студентка / студент"}},
+    {"id": "v-professions-68", "level": "A2", "category": "professions", "word": "uczennica / uczeń", "translation": {"EN": "pupil (f/m)", "RU": "ученица / ученик"}}
+  ],
+  textbook: [
+    { id: 'tb-seed', level: 'A1', category: 'coursebook',
+      title: { EN: 'Sample chapter — replace me', RU: 'Пример главы' },
+      description: { EN: 'Paste a Google Drive share link through Batch Import.', RU: 'Добавьте главы через импорт.' }, fileUrl: '' }
+  ],
+  tips: [
+    { id: 'tip-seed', level: 'A1', category: 'pronunciation',
+      title: { EN: 'Sample tip — replace me', RU: 'Пример совета' },
+      body: { EN: 'Add real tips via Batch Import, or commit a tips.json to your repo.', RU: 'Добавьте советы через импорт.' }, audioUrl: '', imageUrl: '' }
+  ],
+};
+
+function normalizeAudioUrl(raw) {
+  if (!raw) return '';
+  let u = raw.trim(); if (!u) return '';
+  if (u.includes('drive.google.com')) {
+    const m = u.match(/\/d\/([a-zA-Z0-9_-]+)/) || u.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m) return `https://drive.google.com/uc?export=download&id=${m[1]}`;
+  }
+  if (u.includes('dropbox.com')) { u = u.replace('www.dropbox.com','dl.dropboxusercontent.com').replace(/([?&])dl=0/, '').replace(/([?&])dl=1/, ''); return u; }
+  return u;
+}
+function normalizeViewerUrl(raw) {
+  if (!raw) return '';
+  let u = raw.trim(); if (!u) return '';
+  if (u.includes('drive.google.com')) {
+    const m = u.match(/\/d\/([a-zA-Z0-9_-]+)/) || u.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (m) return `https://drive.google.com/file/d/${m[1]}/preview`;
+    return u;
+  }
+  if (u.includes('docs.google.com')) return u.replace(/\/edit.*$/, '/preview').replace(/\?usp=.*$/, '/preview');
+  if (u.includes('dropbox.com')) { u = u.replace('www.dropbox.com','dl.dropboxusercontent.com').replace(/([?&])dl=0/, '').replace(/([?&])dl=1/, ''); return u; }
+  return u;
+}
+function mergeById(existingList, incoming) {
+  const incomingIds = new Set(incoming.map(i => i.id));
+  const keptLocal = existingList.filter(i => !incomingIds.has(i.id));
+  return [...incoming, ...keptLocal];
+}
+const t = (obj, lang) => (obj && (obj[lang] || obj.EN)) || '';
+
+const UI_STRINGS = {
+  startLearning:      { EN: 'Start learning',                                             RU: 'Начать обучение' },
+  heroSub:            { EN: 'Grammar, vocabulary, textbook pages and tutor notes — all in one glass vault.', RU: 'Грамматика, слова, страницы учебника и заметки репетитора — всё в одном месте.' },
+  dayStreak:          { EN: 'day streak',                                                 RU: 'дней подряд' },
+  masteredLbl:        { EN: 'mastered',                                                   RU: 'освоено' },
+  levelLbl:           { EN: 'level',                                                      RU: 'уровень' },
+  syncing:            { EN: 'Syncing…',                                                   RU: 'Синхронизация…' },
+  syncFromCloud:      { EN: '☁️ Sync from cloud',                                         RU: '☁️ Синхронизировать' },
+  back:               { EN: '‹ Back',                                                     RU: '‹ Назад' },
+  categoriesBack:     { EN: '‹ Categories',                                               RU: '‹ Категории' },
+  sectionsBack:       { EN: '‹ Sections',                                                 RU: '‹ Разделы' },
+  libraryBack:        { EN: '‹ Library',                                                  RU: '‹ Библиотека' },
+  closeBack:          { EN: '‹ Close',                                                    RU: '‹ Закрыть' },
+  backToList:         { EN: '‹ Back to list',                                             RU: '‹ К списку' },
+  save:               { EN: 'Save',                                                       RU: 'Сохранить' },
+  cancel:             { EN: 'Cancel',                                                     RU: 'Отмена' },
+  batchImport:        { EN: '+ Batch import',                                             RU: '+ Массовый импорт' },
+  grammarCategories:  { EN: 'Grammar categories',                                         RU: 'Грамматические категории' },
+  noGrammarItems:     { EN: 'No grammar items yet at {level}.',                           RU: 'Пока нет материалов по грамматике для уровня {level}.' },
+  multipleChoice:     { EN: 'Multiple choice',                                            RU: 'Выбор варианта' },
+  typeInLbl:          { EN: 'Type-in',                                                    RU: 'Ввод текста' },
+  continueToPractice: { EN: 'Continue to practice →',                                     RU: 'Перейти к практике →' },
+  typeYourAnswer:     { EN: 'Type your answer...',                                        RU: 'Введите ответ...' },
+  checkAnswer:        { EN: 'Check answer',                                               RU: 'Проверить ответ' },
+  vocabularyTitle:    { EN: 'Vocabulary',                                                 RU: 'Словарь' },
+  flashcards:         { EN: 'Flashcards',                                                 RU: 'Карточки' },
+  listOfWords:        { EN: 'List of words',                                              RU: 'Список слов' },
+  noWordsYetAt:       { EN: 'No words yet at {level}.',                                   RU: 'Пока нет слов для уровня {level}.' },
+  flipHint:           { EN: 'Tap the card to flip. Drag right = mastered, drag left = skip.', RU: 'Нажмите на карточку, чтобы перевернуть. Свайп вправо = освоено, влево = пропустить.' },
+  searchWords:        { EN: 'Search words...',                                            RU: 'Поиск слов...' },
+  allOption:          { EN: 'All',                                                        RU: 'Все' },
+  noWordsFound:       { EN: 'No words found.',                                            RU: 'Слова не найдены.' },
+  textbookLibrary:    { EN: 'Textbook library',                                           RU: 'Библиотека учебников' },
+  noChaptersYetAt:    { EN: 'No chapters yet at {level}.',                                 RU: 'Пока нет глав для уровня {level}.' },
+  openInNewTab:       { EN: 'Open in new tab ↗',                                          RU: 'Открыть в новой вкладке ↗' },
+  noFileLinked:       { EN: 'No file linked yet. Add a Google Drive link via Batch Import.', RU: 'Файл ещё не добавлен. Добавьте ссылку Google Drive через массовый импорт.' },
+  tutorTips:          { EN: 'Tutor tips',                                                 RU: 'Советы репетитора' },
+  noTipsYetAt:        { EN: 'No tips yet at {level}.',                                    RU: 'Пока нет советов для уровня {level}.' },
+  wsjpLink:           { EN: 'Open WSJP dictionary', RU: 'Открыть словарь WSJP' },
+  deckCompleteTitle:  { EN: 'Deck complete!', RU: 'Колода пройдена!' },
+  studyAgain:         { EN: 'Study again', RU: 'Повторить' },
+  toReviewLbl:        { EN: 'to review again', RU: 'на повтор' },
+  markSkip:           { EN: 'Skip', RU: 'Пропустить' },
+  markMastered:       { EN: 'Mastered', RU: 'Освоено' },
+  wordOfDay:          { EN: 'Word of the Day', RU: 'Слово дня' },
+};
+const ui = (key, lang, vars) => {
+  const raw = (UI_STRINGS[key] && (UI_STRINGS[key][lang] || UI_STRINGS[key].EN)) || '';
+  if (!vars) return raw;
+  return Object.keys(vars).reduce((s, k) => s.split(`{${k}}`).join(vars[k]), raw);
+};
+
+const keyActivate = (fn) => (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } };
+function todayStr() { return new Date().toISOString().slice(0, 10); }
+
+const FORMAT_HINTS = {
+  vocab: 'word, translation, [phonetic], [gender m/f/n], [example1;example2]',
+  grammar: 'title | theory | prompt | answer | [options separated by ~ for MCQ]',
+  textbook: 'title | description | Google Drive link (or URL)',
+  tips: 'title | tip text | [audio URL] | [image URL] | [category]',
+};
+const FORMAT_EXAMPLES = {
+  vocab: 'kot, cat, [kot], m, Mam kota.;Kot śpi na krześle.',
+  grammar: 'Locative (Miejscownik) | Used after w/na/o for location or topic | Rozmawiamy o (nowy stół) ➔ ? | nowym stole',
+  textbook: 'Unit 1 — Greetings | Basic greetings | https://drive.google.com/file/d/XXXX/view?usp=sharing',
+  tips: "Nasal vowels ą, ę | Don't fully pronounce n/m — nasalize instead | https://dl.dropboxusercontent.com/s/x/nasal.mp3 | | pronunciation",
+};
+
+function PolskaVault() {
+  const [level, setLevel] = useState('A1');
+  const [baseLang, setBaseLang] = useState('EN');
+  const [started, setStarted] = useState(false);
+  const [activeModule, setActiveModule] = useState('grammar'); // dock-controlled: grammar | vocab | textbook | tips
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [vocabMode, setVocabMode] = useState(null); // 'flash' | 'list'
+  const [vocabDetailOpen, setVocabDetailOpen] = useState(false);
+  const [textbookViewerOpen, setTextbookViewerOpen] = useState(false);
+  const [flashIndex, setFlashIndex] = useState(0);
+  const [flashFlipped, setFlashFlipped] = useState(false);
+  const [sessionMastered, setSessionMastered] = useState(() => new Set());
+  const [sessionFailed, setSessionFailed] = useState(() => new Set());
+  const [deckDone, setDeckDone] = useState(false);
+  const [dragX, setDragX] = useState(0);
+  const dragging = useRef(false);
+  const dragStartX = useRef(0);
+
+  const [currentItem, setCurrentItem] = useState(null);
+  const [grammarPhase, setGrammarPhase] = useState('theory');
+  const [userInput, setUserInput] = useState('');
+  const [feedback, setFeedback] = useState(null);
+  const [mcqChoice, setMcqChoice] = useState(null);
+  const [activeTip, setActiveTip] = useState(null);
+
+  const [customVocab, setCustomVocab] = useState(() => JSON.parse(localStorage.getItem('uni_vocab_v6') || '[]'));
+  const [customGrammar, setCustomGrammar] = useState(() => JSON.parse(localStorage.getItem('uni_grammar_v6') || '[]'));
+  const [customTextbook, setCustomTextbook] = useState(() => JSON.parse(localStorage.getItem('uni_textbook_v6') || '[]'));
+  const [customTips, setCustomTips] = useState(() => JSON.parse(localStorage.getItem('uni_tips_v6') || '[]'));
+  const [mastered, setMastered] = useState(() => new Set(JSON.parse(localStorage.getItem('uni_mastered_v1') || '[]')));
+  const [streak, setStreak] = useState(() => JSON.parse(localStorage.getItem('uni_streak_v1') || '{"date":"","count":0}'));
+
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importText, setImportText] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  useEffect(() => { localStorage.setItem('uni_vocab_v6', JSON.stringify(customVocab)); }, [customVocab]);
+  useEffect(() => { localStorage.setItem('uni_grammar_v6', JSON.stringify(customGrammar)); }, [customGrammar]);
+  useEffect(() => { localStorage.setItem('uni_textbook_v6', JSON.stringify(customTextbook)); }, [customTextbook]);
+  useEffect(() => { localStorage.setItem('uni_tips_v6', JSON.stringify(customTips)); }, [customTips]);
+  useEffect(() => { localStorage.setItem('uni_mastered_v1', JSON.stringify([...mastered])); }, [mastered]);
+  useEffect(() => { localStorage.setItem('uni_streak_v1', JSON.stringify(streak)); }, [streak]);
+  useEffect(() => { if (!toast) return; const timer = setTimeout(() => setToast(null), 4200); return () => clearTimeout(timer); }, [toast]);
+
+  const showToast = (message, tone) => setToast({ message, tone: tone || 'success' });
+
+  const bumpStreak = () => {
+    const today = todayStr();
+    setStreak(prev => {
+      if (prev.date === today) return prev;
+      const yest = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      const count = prev.date === yest ? prev.count + 1 : 1;
+      return { date: today, count };
+    });
+  };
+  const markMastered = (id) => { setMastered(prev => new Set(prev).add(id)); bumpStreak(); };
+
+  const masterGrammar = useMemo(() => [...INITIAL_CURRICULUM.grammar, ...customGrammar], [customGrammar]);
+  const masterVocab = useMemo(() => [...INITIAL_CURRICULUM.vocab, ...customVocab], [customVocab]);
+  const wordOfDay = useMemo(() => {
+    if (!masterVocab.length) return null;
+    const dayIndex = Math.floor(Date.now() / 86400000);
+    return masterVocab[dayIndex % masterVocab.length];
+  }, [masterVocab]);
+  const masterTextbook = useMemo(() => [...INITIAL_CURRICULUM.textbook, ...customTextbook], [customTextbook]);
+  const masterTips = useMemo(() => [...INITIAL_CURRICULUM.tips, ...customTips], [customTips]);
+  const DATASETS = { grammar: masterGrammar, vocab: masterVocab, textbook: masterTextbook, tips: masterTips };
+
+  const totalItems = masterGrammar.length + masterVocab.length;
+  const progressPct = totalItems ? Math.round((mastered.size / totalItems) * 100) : 0;
+
+  const activeCfg = MODULES.find(m => m.key === activeModule);
+  const accentVars = activeCfg ? { '--accent-a': activeCfg.a, '--accent-b': activeCfg.b } : {};
+
+  const activeData = DATASETS[activeModule] || [];
+  const leveledData = useMemo(() => activeData.filter(i => i.level === level), [activeData, level]);
+  const categories = useMemo(() => Array.from(new Set(leveledData.map(i => i.category).filter(Boolean))), [leveledData]);
+
+  const filteredList = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    return leveledData.filter(item => {
+      if (activeModule === 'grammar' && activeCategory && item.category !== activeCategory) return false;
+      if (activeModule !== 'grammar' && categoryFilter !== 'all' && item.category !== categoryFilter) return false;
+      if (!q) return true;
+      const label = (activeModule === 'vocab' ? item.word : t(item.title, baseLang) || '').toLowerCase();
+      return label.includes(q);
+    });
+  }, [leveledData, searchQuery, categoryFilter, activeModule, activeCategory, baseLang]);
+
+  const handleCloudSync = async () => {
+    setIsSyncing(true);
+    const host = window.location.hostname;
+    const repoUser = host.split('.')[0] || 'gubski';
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+    const repoName = pathParts[0] || '-polishClaudeVision';
+    const targets = [
+      { file: 'words.json', label: 'words', apply: setCustomVocab },
+      { file: 'grammar.json', label: 'grammar rules', apply: setCustomGrammar },
+      { file: 'textbook.json', label: 'textbook chapters', apply: setCustomTextbook },
+      { file: 'tips.json', label: 'tutor tips', apply: setCustomTips },
+    ];
+    const results = await Promise.allSettled(targets.map(tgt =>
+      fetch(`https://raw.githubusercontent.com/${repoUser}/${repoName}/main/${tgt.file}?t=${Date.now()}`)
+        .then(res => { if (!res.ok) throw new Error('missing'); return res.json(); })
+    ));
+    const okMsgs = []; const missing = [];
+    results.forEach((res, i) => {
+      const tgt = targets[i];
+      if (res.status === 'fulfilled' && Array.isArray(res.value)) {
+        tgt.apply(prev => mergeById(prev, res.value));
+        okMsgs.push(`${res.value.length} ${tgt.label}`);
+      } else missing.push(tgt.file);
+    });
+    setIsSyncing(false);
+    if (okMsgs.length) {
+      let msg = `Synced ${okMsgs.join(', ')}.`;
+      if (missing.length) msg += ` (${missing.join(', ')} not found)`;
+      showToast(msg, 'success');
+    } else showToast(`Cloud sync failed for ${repoUser}/${repoName}.`, 'error');
+  };
+
+  const finishImport = (count, label) => {
+    if (count > 0) { setImportText(''); setShowImportModal(false); showToast(`Saved ${count} ${label}.`, 'success'); }
+    else showToast('No valid lines found — check the format.', 'error');
+  };
+  const handleImport = () => {
+    if (!importText.trim()) return;
+    const lines = importText.split('\n').map(l => l.trim()).filter(Boolean);
+    if (activeModule === 'vocab') {
+      const items = lines.map((line, idx) => {
+        const [w, tr, p, g, ex] = line.split(',').map(s => (s || '').trim());
+        if (!w || !tr) return null;
+        return { id: `v-imp-${Date.now()}-${idx}`, level, category: 'imported', word: w, phonetic: p || '[import]', translation: { EN: tr, RU: tr }, gender: (g || '').toLowerCase() || undefined, examples: ex ? ex.split(';').map(s => s.trim()) : undefined };
+      }).filter(Boolean);
+      if (items.length) setCustomVocab(prev => [...items, ...prev]);
+      finishImport(items.length, 'words');
+    } else if (activeModule === 'grammar') {
+      const items = lines.map((line, idx) => {
+        const [title, theory, prompt, answer, opts] = line.split('|').map(s => (s || '').trim());
+        if (!title || !answer) return null;
+        const options = opts ? opts.split('~').map(s => s.trim()) : null;
+        return { id: `g-imp-${Date.now()}-${idx}`, level, category: 'Custom', title: { EN: title, RU: title }, theory: { EN: theory || '', RU: theory || '' }, type: options ? 'mcq' : 'fill', prompt: prompt || '', answer, options: options || undefined };
+      }).filter(Boolean);
+      if (items.length) setCustomGrammar(prev => [...items, ...prev]);
+      finishImport(items.length, 'grammar rules');
+    } else if (activeModule === 'textbook') {
+      const items = lines.map((line, idx) => {
+        const [title, description, fileUrl] = line.split('|').map(s => (s || '').trim());
+        if (!title || !fileUrl) return null;
+        return { id: `tb-imp-${Date.now()}-${idx}`, level, category: 'chapters', title: { EN: title, RU: title }, description: { EN: description || '', RU: description || '' }, fileUrl };
+      }).filter(Boolean);
+      if (items.length) setCustomTextbook(prev => [...items, ...prev]);
+      finishImport(items.length, 'textbook chapters');
+    } else if (activeModule === 'tips') {
+      const items = lines.map((line, idx) => {
+        const [title, body, audioUrl, imageUrl, category] = line.split('|').map(s => (s || '').trim());
+        if (!title || !body) return null;
+        return { id: `tip-imp-${Date.now()}-${idx}`, level, category: category || 'general', title: { EN: title, RU: title }, body: { EN: body, RU: body }, audioUrl: audioUrl || '', imageUrl: imageUrl || '' };
+      }).filter(Boolean);
+      if (items.length) setCustomTips(prev => [...items, ...prev]);
+      finishImport(items.length, 'tips');
+    }
+  };
+
+  const openModule = (key) => {
+    setActiveModule(key); setActiveCategory(null); setVocabMode(null);
+    setVocabDetailOpen(false); setTextbookViewerOpen(false); setCurrentItem(null);
+    setSearchQuery(''); setCategoryFilter('all'); setShowImportModal(false); setImportText('');
+  };
+  const openGrammarItem = (item) => { setCurrentItem(item); setGrammarPhase('theory'); setFeedback(null); setUserInput(''); setMcqChoice(null); };
+  const openVocabDetail = (item) => { setCurrentItem(item); setVocabDetailOpen(true); };
+  const openTextbook = (item) => { setCurrentItem(item); setTextbookViewerOpen(true); };
+
+  const handleCheckFill = () => {
+    if (!currentItem) return;
+    const ok = userInput.toLowerCase().trim() === (currentItem.answer || '').toLowerCase();
+    setFeedback({ correct: ok, msg: ok ? 'Correct! Świetnie! 🎉' : `Try again — answer: ${currentItem.answer}` });
+    if (ok) markMastered(currentItem.id);
+  };
+  const handleMcqPick = (opt) => {
+    if (mcqChoice) return;
+    setMcqChoice(opt);
+    const ok = opt === currentItem.answer;
+    setFeedback({ correct: ok, msg: ok ? 'Correct! Świetnie! 🎉' : `Correct answer: ${currentItem.answer}` });
+    if (ok) markMastered(currentItem.id);
+  };
+
+  // Flashcards
+  const vocabDeck = filteredList;
+  const currentCard = vocabDeck[flashIndex] || null;
+  const startFlashSession = () => {
+    setVocabMode('flash'); setFlashIndex(0); setFlashFlipped(false);
+    setSessionMastered(new Set()); setSessionFailed(new Set()); setDeckDone(false);
+  };
+  const goFlash = (dir) => {
+    setFlashFlipped(false); setDragX(0);
+    setFlashIndex(i => {
+      const n = vocabDeck.length; if (!n) return 0;
+      return (i + dir + n) % n;
+    });
+  };
+  const reviewCard = (outcome) => {
+    if (!currentCard) return;
+    if (outcome === 'master') { markMastered(currentCard.id); setSessionMastered(s => new Set(s).add(currentCard.id)); }
+    else { setSessionFailed(s => new Set(s).add(currentCard.id)); }
+    setFlashFlipped(false); setDragX(0);
+    if (flashIndex >= vocabDeck.length - 1) setDeckDone(true);
+    else setFlashIndex(i => i + 1);
+  };
+  const swipeMastered = () => reviewCard('master');
+  const swipeSkip = () => reviewCard('skip');
+  const restartDeck = () => { setFlashIndex(0); setFlashFlipped(false); setSessionMastered(new Set()); setSessionFailed(new Set()); setDeckDone(false); };
+  const onDragStart = (e) => { dragging.current = true; dragStartX.current = (e.touches ? e.touches[0].clientX : e.clientX); };
+  const onDragMove = (e) => { if (!dragging.current) return; const x = (e.touches ? e.touches[0].clientX : e.clientX); setDragX(x - dragStartX.current); };
+  const onDragEnd = () => {
+    if (!dragging.current) return; dragging.current = false;
+    if (dragX > 90) swipeMastered(); else if (dragX < -90) swipeSkip(); else setDragX(0);
+  };
+
+  const renderTopBar = () => (
+    <div className="glass topbar-compact">
+      <div className="brand"><span className="flag">🇵🇱</span> Polska</div>
+      <select className="field select-narrow level-select" value={level} onChange={e => setLevel(e.target.value)}>
+        {['A1', 'A2', 'B1'].map(l => <option key={l} value={l}>{l}</option>)}
+      </select>
+      <div className="lang-toggle">
+        <button className={baseLang === 'EN' ? 'active' : ''} onClick={() => setBaseLang('EN')}>EN</button>
+        <button className={baseLang === 'RU' ? 'active' : ''} onClick={() => setBaseLang('RU')}>RU</button>
+      </div>
+    </div>
+  );
+
+  const renderProfileHub = () => (
+    <div className="pad" style={accentVars}>
+      <div className="section-header"><h2>{t(MODULES.find(m => m.key === 'profile').label, baseLang)}</h2></div>
+      <div className="profile-grid">
+        <div className="glass-hi profile-stat"><i className="ph-fill ph-flame"></i><span className="mono">{streak.count}</span><small>{ui('dayStreak', baseLang)}</small></div>
+        <div className="glass-hi profile-stat"><i className="ph-fill ph-seal-check"></i><span className="mono">{progressPct}%</span><small>{ui('masteredLbl', baseLang)}</small></div>
+        <div className="glass-hi profile-stat"><i className="ph-fill ph-graduation-cap"></i><span className="mono">{level}</span><small>{ui('levelLbl', baseLang)}</small></div>
+        <div className="glass-hi profile-stat"><i className="ph-fill ph-cards"></i><span className="mono">{mastered.size}</span><small>/{totalItems}</small></div>
+      </div>
+      <button className="glass-btn primary block" style={{ marginTop: 18 }} disabled={isSyncing} onClick={handleCloudSync}>
+        <i className={`ph ${isSyncing ? 'ph-spinner ph-spin' : 'ph-cloud-arrow-down'}`}></i> {isSyncing ? ui('syncing', baseLang) : ui('syncFromCloud', baseLang)}
+      </button>
+    </div>
+  );
+
+  const renderDock = () => (
+    <nav className="dock glass">
+      {MODULES.map(m => (
+        <button key={m.key} className={`dock-item ${activeModule === m.key ? 'active' : ''}`}
+          style={activeModule === m.key ? { color: m.a } : undefined}
+          onClick={() => openModule(m.key)} aria-current={activeModule === m.key ? 'page' : undefined}>
+          <i className={`ph ${activeModule === m.key ? m.icon.replace('ph-', 'ph-fill ph-') : m.icon}`}></i>
+          <span>{t(m.label, baseLang)}</span>
+        </button>
+      ))}
+    </nav>
+  );
+
+
+  const renderImportModal = () => (
+    <div className="glass import-modal glass-tight">
+      <p className="modal-hint">{FORMAT_HINTS[activeModule]}</p>
+      <textarea className="field textarea" rows="5" value={importText} onChange={e => setImportText(e.target.value)} placeholder={FORMAT_EXAMPLES[activeModule]} style={{ marginBottom: 10 }} />
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button className="glass-btn primary" style={accentVars} onClick={handleImport}>{ui('save', baseLang)}</button>
+        <button className="glass-btn ghost" onClick={() => { setShowImportModal(false); setImportText(''); }}>{ui('cancel', baseLang)}</button>
+      </div>
+    </div>
+  );
+
+  const renderGrammarHub = () => {
+    if (!activeCategory) {
+      return (
+        <div className="pad">
+          <div className="section-header"><h2>{ui('grammarCategories', baseLang)}</h2></div>
+          <div className="toolbar"><button className="glass-btn ghost" onClick={() => setShowImportModal(s => !s)}>{ui('batchImport', baseLang)}</button></div>
+          {showImportModal && renderImportModal()}
+          <div className="category-grid" style={{ marginTop: 10 }}>
+            {categories.length === 0 && <p className="empty-note">{ui('noGrammarItems', baseLang, { level })}</p>}
+            {categories.map((cat, i) => (
+              <div key={cat} className="glass category-tile glass-tight" style={{ ...accentVars, '--i': i }}
+                role="button" tabIndex={0} onClick={() => setActiveCategory(cat)} onKeyDown={keyActivate(() => setActiveCategory(cat))}>
+                {cat}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="pad">
+        <button className="back-link" onClick={() => setActiveCategory(null)}>{ui('categoriesBack', baseLang)}</button>
+        <div className="section-header"><h2>{activeCategory}</h2></div>
+        <div className="list-scroll">
+          {filteredList.map(item => (
+            <div key={item.id} className="glass-row" role="button" tabIndex={0} onClick={() => openGrammarItem(item)} onKeyDown={keyActivate(() => openGrammarItem(item))}>
+              <div><strong>{t(item.title, baseLang)} {mastered.has(item.id) && <span className="mastered-check">✓</span>}</strong><div className="sub">{item.type === 'mcq' ? ui('multipleChoice', baseLang) : ui('typeInLbl', baseLang)}</div></div>
+              <span className="chev">›</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderGrammarDetail = () => {
+    const item = currentItem;
+    if (grammarPhase === 'theory') {
+      return (
+        <div className="theory-card screen">
+          <h3>{t(item.title, baseLang)}</h3>
+          <p className="theory-body">{t(item.theory, baseLang)}</p>
+          {item.example && (
+            <div className="grammar-example">
+              <p className="ex-pl">{item.example.pl}</p>
+              <p className="ex-tr">{t(item.example.translation, baseLang)}</p>
+            </div>
+          )}
+          <button className="glass-btn primary" style={accentVars} onClick={() => setGrammarPhase('practice')}>{ui('continueToPractice', baseLang)}</button>
+        </div>
+      );
+    }
+    return (
+      <div className="split screen">
+        <div className="glass theory-pane glass-tight">
+          <h4>{t(item.title, baseLang)}</h4>
+          <p>{t(item.theory, baseLang)}</p>
+          {item.example && (
+            <div className="grammar-example">
+              <p className="ex-pl">{item.example.pl}</p>
+              <p className="ex-tr">{t(item.example.translation, baseLang)}</p>
+            </div>
+          )}
+        </div>
+        <div className="glass practice-pane glass-tight">
+          <p className="prompt-text">{item.prompt}</p>
+          {item.type === 'mcq' ? (
+            <div className="mcq-options">
+              {(item.options || []).map(opt => {
+                let cls = 'mcq-option';
+                if (mcqChoice) { if (opt === item.answer) cls += ' correct'; else if (opt === mcqChoice) cls += ' incorrect'; }
+                return <button key={opt} className={cls} onClick={() => handleMcqPick(opt)}>{opt}</button>;
+              })}
+            </div>
+          ) : (
+            <>
+              <input className="field" value={userInput} onChange={e => setUserInput(e.target.value)} placeholder={ui('typeYourAnswer', baseLang)} onKeyDown={e => e.key === 'Enter' && handleCheckFill()} style={{ marginBottom: 10 }} />
+              <button className="glass-btn primary block" style={accentVars} onClick={handleCheckFill}>{ui('checkAnswer', baseLang)}</button>
+            </>
+          )}
+          {feedback && <p className={`feedback ${feedback.correct ? 'ok' : 'bad'}`}>{feedback.msg}</p>}
+        </div>
+      </div>
+    );
+  };
+
+  const renderVocabHub = () => {
+    if (!vocabMode) {
+      return (
+        <div className="pad">
+          <div className="section-header"><h2>{ui('vocabularyTitle', baseLang)}</h2></div>
+          <div className="toolbar"><button className="glass-btn ghost" onClick={() => setShowImportModal(s => !s)}>{ui('batchImport', baseLang)}</button></div>
+          {showImportModal && renderImportModal()}
+          {wordOfDay && (
+            <div className="glass-hi wotd" style={accentVars}>
+              <div className="wotd-tag"><span className="dot" style={{ background: 'var(--accent-a)' }}></span>{ui('wordOfDay', baseLang)}</div>
+              <div className="wotd-word">{wordOfDay.word}</div>
+              {wordOfDay.phonetic && <div className="wotd-phonetic">{wordOfDay.phonetic}</div>}
+              <span className="wotd-translation" style={{ color: 'var(--accent-a)', background: 'color-mix(in srgb, var(--accent-a) 18%, transparent)', borderColor: 'color-mix(in srgb, var(--accent-a) 40%, transparent)' }}>{t(wordOfDay.translation, baseLang)}</span>
+              {wordOfDay.examples && wordOfDay.examples[0] && <p className="wotd-sentence">{wordOfDay.examples[0]}</p>}
+            </div>
+          )}
+          <div className="two-col-choice">
+            <div className="glass choice-card" style={accentVars} role="button" tabIndex={0}
+              onClick={startFlashSession} onKeyDown={keyActivate(startFlashSession)}>
+              <i className="icon ph ph-cards"></i><span className="title">{ui('flashcards', baseLang)}</span>
+            </div>
+            <div className="glass choice-card" style={accentVars} role="button" tabIndex={0}
+              onClick={() => setVocabMode('list')} onKeyDown={keyActivate(() => setVocabMode('list'))}>
+              <i className="icon ph ph-list-bullets"></i><span className="title">{ui('listOfWords', baseLang)}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    if (vocabMode === 'flash') {
+      if (!vocabDeck.length) return <div className="pad"><button className="back-link" onClick={() => setVocabMode(null)}>{ui('back', baseLang)}</button><p className="empty-note">{ui('noWordsYetAt', baseLang, { level })}</p></div>;
+      if (deckDone) {
+        return (
+          <div className="pad">
+            <button className="back-link" onClick={() => setVocabMode(null)}>{ui('back', baseLang)}</button>
+            <div className="glass-hi deck-complete screen">
+              <i className="ph-fill ph-confetti"></i>
+              <h2>{ui('deckCompleteTitle', baseLang)}</h2>
+              <div className="deck-complete-stats">
+                <div><span className="mono">{sessionMastered.size}</span><small>{ui('masteredLbl', baseLang)}</small></div>
+                <div><span className="mono">{sessionFailed.size}</span><small>{ui('toReviewLbl', baseLang)}</small></div>
+              </div>
+              <button className="glass-btn primary" style={accentVars} onClick={restartDeck}>{ui('studyAgain', baseLang)}</button>
+              <button className="glass-btn ghost" onClick={() => setVocabMode(null)}>{ui('backToList', baseLang)}</button>
+            </div>
+          </div>
+        );
+      }
+      const hue = ACCENT_HEX.vocab;
+      const rot = Math.max(-14, Math.min(14, dragX / 10));
+      return (
+        <div className="flash-wrap">
+          <button className="back-link" onClick={() => setVocabMode(null)}>{ui('back', baseLang)}</button>
+          <div className="flash-deck"
+            onMouseDown={onDragStart} onMouseMove={onDragMove} onMouseUp={onDragEnd} onMouseLeave={onDragEnd}
+            onTouchStart={onDragStart} onTouchMove={onDragMove} onTouchEnd={onDragEnd}>
+            {currentCard && (
+              <div key={currentCard.id} className={`flash-card ${flashFlipped ? 'flipped' : ''} ${dragX > 40 ? 'tilt-good' : dragX < -40 ? 'tilt-bad' : ''}`} onClick={() => setFlashFlipped(f => !f)}
+                style={{ transform: `translateX(${dragX}px) rotate(${rot}deg) ${flashFlipped ? 'rotateY(180deg)' : ''}` }}>
+                <div className="flash-face front" style={{ background: `linear-gradient(145deg, ${hue[0]}, ${hue[1]})` }}>
+                  {currentCard.gender && <span className="gender-badge">{GENDER_LABEL[currentCard.gender] || currentCard.gender}</span>}
+                  <h2 className="word">{currentCard.word}</h2>
+                  <div className="phonetic">{currentCard.phonetic}</div>
+                </div>
+                <div className="flash-face back" style={{ background: `linear-gradient(145deg, ${hue[1]}, ${hue[0]})` }}>
+                  <div className="translation">{t(currentCard.translation, baseLang)}</div>
+                  {currentCard.examples && <div className="examples">{currentCard.examples.join(' · ')}</div>}
+                  <a className="wsjp-link" href="https://wsjp.pl/" target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>
+                    <i className="ph ph-arrow-square-out"></i> {ui('wsjpLink', baseLang)}
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="flash-controls">
+            <button className="icon-btn bad" onClick={swipeSkip} title={ui('markSkip', baseLang)}><i className="ph ph-x"></i></button>
+            <span className="flash-progress mono">{flashIndex + 1} / {vocabDeck.length}</span>
+            <button className="icon-btn good" onClick={swipeMastered} title={ui('markMastered', baseLang)}><i className="ph ph-check"></i></button>
+          </div>
+          <div className="flash-controls" style={{ marginTop: 4 }}>
+            <button className="icon-btn ghost-nav" onClick={() => goFlash(-1)}>‹</button>
+            <button className="icon-btn ghost-nav" onClick={() => goFlash(1)}>›</button>
+          </div>
+          <p className="empty-note">{ui('flipHint', baseLang)}</p>
+        </div>
+      );
+    }
+    return (
+      <div className="pad">
+        <button className="back-link" onClick={() => setVocabMode(null)}>{ui('back', baseLang)}</button>
+        <div className="filter-row">
+          <input className="field" placeholder={ui('searchWords', baseLang)} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+          {categories.length > 1 && (
+            <select className="field select-narrow" value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)}>
+              <option value="all">{ui('allOption', baseLang)}</option>
+              {categories.map(c => <option key={c} value={c}>{CATEGORY_LABEL[c] ? t(CATEGORY_LABEL[c], baseLang) : c}</option>)}
+            </select>
+          )}
+        </div>
+        <div className="list-scroll">
+          {filteredList.length === 0 && <p className="empty-note">{ui('noWordsFound', baseLang)}</p>}
+          {filteredList.map(item => (
+            <div key={item.id} className="glass-row" role="button" tabIndex={0} onClick={() => openVocabDetail(item)} onKeyDown={keyActivate(() => openVocabDetail(item))}>
+              <div><strong>{item.word}</strong><div className="sub">{t(item.translation, baseLang)}</div></div>
+              <a className="wsjp-chip" href="https://wsjp.pl/" target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()} title={ui('wsjpLink', baseLang)}>
+                <i className="ph ph-arrow-square-out"></i>
+              </a>
+              <span className="chev">›</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderVocabDetail = () => {
+    const item = currentItem;
+    return (
+      <div className="vocab-detail screen">
+        <button className="back-link" onClick={() => { setVocabDetailOpen(false); setCurrentItem(null); }}>{ui('backToList', baseLang)}</button>
+        {item.gender && <span className="gender-pill">{GENDER_LABEL[item.gender] || item.gender}</span>}
+        <h2 style={{ margin: '4px 0 4px', fontSize: 24 }}>{item.word}</h2>
+        <div style={{ color: 'var(--ink-faint)', fontSize: 13, marginBottom: 10 }}>{item.phonetic}</div>
+        <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 6 }}>{t(item.translation, baseLang)}</div>
+        {(item.examples || []).map((ex, i) => <div key={i} className="example-line">{ex}</div>)}
+        <a className="wsjp-link" href="https://wsjp.pl/" target="_blank" rel="noreferrer">
+          <i className="ph ph-arrow-square-out"></i> {ui('wsjpLink', baseLang)}
+        </a>
+      </div>
+    );
+  };
+
+  const renderTextbookHub = () => (
+    <div className="pad">
+      <div className="section-header"><h2>{ui('textbookLibrary', baseLang)}</h2></div>
+      <div className="toolbar"><button className="glass-btn ghost" onClick={() => setShowImportModal(s => !s)}>{ui('batchImport', baseLang)}</button></div>
+      {showImportModal && renderImportModal()}
+      <div className="book-grid" style={{ marginTop: 10 }}>
+        {filteredList.length === 0 && <p className="empty-note">{ui('noChaptersYetAt', baseLang, { level })}</p>}
+        {filteredList.map((item, i) => (
+          <div key={item.id} className="book-cover" style={{ background: `linear-gradient(150deg, ${ACCENT_HEX.textbook[0]}, ${ACCENT_HEX.textbook[1]})`, '--i': i }}
+            role="button" tabIndex={0} onClick={() => openTextbook(item)} onKeyDown={keyActivate(() => openTextbook(item))}>
+            <span className="level-chip mono">{item.level}</span>
+            {item.category && <div className="b-category">{item.category}</div>}
+            <div className="b-title">{t(item.title, baseLang)}</div>
+            {item.description && <div className="b-desc">{t(item.description, baseLang)}</div>}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderTextbookViewer = () => {
+    const item = currentItem;
+    const raw = item.fileUrl || item.pdfUrl || '';
+    const embed = normalizeViewerUrl(raw);
+    return (
+      <div className="viewer-wrap screen pad">
+        <button className="back-link" onClick={() => { setTextbookViewerOpen(false); setCurrentItem(null); }}>{ui('libraryBack', baseLang)}</button>
+        {item.category && <div className="viewer-category">{item.category}</div>}
+        <h3 className="viewer-title">{t(item.title, baseLang)}</h3>
+        {t(item.description, baseLang) && <p className="viewer-desc">{t(item.description, baseLang)}</p>}
+        {embed ? (
+          <>
+            <div className="viewer-frame-shell"><iframe src={embed} title={t(item.title, baseLang)} className="viewer-frame" /></div>
+            <a className="glass-btn ghost" href={raw} target="_blank" rel="noreferrer">{ui('openInNewTab', baseLang)}</a>
+          </>
+        ) : <p className="empty-note">{ui('noFileLinked', baseLang)}</p>}
+      </div>
+    );
+  };
+
+  const renderTipsHub = () => (
+    <div className="pad">
+      <div className="section-header"><h2>{ui('tutorTips', baseLang)}</h2></div>
+      <div className="toolbar"><button className="glass-btn ghost" onClick={() => setShowImportModal(s => !s)}>{ui('batchImport', baseLang)}</button></div>
+      {showImportModal && renderImportModal()}
+      <div className="tips-feed">
+        {filteredList.length === 0 && <p className="empty-note">{ui('noTipsYetAt', baseLang, { level })}</p>}
+        {filteredList.map(item => (
+          <div key={item.id} className="glass tip-card glass-tight" role="button" tabIndex={0} onClick={() => setActiveTip(item)} onKeyDown={keyActivate(() => setActiveTip(item))}>
+            <div className="tip-thumb">{item.imageUrl ? <img src={item.imageUrl} alt="" /> : <i className="ph-fill ph-lightbulb"></i>}</div>
+            <div><p className="tip-title">{t(item.title, baseLang)}</p><p className="tip-snippet">{t(item.body, baseLang).slice(0, 60)}{t(item.body, baseLang).length > 60 ? '…' : ''}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderTipOverlay = () => {
+    if (!activeTip) return null;
+    const audio = normalizeAudioUrl(activeTip.audioUrl);
+    return (
+      <div className="tip-overlay" onClick={() => setActiveTip(null)}>
+        <div className="glass tip-overlay-card glass-tight" onClick={e => e.stopPropagation()}>
+          <button className="back-link" onClick={() => setActiveTip(null)}>{ui('closeBack', baseLang)}</button>
+          {activeTip.imageUrl && <img className="tip-overlay-img" src={activeTip.imageUrl} alt="" />}
+          <h3 style={{ margin: '0 0 10px' }}>{t(activeTip.title, baseLang)}</h3>
+          <p className="tip-overlay-body">{t(activeTip.body, baseLang)}</p>
+          {audio && <audio controls src={audio} className="audio-player" />}
+        </div>
+      </div>
+    );
+  };
+
+  const renderModulePanel = () => {
+    if (activeModule === 'grammar') {
+      if (currentItem) return <div className="pad">
+        <button className="back-link" onClick={() => setCurrentItem(null)}>{ui('back', baseLang)}</button>
+        {renderGrammarDetail()}
+      </div>;
+      return renderGrammarHub();
+    }
+    if (activeModule === 'vocab') {
+      if (vocabDetailOpen) return renderVocabDetail();
+      return renderVocabHub();
+    }
+    if (activeModule === 'textbook') {
+      if (textbookViewerOpen) return renderTextbookViewer();
+      return renderTextbookHub();
+    }
+    if (activeModule === 'tips') return renderTipsHub();
+    if (activeModule === 'profile') return renderProfileHub();
+    return null;
+  };
+
+  if (!started) {
+    return (
+      <div id="app">
+        <div className="mesh"><div className="blob-c"></div></div>
+        <div className="start-screen">
+          <div className="glass-hi start-card">
+            <div className="avatar-ring"><i className="ph-fill ph-graduation-cap"></i></div>
+            <h1 className="hero-title">Witaj z powrotem!</h1>
+            <p className="hero-sub">{ui('heroSub', baseLang)}</p>
+            <div className="start-stats">
+              <div><span className="mono">{streak.count}</span><small>{ui('dayStreak', baseLang)}</small></div>
+              <div><span className="mono">{progressPct}%</span><small>{ui('masteredLbl', baseLang)}</small></div>
+              <div><span className="mono">{level}</span><small>{ui('levelLbl', baseLang)}</small></div>
+            </div>
+            <button className="glass-btn primary block" style={accentVars} onClick={() => setStarted(true)}>{ui('startLearning', baseLang)}</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div id="app">
+      <div className="mesh"><div className="blob-c"></div></div>
+      {renderTopBar()}
+      <main className="view" key={activeModule} style={accentVars}>
+        {renderModulePanel()}
+      </main>
+      {renderDock()}
+      {toast && <div className={`glass toast glass-tight ${toast.tone === 'error' ? 'error' : ''}`}>{toast.message}</div>}
+      {renderTipOverlay()}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<PolskaVault />);
+</script>
+</body>
+</html>
