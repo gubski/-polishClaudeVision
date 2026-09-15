@@ -1,0 +1,470 @@
+[
+  {
+    "id": "case-1",
+    "level": "A1",
+    "category": "1. Nominative (Mianownik)",
+    "title": {
+      "EN": "1. Nominative (Mianownik)",
+      "RU": "1. Именительный (Mianownik)"
+    },
+    "theory": {
+      "EN": "The dictionary form used for the subject of the sentence or after \"to jest\" (this is).",
+      "RU": "Базовая форма слова для подлежащего или после \"to jest\"."
+    },
+    "type": "fill",
+    "prompt": "To jest (mój stół) ➔ ?",
+    "answer": "mój stół",
+    "example": {
+      "pl": "To jest mój stół.",
+      "translation": {
+        "EN": "This is my table.",
+        "RU": "Это мой стол."
+      }
+    }
+  },
+  {
+    "id": "case-1-mcq",
+    "level": "A1",
+    "category": "1. Nominative (Mianownik)",
+    "title": {
+      "EN": "1. Nominative (Mianownik)",
+      "RU": "1. Именительный (Mianownik)"
+    },
+    "theory": {
+      "EN": "Also used for the subject of a sentence — \"who/what is doing the action\".",
+      "RU": "Также используется для подлежащего — \"кто/что выполняет действие\"."
+    },
+    "type": "mcq",
+    "prompt": "(Ta szkoła) jest duża. ➔ ?",
+    "options": [
+      "Ta szkoła",
+      "Tej szkoły",
+      "Tą szkołą",
+      "Tej szkole"
+    ],
+    "answer": "Ta szkoła",
+    "example": {
+      "pl": "Ta szkoła jest duża.",
+      "translation": {
+        "EN": "This school is big.",
+        "RU": "Эта школа большая."
+      }
+    }
+  },
+  {
+    "id": "case-2",
+    "level": "A1",
+    "category": "2. Genitive (Dopełniacz)",
+    "title": {
+      "EN": "2. Genitive (Dopełniacz)",
+      "RU": "2. Родительный (Dopełniacz)"
+    },
+    "theory": {
+      "EN": "Used for possession, after negation, and after \"nie ma\" (there isn’t).",
+      "RU": "Используется для обозначения принадлежности, после отрицания и после \"nie ma\"."
+    },
+    "type": "fill",
+    "prompt": "Nie ma (stół) w pokoju. ➔ ?",
+    "answer": "stołu",
+    "example": {
+      "pl": "Nie ma stołu w pokoju.",
+      "translation": {
+        "EN": "There is no table in the room.",
+        "RU": "В комнате нет стола."
+      }
+    }
+  },
+  {
+    "id": "case-2-mcq",
+    "level": "A1",
+    "category": "2. Genitive (Dopełniacz)",
+    "title": {
+      "EN": "2. Genitive (Dopełniacz)",
+      "RU": "2. Родительный (Dopełniacz)"
+    },
+    "theory": {
+      "EN": "Required after the preposition \"do\" (to/towards).",
+      "RU": "Требуется после предлога \"do\" (в/к)."
+    },
+    "type": "mcq",
+    "prompt": "Idę do (szkoła) ➔ ?",
+    "options": [
+      "szkoła",
+      "szkoły",
+      "szkole",
+      "szkołę"
+    ],
+    "answer": "szkoły",
+    "example": {
+      "pl": "Idę do szkoły.",
+      "translation": {
+        "EN": "I am going to school.",
+        "RU": "Я иду в школу."
+      }
+    }
+  },
+  {
+    "id": "case-3",
+    "level": "A2",
+    "category": "3. Dative (Celownik)",
+    "title": {
+      "EN": "3. Dative (Celownik)",
+      "RU": "3. Дательный (Celownik)"
+    },
+    "theory": {
+      "EN": "Marks the indirect object — \"to/for whom\". Used after verbs like \"pomagać\" (to help).",
+      "RU": "Обозначает косвенное дополнение — \"кому/чему\". Используется после глаголов вроде \"pomagać\"."
+    },
+    "type": "fill",
+    "prompt": "Pomagam (kolega) ➔ ?",
+    "answer": "koledze",
+    "example": {
+      "pl": "Pomagam koledze.",
+      "translation": {
+        "EN": "I am helping my friend.",
+        "RU": "Я помогаю другу."
+      }
+    }
+  },
+  {
+    "id": "case-3-mcq",
+    "level": "A2",
+    "category": "3. Dative (Celownik)",
+    "title": {
+      "EN": "3. Dative (Celownik)",
+      "RU": "3. Дательный (Celownik)"
+    },
+    "theory": {
+      "EN": "Also used after \"przyglądać się\" (to look at/observe).",
+      "RU": "Также используется после \"przyglądać się\" (рассматривать)."
+    },
+    "type": "mcq",
+    "prompt": "Przyglądam się (szkoła) ➔ ?",
+    "options": [
+      "szkoła",
+      "szkoły",
+      "szkole",
+      "szkołę"
+    ],
+    "answer": "szkole",
+    "example": {
+      "pl": "Przyglądam się szkole.",
+      "translation": {
+        "EN": "I am looking at the school.",
+        "RU": "Я рассматриваю школу."
+      }
+    }
+  },
+  {
+    "id": "case-4",
+    "level": "A1",
+    "category": "4. Accusative (Biernik)",
+    "title": {
+      "EN": "4. Accusative (Biernik)",
+      "RU": "4. Винительный (Biernik)"
+    },
+    "theory": {
+      "EN": "Marks the direct object — answers \"kogo? co?\" (whom? what?). Used after verbs like \"mieć\", \"widzieć\", \"lubić\".",
+      "RU": "Обозначает прямое дополнение — отвечает на \"kogo? co?\". Используется после глаголов \"mieć\", \"widzieć\", \"lubić\"."
+    },
+    "type": "fill",
+    "prompt": "Widzę (kolega) na ulicy. ➔ ?",
+    "answer": "kolegę",
+    "example": {
+      "pl": "Widzę kolegę na ulicy.",
+      "translation": {
+        "EN": "I see my friend on the street.",
+        "RU": "Я вижу друга на улице."
+      }
+    }
+  },
+  {
+    "id": "case-4-mcq",
+    "level": "A1",
+    "category": "4. Accusative (Biernik)",
+    "title": {
+      "EN": "4. Accusative (Biernik)",
+      "RU": "4. Винительный (Biernik)"
+    },
+    "theory": {
+      "EN": "For inanimate masculine nouns, the accusative form matches the nominative.",
+      "RU": "Для неодушевлённых существительных мужского рода винительный падеж совпадает с именительным."
+    },
+    "type": "mcq",
+    "prompt": "Mam (nowy stół) ➔ ?",
+    "options": [
+      "nowy stół",
+      "nowego stołu",
+      "nowym stołem",
+      "nowym stole"
+    ],
+    "answer": "nowy stół",
+    "example": {
+      "pl": "Mam nowy stół.",
+      "translation": {
+        "EN": "I have a new table.",
+        "RU": "У меня есть новый стол."
+      }
+    }
+  },
+  {
+    "id": "case-5",
+    "level": "A2",
+    "category": "5. Instrumental (Narzędnik)",
+    "title": {
+      "EN": "5. Instrumental (Narzędnik)",
+      "RU": "5. Творительный (Narzędnik)"
+    },
+    "theory": {
+      "EN": "Used after \"z\" (with) when accompanying someone, and to say what tool/means is used.",
+      "RU": "Используется после \"z\" (с) в значении \"вместе с кем-то\", а также для обозначения орудия действия."
+    },
+    "type": "fill",
+    "prompt": "Idę do kina z (kolega) ➔ ?",
+    "answer": "kolegą",
+    "example": {
+      "pl": "Idę do kina z kolegą.",
+      "translation": {
+        "EN": "I am going to the cinema with my friend.",
+        "RU": "Я иду в кино с другом."
+      }
+    }
+  },
+  {
+    "id": "case-5-mcq",
+    "level": "A2",
+    "category": "5. Instrumental (Narzędnik)",
+    "title": {
+      "EN": "5. Instrumental (Narzędnik)",
+      "RU": "5. Творительный (Narzędnik)"
+    },
+    "theory": {
+      "EN": "Also used after \"pod\" (under), \"nad\" (above), \"za\" (behind) for location.",
+      "RU": "Также используется после \"pod\" (под), \"nad\" (над), \"za\" (за) для обозначения места."
+    },
+    "type": "mcq",
+    "prompt": "Kot śpi pod (stół) ➔ ?",
+    "options": [
+      "stół",
+      "stołu",
+      "stołem",
+      "stole"
+    ],
+    "answer": "stołem",
+    "example": {
+      "pl": "Kot śpi pod stołem.",
+      "translation": {
+        "EN": "The cat is sleeping under the table.",
+        "RU": "Кот спит под столом."
+      }
+    }
+  },
+  {
+    "id": "case-6",
+    "level": "A2",
+    "category": "6. Locative (Miejscownik)",
+    "title": {
+      "EN": "6. Locative (Miejscownik)",
+      "RU": "6. Предложный (Miejscownik)"
+    },
+    "theory": {
+      "EN": "Always appears after a preposition — \"na\" (on), \"w\" (in), \"o\" (about). Never stands alone.",
+      "RU": "Всегда употребляется после предлога — \"na\" (на), \"w\" (в), \"o\" (о). Никогда не используется отдельно."
+    },
+    "type": "fill",
+    "prompt": "Książka leży na (stół) ➔ ?",
+    "answer": "stole",
+    "example": {
+      "pl": "Książka leży na stole.",
+      "translation": {
+        "EN": "The book is lying on the table.",
+        "RU": "Книга лежит на столе."
+      }
+    }
+  },
+  {
+    "id": "case-6-mcq",
+    "level": "A2",
+    "category": "6. Locative (Miejscownik)",
+    "title": {
+      "EN": "6. Locative (Miejscownik)",
+      "RU": "6. Предложный (Miejscownik)"
+    },
+    "theory": {
+      "EN": "Used after \"o\" (about/of) when talking about a topic.",
+      "RU": "Используется после \"o\" (о/об), когда речь идёт о какой-то теме."
+    },
+    "type": "mcq",
+    "prompt": "Rozmawiamy o (szkoła) ➔ ?",
+    "options": [
+      "szkoła",
+      "szkoły",
+      "szkole",
+      "szkołę"
+    ],
+    "answer": "szkole",
+    "example": {
+      "pl": "Rozmawiamy o szkole.",
+      "translation": {
+        "EN": "We are talking about the school.",
+        "RU": "Мы говорим о школе."
+      }
+    }
+  },
+  {
+    "id": "case-7",
+    "level": "B1",
+    "category": "7. Vocative (Wołacz)",
+    "title": {
+      "EN": "7. Vocative (Wołacz)",
+      "RU": "7. Звательный (Wołacz)"
+    },
+    "theory": {
+      "EN": "Used for directly addressing someone. Increasingly informal in speech, but still standard for names and titles.",
+      "RU": "Используется для прямого обращения к кому-либо. В речи всё чаще заменяется именительным, но остаётся нормой для имён и обращений."
+    },
+    "type": "fill",
+    "prompt": "(Kolega), chodź tutaj! ➔ ?",
+    "answer": "Kolego",
+    "example": {
+      "pl": "Kolego, chodź tutaj!",
+      "translation": {
+        "EN": "Buddy, come here!",
+        "RU": "Дружище, иди сюда!"
+      }
+    }
+  },
+  {
+    "id": "case-7-mcq",
+    "level": "B1",
+    "category": "7. Vocative (Wołacz)",
+    "title": {
+      "EN": "7. Vocative (Wołacz)",
+      "RU": "7. Звательный (Wołacz)"
+    },
+    "theory": {
+      "EN": "Feminine names ending in \"-a\" typically take \"-o\" in the vocative.",
+      "RU": "Женские имена, оканчивающиеся на \"-a\", в звательном падеже обычно получают окончание \"-o\"."
+    },
+    "type": "mcq",
+    "prompt": "(Anna), jak się masz? ➔ ?",
+    "options": [
+      "Anna",
+      "Anny",
+      "Anno",
+      "Annę"
+    ],
+    "answer": "Anno",
+    "example": {
+      "pl": "Anno, jak się masz?",
+      "translation": {
+        "EN": "Anna, how are you?",
+        "RU": "Анна, как дела?"
+      }
+    }
+  },
+  {
+    "id": "comp-1",
+    "level": "A2",
+    "category": "Comparatives (Stopniowanie)",
+    "title": {
+      "EN": "Comparative degree (Stopień wyższy)",
+      "RU": "Сравнительная степень (Stopień wyższy)"
+    },
+    "theory": {
+      "EN": "Most adjectives form the comparative with the suffix \"-szy\" or \"-ejszy\". Some common adjectives are irregular — \"duży\" (big) becomes \"większy\" (bigger), not \"duższy\".",
+      "RU": "Большинство прилагательных образуют сравнительную степень с суффиксом \"-szy\" или \"-ejszy\". Некоторые частые прилагательные неправильные — \"duży\" (большой) превращается в \"większy\" (больше), а не \"duższy\"."
+    },
+    "type": "fill",
+    "prompt": "Ten dom jest (duży) niż tamten. ➔ ?",
+    "answer": "większy",
+    "example": {
+      "pl": "Ten dom jest większy niż tamten.",
+      "translation": {
+        "EN": "This house is bigger than that one.",
+        "RU": "Этот дом больше, чем тот."
+      }
+    }
+  },
+  {
+    "id": "comp-2",
+    "level": "A2",
+    "category": "Comparatives (Stopniowanie)",
+    "title": {
+      "EN": "Comparative degree (Stopień wyższy)",
+      "RU": "Сравнительная степень (Stopień wyższy)"
+    },
+    "theory": {
+      "EN": "Regular pattern: \"mądry\" (smart) → \"mądrzejszy\" (smarter). The adjective still agrees in gender with the subject — here \"ona\" (she) takes the feminine ending \"-a\".",
+      "RU": "Регулярная модель: \"mądry\" (умный) → \"mądrzejszy\" (умнее). Прилагательное согласуется в роде с подлежащим — здесь \"ona\" (она) требует окончания женского рода \"-a\"."
+    },
+    "type": "fill",
+    "prompt": "Ona jest (mądry) ode mnie. ➔ ?",
+    "answer": "mądrzejsza",
+    "example": {
+      "pl": "Ona jest mądrzejsza ode mnie.",
+      "translation": {
+        "EN": "She is smarter than me.",
+        "RU": "Она умнее меня."
+      }
+    }
+  },
+  {
+    "id": "comp-3-mcq",
+    "level": "B1",
+    "category": "Comparatives (Stopniowanie)",
+    "title": {
+      "EN": "Superlative degree (Stopień najwyższy)",
+      "RU": "Превосходная степень (Stopień najwyższy)"
+    },
+    "theory": {
+      "EN": "The superlative adds the prefix \"naj-\" to the comparative form. \"dobry\" (good) → \"lepszy\" (better, irregular) → \"najlepszy\" (best).",
+      "RU": "Превосходная степень образуется добавлением приставки \"naj-\" к сравнительной форме. \"dobry\" (хороший) → \"lepszy\" (лучше, неправильная форма) → \"najlepszy\" (лучший)."
+    },
+    "type": "mcq",
+    "prompt": "To jest (dobry) restauracja w mieście. ➔ ?",
+    "options": [
+      "dobra",
+      "lepsza",
+      "najlepsza",
+      "dobrzejsza"
+    ],
+    "answer": "najlepsza",
+    "example": {
+      "pl": "To jest najlepsza restauracja w mieście.",
+      "translation": {
+        "EN": "This is the best restaurant in the city.",
+        "RU": "Это лучший ресторан в городе."
+      }
+    }
+  },
+  {
+    "id": "comp-4-mcq",
+    "level": "B1",
+    "category": "Comparatives (Stopniowanie)",
+    "title": {
+      "EN": "Superlative degree (Stopień najwyższy)",
+      "RU": "Превосходная степень (Stopień najwyższy)"
+    },
+    "theory": {
+      "EN": "Regular superlative: \"szybki\" (fast) → \"szybszy\" (faster) → \"najszybszy\" (fastest). \"Naj-\" always attaches directly to the comparative, never the base form.",
+      "RU": "Регулярная превосходная форма: \"szybki\" (быстрый) → \"szybszy\" (быстрее) → \"najszybszy\" (самый быстрый). Приставка \"naj-\" всегда присоединяется к сравнительной форме, а не к исходной."
+    },
+    "type": "mcq",
+    "prompt": "On jest (szybki) w klasie. ➔ ?",
+    "options": [
+      "szybki",
+      "szybszy",
+      "najszybszy",
+      "szybszym"
+    ],
+    "answer": "najszybszy",
+    "example": {
+      "pl": "On jest najszybszy w klasie.",
+      "translation": {
+        "EN": "He is the fastest in the class.",
+        "RU": "Он самый быстрый в классе."
+      }
+    }
+  }
+]
